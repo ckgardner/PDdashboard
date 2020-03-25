@@ -15,9 +15,62 @@
   </head>
 	<body>
 		<div id="app">
-			<div id="title">Zion National Park Today:</div>
-			<div id="titleStatus">{{titleStatus}}</div>
-		
+			<div id="titleWrapper">
+				<div id="title">Zion National Park Today:</div>
+				<div id="titleStatus">{{titleStatus}}</div>
+				<div id="totalVisitors">{{totalVisitors}} Visitors in 2019</div>
+			</div>
+			<div class="stat" id="parkingStat">
+				<img class="statImage" src="icons/parking_outline.svg">
+				<span>Parking: {{parkingStat}} Full</span>
+			</div>
+			<div class="stat" id="eastEntranceStat">
+				<img class="statImage" src="icons/east_entrance.svg">
+				<span>East Entrance: {{eastEntranceStat}}</span>
+			</div>
+			<div class="stat" id="southEntranceStat">
+				<img class="statImage" src="icons/south_entrance.svg">
+				<span>South Entrance: {{southEntranceStat}}</span>
+			</div>
+
+			<div id="yesterdayWrapper">
+				<div id="title">Zion National Park Yesterday:</div>
+				<div id="titleStatus">{{yesterdayTitleStatus}}</div>
+				<table id="yesterdaysTotals">
+					<tr>
+					<th>Zion Total Visitors</th>
+					<th class="right">Canyon Total Visitors</th>
+					</tr>
+					<tr>
+					<td class="right">{{yesterdayZionTotal}}</td>
+					<td class="right">{{yesterdayCanyonTotal}}</td>
+					</tr>
+				</table>
+				<table id="yesterdaysEntrances">
+					<tr>
+					<th>Entrance</th>
+					<th class="right">Vehicles</th>
+					<th class="right">People</th>
+					</tr>
+					<tr>
+					<td>South East</td>
+					<td class="right">{{SEVehicles}}</td>
+					<td class="right">{{SEPeople}}</td>
+					</tr>
+					<td>East</td>
+					<td class="right">{{EVehicles}}</td>
+					<td class="right">{{EPeople}}</td>
+					</tr>
+					<td>River</td>
+					<td class="right">{{riverVehicles}}</td>
+					<td class="right">{{riverPeople}}</td>
+					</tr>
+					<td>Kolob</td>
+					<td class="right">{{kolobVehicles}}</td>
+					<td class="right">{{kolobPeople}}</td>
+					</tr>
+				</table>
+			</div>
 			<script src="https://cdn.jsdelivr.net/npm/vue"></script>
 			<script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
 			<script src="dashboard.js"></script>

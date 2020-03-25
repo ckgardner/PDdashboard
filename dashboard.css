@@ -1,0 +1,86 @@
+@font-face{
+    font-family: "myRoboto";
+    src: url("fonts/Roboto/Roboto-Regular.ttf");
+}
+@font-face{
+    font-family: "titleRoboto";
+    src: url("fonts/Roboto_Slab/static/RobotoSlab-Medium.ttf")
+}
+@media screen and (min-width: 840px) {
+    body{
+        font-family: 'myRoboto';
+        font-style: normal;
+        font-weight: normal;
+    }
+    #titleWrapper{
+        margin: 15px 91px 25px 91px;
+    }
+    #title, #titleStatus{
+        font-family: "titleRoboto";
+        font-style: normal;
+        font-weight: normal;
+        font-size: 24px;
+        line-height: 32px;
+        color: rgba(0, 0, 0, 0.86);
+    }
+    #totalVisitors{
+        font-size: 16px;
+        line-height: 19px;
+        color: #666666;
+        margin-top: 6px;
+        margin-bottom: 30px;
+    }
+    .stat{
+        height: 56px;
+    }
+    .statImage{
+        height: 23px;
+        width: 23px;
+        margin: 20px 30px 20px 94px;
+        vertical-align: middle;
+    }
+    #parkingStat{
+        background-color: #507282;
+        color: white;
+        font-size: 16px;
+    }
+    #eastEntranceStat{
+        background-color: #C9AC68;
+        color: white;
+        font-size: 16px;
+    }
+    #southEntranceStat{
+        background-color: #CDBD97;
+        color: white;
+        font-size: 16px;
+    }
+    #yesterdayWrapper{
+        width: 384px;
+        margin: 0 auto;
+        margin-top: 30px;
+    }
+    table{
+        width: 384px;
+        font-size: 16px;
+        line-height: 19px;
+        font-weight: normal;
+        margin-top: 20px;
+    }
+    td, th{
+        border-bottom: 1px solid #E5E7DE;
+    }
+    td{
+        height: 50px;
+        vertical-align: middle;
+    }
+    th{
+        text-align: left;
+        font-weight: bold;
+    }
+    .right{
+        text-align: right;
+    }
+    #yesterdayEntrances{
+        margin-top: 15px;
+    }
+}
