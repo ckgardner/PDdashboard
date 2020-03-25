@@ -32,7 +32,18 @@
 				<img class="statImage" src="icons/south_entrance.svg">
 				<span>South Entrance: {{southEntranceStat}}</span>
 			</div>
-
+			<div id="svgContainer">
+				<svg id="svg" viewBox="50 54 100 100">
+					<circle cx="100" cy="100" r="13.1" style="stroke: white; fill: white;"/>
+					<text x="97" y="101" id="currentTemp" font-size="3" font-weight="bold" style="fill: #507282">{{currentTemp}}&#176;F</text>
+					<circle class="background" cx="100" cy="100" r="6" stroke="#F5F2EA" />
+					<circle class="background" cx="100" cy="100" r="9" stroke="#eddfbb" />
+					<circle class="background" cx="100" cy="100" r="12" stroke="#DCE3E6" />
+					<circle id="line1" class="overlayLine" cx="100" cy="100" r="6" stroke="#CDBD97" stroke-dasharray="0, 3000" stroke-dashoffset="126" transform="rotate(-90,100,100)" />
+					<circle id="line2" class="overlayLine" cx="100" cy="100" r="9" stroke="#C9AC68" stroke-dasharray="0, 3000" stroke-dashoffset="188" transform="rotate(-90,100,100)" />
+					<circle id="line3" class="overlayLine" cx="100" cy="100" r="12" stroke="#507282" stroke-dasharray="0, 3000" stroke-dashoffset="251" transform="rotate(-90,100,100)" />
+				</svg>
+			</div>
 			<div id="yesterdayWrapper">
 				<div id="title">Zion National Park Yesterday:</div>
 				<div id="titleStatus">{{yesterdayTitleStatus}}</div>
@@ -42,7 +53,7 @@
 					<th class="right">Canyon Total Visitors</th>
 					</tr>
 					<tr>
-					<td class="right">{{yesterdayZionTotal}}</td>
+					<td>{{yesterdayZionTotal}}</td>
 					<td class="right">{{yesterdayCanyonTotal}}</td>
 					</tr>
 				</table>

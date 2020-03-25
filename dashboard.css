@@ -1,3 +1,17 @@
+@keyframes dash {
+    to {
+      stroke-dashoffset: 0;
+    }
+}
+.background {
+    stroke-width: 2.7;
+    fill: none;
+}
+.overlayLine {
+    fill: none;
+    stroke-width: 2.7;
+    animation: dash 2s linear forwards;
+}
 @font-face{
     font-family: "myRoboto";
     src: url("fonts/Roboto/Roboto-Regular.ttf");
@@ -57,7 +71,7 @@
     #yesterdayWrapper{
         width: 384px;
         margin: 0 auto;
-        margin-top: 30px;
+        margin-top: 100px;
     }
     table{
         width: 384px;
@@ -82,5 +96,13 @@
     }
     #yesterdayEntrances{
         margin-top: 15px;
+    }
+    #svg{
+        position: absolute;
+        top: -425px;
+        left: 335px;
+    }
+    #svgContainer{
+        width: 100%;
     }
 }
