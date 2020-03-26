@@ -25,6 +25,7 @@
 
 var app = new Vue({
     el: '#app',
+    vuetify: new Vuetify(),
     data: {
         currentTemp: "75",
         titleStatus: "Busy",
