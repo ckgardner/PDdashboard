@@ -17,27 +17,28 @@
 		<div id="app">
 			<v-app>
 				<v-content>
-					<div>
-						<v-app-bar dense>
-							<v-toolbar-title v-on:click="MainPage='Home' ">Parkdata</v-toolbar-title>
-							<v-spacer></v-spacer>
-							<v-btn text color="#507282" v-on:click="MainPage='Parking' ">Parking</v-btn>
-							<!-- drop down for Entrances -->
-							<v-menu offset-y>
-								<template v-slot:activator="{ on }">
-								  <v-btn color="#C9AC68" text v-on="on">Entrances</v-btn>
-								</template>
-								<v-list>
-								  <v-list-item
-									v-for="(item, index) in EntrancesPage" :key="index" @click="">
-									<v-list-item-title>{{ item }}</v-list-item-title>
-								  </v-list-item>
-								</v-list>
-							</v-menu>
-						</v-app-bar>
-					</div>
 
 					<div v-if="MainPage=='Home' ">
+						<div> <!-- App bar for main page -->
+							<v-app-bar dense>
+								<v-toolbar-title v-on:click="MainPage='Home' ">Parkdata</v-toolbar-title>
+								<v-spacer></v-spacer>
+								<v-btn text color="#507282" v-on:click="MainPage='Parking' ">Parking</v-btn>
+								<!-- drop down for Entrances -->
+								<v-menu offset-y>
+									<template v-slot:activator="{ on }">
+									  <v-btn color="#C9AC68" text v-on="on">Entrances</v-btn>
+									</template>
+									<v-list>
+									  <v-list-item
+										v-for="(enterance, index) in Entrances" :key="index" v-on:click="MainPage='Entrances'; EntrancePage=enterance ">
+										<v-list-item-title>{{ enterance }}</v-list-item-title>
+									  </v-list-item>
+									</v-list>
+								</v-menu>
+							</v-app-bar>
+						</div>
+
 						<div id="titleWrapper">
 							<div id="title">Zion National Park Today:</div>
 							<div id="titleStatus">{{titleStatus}}</div>
@@ -86,43 +87,101 @@
 							<table id="yesterdaysEntrances">
 								<tr>
 								<th>Entrance</th>
-								<th class="right">Vehicles</th>–––
+								<th class="right">Vehicles</th>
 								<th class="right">People</th>
+								<th class="right">Date Updated</th>
 								</tr>
 								<tr>
 								<td>South East</td>
 								<td class="right">{{SEVehicles}}</td>
 								<td class="right">{{SEPeople}}</td>
+								<td class="right">{{SEDateUpdated}}</td>
 								</tr>
 								<td>East</td>
 								<td class="right">{{EVehicles}}</td>
 								<td class="right">{{EPeople}}</td>
+								<td class="right">{{EastDateUpdated}}</td>
 								</tr>
 								<td>River</td>
 								<td class="right">{{riverVehicles}}</td>
 								<td class="right">{{riverPeople}}</td>
+								<td class="right">{{RiverDateUpdated}}</td>
 								</tr>
 								<td>Kolob</td>
 								<td class="right">{{kolobVehicles}}</td>
 								<td class="right">{{kolobPeople}}</td>
+								<td class="right">{{KolobDateUpdated}}</td>
 								</tr>
 							</table>
 						</div>
 					</div>
 
 					<div v-if="MainPage=='Parking' ">
-						<h1>Parking page</h1>
+						<v-card  height="150px"> <!-- App bar for parking page -->
+							<v-app-bar shrink-on-scroll color="white" height="150px">
+								<h4 v-on:click="MainPage='Home' ">Park Data</h4>
+								<v-tabs height="40px">
+									<v-tab>VISITOR LOT</v-tab>
+									<v-tab>OVERFLOW LOT</v-tab>
+								  </v-tabs>
+								<v-spacer></v-spacer>
+								<v-btn text color="#507282" v-on:click="MainPage='Parking' ">Parking</v-btn>
+								<!-- drop down for Entrances -->
+								<v-menu offset-y>
+									<template v-slot:activator="{ on }">
+									  <v-btn color="#C9AC68" text v-on="on">Entrances</v-btn>
+									</template>
+									<v-list>
+									  <v-list-item v-for="(enterance, index) in Entrances" :key="index" v-on:click="MainPage='Entrances'; EntrancePage=enterance ">
+										<v-list-item-title>{{ enterance }}</v-list-item-title>
+									  </v-list-item>
+									</v-list>
+								</v-menu>
+							</v-app-bar>
+						</v-card>
 					</div>
 
 					<div v-if="MainPage=='Entrances' ">
+						<div> <!-- App bar for main page -->
+							<v-app-bar dense>
+								<v-toolbar-title v-on:click="MainPage='Home' ">Parkdata</v-toolbar-title>
+								<v-spacer></v-spacer>
+								<v-btn text color="#507282" v-on:click="MainPage='Parking' ">Parking</v-btn>
+								<!-- drop down for Entrances -->
+								<v-menu offset-y>
+									<template v-slot:activator="{ on }">
+									  <v-btn color="#C9AC68" text v-on="on">Entrances</v-btn>
+									</template>
+									<v-list>
+									  <v-list-item
+										v-for="(enterance, index) in Entrances" :key="index" v-on:click="MainPage='Entrances'; EntrancePage=enterance ">
+										<v-list-item-title>{{ enterance }}</v-list-item-title>
+									  </v-list-item>
+									</v-list>
+								</v-menu>
+							</v-app-bar>
+						</div>
+
 						<h1>Entrances page</h1>
+						<div v-if="EntrancePage=='SouthEast'">
+							<h2>{{ EntrancePage }}</h2>
+						</div>
+						<div v-if="EntrancePage=='East'">
+							<h2>{{ EntrancePage }}</h2>
+						</div>
+						<div v-if="EntrancePage=='River'">
+							<h2>{{ EntrancePage }}</h2>
+						</div>
+						<div v-if="EntrancePage=='Kolob'">
+							<h2>{{ EntrancePage }}</h2>
+						</div>
 					</div>
+
 					
 					
 
 				</v-content>
 			</v-app>
-			
 		</div>
 		<script src="https://cdn.jsdelivr.net/npm/vue"></script>
 		<script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>

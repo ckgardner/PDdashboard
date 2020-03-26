@@ -38,14 +38,19 @@ var app = new Vue({
         yesterdayCanyonTotal: "6256",
         SEVehicles: "1,203",
         SEPeople: "2,600",
+        SEDateUpdated: "03-26-20",
         EVehicles: "503",
         EPeople: "1,200",
+        EastDateUpdated: "03-26-20",
         riverVehicles: "",
         riverPeople: "93",
+        RiverDateUpdated: "03-26-20",
         kolobVehicles: "500",
         kolobPeople: "1,300",
-        MainPage: 'Home', // Home, Parking, Entrances 
-        EntrancesPage: ['SouthEast', 'East', 'River', 'Kolob'],
+        KolobDateUpdated: "03-25-20",
+        MainPage: 'Parking', // Home, Parking, Entrances 
+        EntrancePage: 'SouthEast',
+        Entrances: ['SouthEast', 'East', 'River', 'Kolob'],
 
     },
 
