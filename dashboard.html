@@ -19,80 +19,106 @@
 				<v-content>
 					<div>
 						<v-app-bar dense>
-							<v-toolbar-title>Parkdata</v-toolbar-title>
+							<v-toolbar-title v-on:click="MainPage='Home' ">Parkdata</v-toolbar-title>
 							<v-spacer></v-spacer>
-							<v-btn text color="#507282" v-on:click.native="test">Parking</v-btn>
-							<v-btn text color="#C9AC68" v-on:click.native="test">Entrances</v-btn>
+							<v-btn text color="#507282" v-on:click="MainPage='Parking' ">Parking</v-btn>
+							<!-- drop down for Entrances -->
+							<v-menu offset-y>
+								<template v-slot:activator="{ on }">
+								  <v-btn color="#C9AC68" text v-on="on">Entrances</v-btn>
+								</template>
+								<v-list>
+								  <v-list-item
+									v-for="(item, index) in EntrancesPage" :key="index" @click="">
+									<v-list-item-title>{{ item }}</v-list-item-title>
+								  </v-list-item>
+								</v-list>
+							</v-menu>
 						</v-app-bar>
 					</div>
+
+					<div v-if="MainPage=='Home' ">
+						<div id="titleWrapper">
+							<div id="title">Zion National Park Today:</div>
+							<div id="titleStatus">{{titleStatus}}</div>
+							<div id="totalVisitors">{{totalVisitors}} Visitors in 2019</div>
+						</div>
+						<div class="stat" id="parkingStat">
+							<img class="statImage" src="icons/parking_outline.svg">
+							<span>Parking: {{parkingStat}} Full</span>
+						</div>
+						<div class="stat" id="eastEntranceStat">
+							<img class="statImage" src="icons/east_entrance.svg">
+							<span>East Entrance: {{eastEntranceStat}}</span>
+						</div>
+						<div class="stat" id="southEntranceStat">
+							<img class="statImage" src="icons/south_entrance.svg">
+							<span>South Entrance: {{southEntranceStat}}</span>
+						</div>
+						<!-- 
+						<div id="svgContainer">
+							<svg id="svg" viewBox="50 54 100 100">
+								<circle cx="100" cy="100" r="13.1" style="stroke: white; fill: white;"/>
+								<text x="97" y="101" id="currentTemp" font-size="3" font-weight="bold" style="fill: #507282">{{currentTemp}}&#176;F</text>
+								<circle class="background" cx="100" cy="100" r="6" stroke="#F5F2EA" />
+								<circle class="background" cx="100" cy="100" r="9" stroke="#eddfbb" />
+								<circle class="background" cx="100" cy="100" r="12" stroke="#DCE3E6" />
+	
+								<circle id="line1" class="overlayLine" cx="100" cy="100" r="6" stroke="#CDBD97" stroke-dasharray="0, 3000" stroke-dashoffset="126" transform="rotate(-90,100,100)" />
+								<circle id="line2" class="overlayLine" cx="100" cy="100" r="9" stroke="#C9AC68" stroke-dasharray="0, 3000" stroke-dashoffset="188" transform="rotate(-90,100,100)" />
+								<circle id="line3" class="overlayLine" cx="100" cy="100" r="12" stroke="#507282" stroke-dasharray="0, 3000" stroke-dashoffset="251" transform="rotate(-90,100,100)" />
+							</svg>
+						</div>  -->
+						
+						<div id="yesterdayWrapper">
+							<div id="title">Zion National Park Yesterday:</div>
+							<div id="titleStatus">{{yesterdayTitleStatus}}</div>
+							<table id="yesterdaysTotals">
+								<tr>
+								<th>Zion Total Visitors</th>
+								<th class="right">Canyon Total Visitors</th>
+								</tr>
+								<tr>
+								<td>{{yesterdayZionTotal}}</td>
+								<td class="right">{{yesterdayCanyonTotal}}</td>
+								</tr>
+							</table>
+							<table id="yesterdaysEntrances">
+								<tr>
+								<th>Entrance</th>
+								<th class="right">Vehicles</th>–––
+								<th class="right">People</th>
+								</tr>
+								<tr>
+								<td>South East</td>
+								<td class="right">{{SEVehicles}}</td>
+								<td class="right">{{SEPeople}}</td>
+								</tr>
+								<td>East</td>
+								<td class="right">{{EVehicles}}</td>
+								<td class="right">{{EPeople}}</td>
+								</tr>
+								<td>River</td>
+								<td class="right">{{riverVehicles}}</td>
+								<td class="right">{{riverPeople}}</td>
+								</tr>
+								<td>Kolob</td>
+								<td class="right">{{kolobVehicles}}</td>
+								<td class="right">{{kolobPeople}}</td>
+								</tr>
+							</table>
+						</div>
+					</div>
+
+					<div v-if="MainPage=='Parking' ">
+						<h1>Parking page</h1>
+					</div>
+
+					<div v-if="MainPage=='Entrances' ">
+						<h1>Entrances page</h1>
+					</div>
 					
-					<div id="titleWrapper">
-						<div id="title">Zion National Park Today:</div>
-						<div id="titleStatus">{{titleStatus}}</div>
-						<div id="totalVisitors">{{totalVisitors}} Visitors in 2019</div>
-					</div>
-					<div class="stat" id="parkingStat">
-						<img class="statImage" src="icons/parking_outline.svg">
-						<span>Parking: {{parkingStat}} Full</span>
-					</div>
-					<div class="stat" id="eastEntranceStat">
-						<img class="statImage" src="icons/east_entrance.svg">
-						<span>East Entrance: {{eastEntranceStat}}</span>
-					</div>
-					<div class="stat" id="southEntranceStat">
-						<img class="statImage" src="icons/south_entrance.svg">
-						<span>South Entrance: {{southEntranceStat}}</span>
-					</div>
-					<div id="svgContainer">
-						<svg id="svg" viewBox="50 54 100 100">
-							<circle cx="100" cy="100" r="13.1" style="stroke: white; fill: white;"/>
-							<text x="97" y="101" id="currentTemp" font-size="3" font-weight="bold" style="fill: #507282">{{currentTemp}}&#176;F</text>
-							<circle class="background" cx="100" cy="100" r="6" stroke="#F5F2EA" />
-							<circle class="background" cx="100" cy="100" r="9" stroke="#eddfbb" />
-							<circle class="background" cx="100" cy="100" r="12" stroke="#DCE3E6" />
-							<circle id="line1" class="overlayLine" cx="100" cy="100" r="6" stroke="#CDBD97" stroke-dasharray="0, 3000" stroke-dashoffset="126" transform="rotate(-90,100,100)" />
-							<circle id="line2" class="overlayLine" cx="100" cy="100" r="9" stroke="#C9AC68" stroke-dasharray="0, 3000" stroke-dashoffset="188" transform="rotate(-90,100,100)" />
-							<circle id="line3" class="overlayLine" cx="100" cy="100" r="12" stroke="#507282" stroke-dasharray="0, 3000" stroke-dashoffset="251" transform="rotate(-90,100,100)" />
-						</svg>
-					</div>
-					<div id="yesterdayWrapper">
-						<div id="title">Zion National Park Yesterday:</div>
-						<div id="titleStatus">{{yesterdayTitleStatus}}</div>
-						<table id="yesterdaysTotals">
-							<tr>
-							<th>Zion Total Visitors</th>
-							<th class="right">Canyon Total Visitors</th>
-							</tr>
-							<tr>
-							<td>{{yesterdayZionTotal}}</td>
-							<td class="right">{{yesterdayCanyonTotal}}</td>
-							</tr>
-						</table>
-						<table id="yesterdaysEntrances">
-							<tr>
-							<th>Entrance</th>
-							<th class="right">Vehicles</th>–––
-							<th class="right">People</th>
-							</tr>
-							<tr>
-							<td>South East</td>
-							<td class="right">{{SEVehicles}}</td>
-							<td class="right">{{SEPeople}}</td>
-							</tr>
-							<td>East</td>
-							<td class="right">{{EVehicles}}</td>
-							<td class="right">{{EPeople}}</td>
-							</tr>
-							<td>River</td>
-							<td class="right">{{riverVehicles}}</td>
-							<td class="right">{{riverPeople}}</td>
-							</tr>
-							<td>Kolob</td>
-							<td class="right">{{kolobVehicles}}</td>
-							<td class="right">{{kolobPeople}}</td>
-							</tr>
-						</table>
-					</div>
+					
 
 				</v-content>
 			</v-app>
