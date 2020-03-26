@@ -46,6 +46,8 @@ var app = new Vue({
     },
 
     methods: {
-
+        test: function() {
+            console.log('pushed');
+        }
     },
 });
