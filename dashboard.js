@@ -43,9 +43,42 @@ var app = new Vue({
         riverPeople: "93",
         kolobVehicles: "500",
         kolobPeople: "1,300",
+
+        visitor_selected: true,
+        overflow_selected: false,
+        ETI_selected: true,
+        ETO_selected: false,
+        R_selected: false,
+
+        displayHomePage: true,
+        displayParking: false,
+        displayEntrance: false,
     },
 
     methods: {
+        visitorSelected: function(){
+            this.visitor_selected = true;
+            this.overflow_selected = false;
+        },
+        overflowSelected: function(){
+            this.visitor_selected = false;
+            this.overflow_selected = true;
+        },
+        ETISelected: function(){
+            this.ETO_selected = false;
+            this.R_selected = false;
+            this.ETI_selected = true;
+        },
+        ETOSelected: function(){
+            this.ETO_selected = true;
+            this.R_selected = false;
+            this.ETI_selected = false;
+        },
+        RSelected: function(){
+            this.ETO_selected = false;
+            this.R_selected = true;
+            this.ETI_selected = false;
+        }
 
     },
 });

@@ -105,4 +105,56 @@
     #svgContainer{
         width: 100%;
     }
+
+    /* ----------------- Parking Page ----------------------- */
+    .visitorButtonContainer, .ETIButtonContainer{
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 16px;
+        margin-left: 24px;
+        text-align: center;
+        margin-bottom: 15px;
+        display: inline-block;
+        width: 100px;
+        height: auto;
+    }
+    .overflowButtonContainer, .ETOButtonContainer, .RButtonContainer{
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 16px;
+        text-align: center;
+        display: inline-block;
+    }
+    .ETIButtonContainer, .ETOButtonContainer, .RButtonContainer{
+        width: 150px;
+    }
+    .visitorButton, .overflowButton{
+        width: 100%;
+        height: 48px;
+    }
+    .ETIButton, .ETOButton, .RButton{
+        width: 100%;
+        height: 48px;
+    }
+    .parkButtons{
+        color: #507282;
+    }
+    .entranceButtons{
+        color: #C9AC68;
+    }
+    .parkButtonsfocus{
+        border-bottom: 2px solid #507282;
+    }
+    .entranceButtonsfocus{
+        border-bottom: 2px solid #C9AC68;
+    }
+    #parkingWrapper{
+        width: 50%;
+        margin: 0 auto;
+        margin-top: 50px;
+    }
+    #entranceStats{
+        width: 95%;
+        margin-left: 24px;
+    }
 }

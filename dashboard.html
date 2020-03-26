@@ -15,73 +15,119 @@
   </head>
 	<body>
 		<div id="app">
-			<div id="titleWrapper">
-				<div id="title">Zion National Park Today:</div>
-				<div id="titleStatus">{{titleStatus}}</div>
-				<div id="totalVisitors">{{totalVisitors}} Visitors in 2019</div>
+			<div v-show="displayHomePage">
+				<div id="titleWrapper">
+					<div id="title">Zion National Park Today:</div>
+					<div id="titleStatus">{{titleStatus}}</div>
+					<div id="totalVisitors">{{totalVisitors}} Visitors in 2019</div>
+				</div>
+				<div class="stat" id="parkingStat">
+					<img class="statImage" src="icons/parking_outline.svg">
+					<span>Parking: {{parkingStat}} Full</span>
+				</div>
+				<div class="stat" id="eastEntranceStat">
+					<img class="statImage" src="icons/east_entrance.svg">
+					<span>East Entrance: {{eastEntranceStat}}</span>
+				</div>
+				<div class="stat" id="southEntranceStat">
+					<img class="statImage" src="icons/south_entrance.svg">
+					<span>South Entrance: {{southEntranceStat}}</span>
+				</div>
+				<div id="svgContainer">
+					<svg id="svg" viewBox="50 54 100 100">
+						<circle cx="100" cy="100" r="13.1" style="stroke: white; fill: white;"/>
+						<text x="97" y="101" id="currentTemp" font-size="3" font-weight="bold" style="fill: #507282">{{currentTemp}}&#176;F</text>
+						<circle class="background" cx="100" cy="100" r="6" stroke="#F5F2EA" />
+						<circle class="background" cx="100" cy="100" r="9" stroke="#eddfbb" />
+						<circle class="background" cx="100" cy="100" r="12" stroke="#DCE3E6" />
+						<circle id="line1" class="overlayLine" cx="100" cy="100" r="6" stroke="#CDBD97" stroke-dasharray="0, 3000" stroke-dashoffset="126" transform="rotate(-90,100,100)" />
+						<circle id="line2" class="overlayLine" cx="100" cy="100" r="9" stroke="#C9AC68" stroke-dasharray="0, 3000" stroke-dashoffset="188" transform="rotate(-90,100,100)" />
+						<circle id="line3" class="overlayLine" cx="100" cy="100" r="12" stroke="#507282" stroke-dasharray="0, 3000" stroke-dashoffset="251" transform="rotate(-90,100,100)" />
+					</svg>
+				</div>
+				<div id="yesterdayWrapper">
+					<div id="title">Zion National Park Yesterday:</div>
+					<div id="titleStatus">{{yesterdayTitleStatus}}</div>
+					<table id="yesterdaysTotals">
+						<tr>
+						<th>Zion Total Visitors</th>
+						<th class="right">Canyon Total Visitors</th>
+						</tr>
+						<tr>
+						<td>{{yesterdayZionTotal}}</td>
+						<td class="right">{{yesterdayCanyonTotal}}</td>
+						</tr>
+					</table>
+					<table id="yesterdaysEntrances">
+						<tr>
+						<th>Entrance</th>
+						<th class="right">Vehicles</th>
+						<th class="right">People</th>
+						</tr>
+						<tr>
+						<td>South East</td>
+						<td class="right">{{SEVehicles}}</td>
+						<td class="right">{{SEPeople}}</td>
+						</tr>
+						<td>East</td>
+						<td class="right">{{EVehicles}}</td>
+						<td class="right">{{EPeople}}</td>
+						</tr>
+						<td>River</td>
+						<td class="right">{{riverVehicles}}</td>
+						<td class="right">{{riverPeople}}</td>
+						</tr>
+						<td>Kolob</td>
+						<td class="right">{{kolobVehicles}}</td>
+						<td class="right">{{kolobPeople}}</td>
+						</tr>
+					</table>
+				</div>
 			</div>
-			<div class="stat" id="parkingStat">
-				<img class="statImage" src="icons/parking_outline.svg">
-				<span>Parking: {{parkingStat}} Full</span>
-			</div>
-			<div class="stat" id="eastEntranceStat">
-				<img class="statImage" src="icons/east_entrance.svg">
-				<span>East Entrance: {{eastEntranceStat}}</span>
-			</div>
-			<div class="stat" id="southEntranceStat">
-				<img class="statImage" src="icons/south_entrance.svg">
-				<span>South Entrance: {{southEntranceStat}}</span>
-			</div>
-			<div id="svgContainer">
-				<svg id="svg" viewBox="50 54 100 100">
-					<circle cx="100" cy="100" r="13.1" style="stroke: white; fill: white;"/>
-					<text x="97" y="101" id="currentTemp" font-size="3" font-weight="bold" style="fill: #507282">{{currentTemp}}&#176;F</text>
-					<circle class="background" cx="100" cy="100" r="6" stroke="#F5F2EA" />
-					<circle class="background" cx="100" cy="100" r="9" stroke="#eddfbb" />
-					<circle class="background" cx="100" cy="100" r="12" stroke="#DCE3E6" />
-					<circle id="line1" class="overlayLine" cx="100" cy="100" r="6" stroke="#CDBD97" stroke-dasharray="0, 3000" stroke-dashoffset="126" transform="rotate(-90,100,100)" />
-					<circle id="line2" class="overlayLine" cx="100" cy="100" r="9" stroke="#C9AC68" stroke-dasharray="0, 3000" stroke-dashoffset="188" transform="rotate(-90,100,100)" />
-					<circle id="line3" class="overlayLine" cx="100" cy="100" r="12" stroke="#507282" stroke-dasharray="0, 3000" stroke-dashoffset="251" transform="rotate(-90,100,100)" />
-				</svg>
-			</div>
-			<div id="yesterdayWrapper">
-				<div id="title">Zion National Park Yesterday:</div>
-				<div id="titleStatus">{{yesterdayTitleStatus}}</div>
-				<table id="yesterdaysTotals">
+
+			<!-- PARKING PAGES -->
+
+			<div v-show="displayParking">
+				<div class="visitorButtonContainer">
+					<button class="visitorButton parkButtons" :class="{parkButtonsfocus: visitor_selected}" @click="visitorSelected">VISITOR LOT</button>
+				</div>
+				<div class="overflowButtonContainer">
+					<button class="overflowButton parkButtons" :class="{parkButtonsfocus: overflow_selected}" @click="overflowSelected">OVERFLOW LOT</button>
+				</div>
+				<table id="parkingWrapper">
 					<tr>
-					<th>Zion Total Visitors</th>
-					<th class="right">Canyon Total Visitors</th>
-					</tr>
-					<tr>
-					<td>{{yesterdayZionTotal}}</td>
-					<td class="right">{{yesterdayCanyonTotal}}</td>
+					<th>Time</th>
+					<th class="right">Occupancy Pct(%)</th>
 					</tr>
 				</table>
-				<table id="yesterdaysEntrances">
+			</div>
+
+			<!-- ENTRANCE PAGES -->
+
+			<div v-show="displayEntrance">
+				<div class="ETIButtonContainer">
+					<button class="ETIButton entranceButtons" :class="{entranceButtonsfocus: ETI_selected}" @click="ETISelected">EAST TRAFFIC IN</button>
+				</div>
+				<div class="ETOButtonContainer">
+					<button class="ETOButton entranceButtons" :class="{entranceButtonsfocus: ETO_selected}" @click="ETOSelected">EAST TRAFFIC OUT</button>
+				</div>
+				<div class="RButtonContainer">
+					<button class="RButton entranceButtons" :class="{entranceButtonsfocus: R_selected}" @click="RSelected">RADAR</button>
+				</div>
+				<table id="entranceStats">
 					<tr>
-					<th>Entrance</th>
-					<th class="right">Vehicles</th>
-					<th class="right">People</th>
-					</tr>
-					<tr>
-					<td>South East</td>
-					<td class="right">{{SEVehicles}}</td>
-					<td class="right">{{SEPeople}}</td>
-					</tr>
-					<td>East</td>
-					<td class="right">{{EVehicles}}</td>
-					<td class="right">{{EPeople}}</td>
-					</tr>
-					<td>River</td>
-					<td class="right">{{riverVehicles}}</td>
-					<td class="right">{{riverPeople}}</td>
-					</tr>
-					<td>Kolob</td>
-					<td class="right">{{kolobVehicles}}</td>
-					<td class="right">{{kolobPeople}}</td>
+					<th>Date</th>
+					<th>Day</th>
+					<th class="right">Total Reads</th>
+					<th class="right">Calc Visitors</th>
+					<th class="right">Unique Plates</th>
+					<th class="right">Re-Entry Count</th>
+					<th class="right">Re-Entry %</th>
 					</tr>
 				</table>
 			</div>
+	
+
 			<script src="https://cdn.jsdelivr.net/npm/vue"></script>
 			<script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
 			<script src="dashboard.js"></script>
