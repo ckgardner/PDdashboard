@@ -189,32 +189,29 @@
 						<div v-if="EntrancePage=='Kolob'">
 							<h2>{{ EntrancePage }}</h2>
 						</div>
+					
+						<div class="ETIButtonContainer">
+							<button class="ETIButton entranceButtons" :class="{entranceButtonsfocus: ETI_selected}" @click="ETISelected">EAST TRAFFIC IN</button>
+						</div>
+						<div class="ETOButtonContainer">
+							<button class="ETOButton entranceButtons" :class="{entranceButtonsfocus: ETO_selected}" @click="ETOSelected">EAST TRAFFIC OUT</button>
+						</div>
+						<div class="RButtonContainer">
+							<button class="RButton entranceButtons" :class="{entranceButtonsfocus: R_selected}" @click="RSelected">RADAR</button>
+						</div>
+						<table id="entranceStats">
+							<tr>
+							<th>Date</th>
+							<th>Day</th>
+							<th class="right">Total Reads</th>
+							<th class="right">Calc Visitors</th>
+							<th class="right">Unique Plates</th>
+							<th class="right">Re-Entry Count</th>
+							<th class="right">Re-Entry %</th>
+							</tr>
+						</table>
 					</div>
-					<div class="ETIButtonContainer">
-						<button class="ETIButton entranceButtons" :class="{entranceButtonsfocus: ETI_selected}" @click="ETISelected">EAST TRAFFIC IN</button>
-					</div>
-					<div class="ETOButtonContainer">
-						<button class="ETOButton entranceButtons" :class="{entranceButtonsfocus: ETO_selected}" @click="ETOSelected">EAST TRAFFIC OUT</button>
-					</div>
-					<div class="RButtonContainer">
-						<button class="RButton entranceButtons" :class="{entranceButtonsfocus: R_selected}" @click="RSelected">RADAR</button>
-					</div>
-					<table id="entranceStats">
-						<tr>
-						<th>Date</th>
-						<th>Day</th>
-						<th class="right">Total Reads</th>
-						<th class="right">Calc Visitors</th>
-						<th class="right">Unique Plates</th>
-						<th class="right">Re-Entry Count</th>
-						<th class="right">Re-Entry %</th>
-						</tr>
-					</table>
 				</div>
-
-					
-					
-
 				</v-content>
 			</v-app>
 		</div>
