@@ -37,10 +37,10 @@ var app = new Vue({
         yesterdayZionTotal: "7310",
         yesterdayCanyonTotal: "6256",
         SEVehicles: "1,203",
-        SEPeople: "2,600",
+        SEPeople: "",
         SEDateUpdated: "03-26-20",
         EVehicles: "503",
-        EPeople: "1,200",
+        EPeople: "",
         EastDateUpdated: "03-26-20",
         riverVehicles: "",
         riverPeople: "93",
@@ -66,10 +66,15 @@ var app = new Vue({
         loadStats: function() {
             var vm = this;
             axios.get("https://trailwaze.info/zion/request.php").then(response => {
-                vm.SEPeople = response.data[0].count;
-                console.log('SEPeople: ', vm.SEPeople);
+                vm.SEVehicles = response.data[0].count;
+                vm.SEDateUpdated = response.data[0].date;
+
+                vm.EVehicles = response.data[2].count;
+                vm.EastDateUpdated = response.data[2].date;
+
+
             }).catch(error => {
-                vm.titleStatus = "Fetch " + error;
+                vm = "Fetch " + error;
             });
         },
         
