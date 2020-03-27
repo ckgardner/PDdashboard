@@ -18,29 +18,6 @@
 		<div id="app">
 			<v-app>
 				<v-content>
-<<<<<<< HEAD
-					<div>
-						<v-app-bar dense>
-							<v-toolbar-title v-on:click="MainPage='Home' ">Parkdata</v-toolbar-title>
-							<v-spacer></v-spacer>
-							<v-btn text color="#507282" v-on:click="MainPage='Parking' ">Parking</v-btn>
-							<!-- drop down for Entrances -->
-							<v-menu offset-y>
-								<template v-slot:activator="{ on }">
-									<v-btn color="#C9AC68" text v-on="on">Entrances</v-btn>
-								</template>
-								<v-list>
-									<v-list-item
-									v-for="(item, index) in EntrancesPage" :key="index" @click="">
-									<v-list-item-title>{{ item }}</v-list-item-title>
-									</v-list-item>
-								</v-list>
-							</v-menu>
-						</v-app-bar>
-					</div>					
-=======
-
->>>>>>> 024867f135877852e527b1a4eb06b086998499a1
 					<div v-if="MainPage=='Home' ">
 						<div> <!-- App bar for main page -->
 							<v-app-bar dense>
@@ -115,38 +92,22 @@
 								<td>South East</td>
 								<td class="right">{{SEVehicles}}</td>
 								<td class="right">{{SEPeople}}</td>
-<<<<<<< HEAD
-								<td class="right">03-26-20</th>
-=======
 								<td class="right">{{SEDateUpdated}}</td>
->>>>>>> 024867f135877852e527b1a4eb06b086998499a1
 								</tr>
 								<td>East</td>
 								<td class="right">{{EVehicles}}</td>
 								<td class="right">{{EPeople}}</td>
-<<<<<<< HEAD
-								<td class="right">03-26-20</th>
-=======
 								<td class="right">{{EastDateUpdated}}</td>
->>>>>>> 024867f135877852e527b1a4eb06b086998499a1
 								</tr>
 								<td>River</td>
 								<td class="right">{{riverVehicles}}</td>
 								<td class="right">{{riverPeople}}</td>
-<<<<<<< HEAD
-								<td class="right">03-26-20</th>
-=======
 								<td class="right">{{RiverDateUpdated}}</td>
->>>>>>> 024867f135877852e527b1a4eb06b086998499a1
 								</tr>
 								<td>Kolob</td>
 								<td class="right">{{kolobVehicles}}</td>
 								<td class="right">{{kolobPeople}}</td>
-<<<<<<< HEAD
-								<td class="right">03-26-20</th>
-=======
 								<td class="right">{{KolobDateUpdated}}</td>
->>>>>>> 024867f135877852e527b1a4eb06b086998499a1
 								</tr>
 							</table>
 						</div>
@@ -155,20 +116,6 @@
 					<!-- PARKING PAGES -->
 
 					<div v-if="MainPage=='Parking' ">
-<<<<<<< HEAD
-						<div class="visitorButtonContainer">
-							<button class="visitorButton parkButtons" :class="{parkButtonsfocus: visitor_selected}" @click="visitorSelected">VISITOR LOT</button>
-						</div>
-						<div class="overflowButtonContainer">
-							<button class="overflowButton parkButtons" :class="{parkButtonsfocus: overflow_selected}" @click="overflowSelected">OVERFLOW LOT</button>
-						</div>
-						<table id="parkingWrapper">
-							<tr>
-							<th>Time</th>
-							<th class="right">Occupancy Pct(%)</th>
-							</tr>
-						</table>
-=======
 						<v-card  height="150px"> <!-- App bar for parking page -->
 							<v-app-bar shrink-on-scroll color="white" height="150px">
 								<h4 v-on:click="MainPage='Home' ">Park Data</h4>
@@ -191,35 +138,24 @@
 								</v-menu>
 							</v-app-bar>
 						</v-card>
->>>>>>> 024867f135877852e527b1a4eb06b086998499a1
+
+						<div class="visitorButtonContainer">
+							<button class="visitorButton parkButtons" :class="{parkButtonsfocus: visitor_selected}" @click="visitorSelected">VISITOR LOT</button>
+						</div>
+						<div class="overflowButtonContainer">
+							<button class="overflowButton parkButtons" :class="{parkButtonsfocus: overflow_selected}" @click="overflowSelected">OVERFLOW LOT</button>
+						</div>
+						<table id="parkingWrapper">
+							<tr>
+							<th>Time</th>
+							<th class="right">Occupancy Pct(%)</th>
+							</tr>
+						</table>
 					</div>
 
 					<!-- ENTRANCE PAGES -->
 
 					<div v-if="MainPage=='Entrances' ">
-<<<<<<< HEAD
-						<div class="ETIButtonContainer">
-							<button class="ETIButton entranceButtons" :class="{entranceButtonsfocus: ETI_selected}" @click="ETISelected">EAST TRAFFIC IN</button>
-						</div>
-						<div class="ETOButtonContainer">
-							<button class="ETOButton entranceButtons" :class="{entranceButtonsfocus: ETO_selected}" @click="ETOSelected">EAST TRAFFIC OUT</button>
-						</div>
-						<div class="RButtonContainer">
-							<button class="RButton entranceButtons" :class="{entranceButtonsfocus: R_selected}" @click="RSelected">RADAR</button>
-						</div>
-						<table id="entranceStats">
-							<tr>
-							<th>Date</th>
-							<th>Day</th>
-							<th class="right">Total Reads</th>
-							<th class="right">Calc Visitors</th>
-							<th class="right">Unique Plates</th>
-							<th class="right">Re-Entry Count</th>
-							<th class="right">Re-Entry %</th>
-							</tr>
-						</table>
-					</div>
-=======
 						<div> <!-- App bar for main page -->
 							<v-app-bar dense>
 								<v-toolbar-title v-on:click="MainPage='Home' ">Parkdata</v-toolbar-title>
@@ -254,11 +190,31 @@
 							<h2>{{ EntrancePage }}</h2>
 						</div>
 					</div>
+					<div class="ETIButtonContainer">
+						<button class="ETIButton entranceButtons" :class="{entranceButtonsfocus: ETI_selected}" @click="ETISelected">EAST TRAFFIC IN</button>
+					</div>
+					<div class="ETOButtonContainer">
+						<button class="ETOButton entranceButtons" :class="{entranceButtonsfocus: ETO_selected}" @click="ETOSelected">EAST TRAFFIC OUT</button>
+					</div>
+					<div class="RButtonContainer">
+						<button class="RButton entranceButtons" :class="{entranceButtonsfocus: R_selected}" @click="RSelected">RADAR</button>
+					</div>
+					<table id="entranceStats">
+						<tr>
+						<th>Date</th>
+						<th>Day</th>
+						<th class="right">Total Reads</th>
+						<th class="right">Calc Visitors</th>
+						<th class="right">Unique Plates</th>
+						<th class="right">Re-Entry Count</th>
+						<th class="right">Re-Entry %</th>
+						</tr>
+					</table>
+				</div>
 
 					
 					
 
->>>>>>> 024867f135877852e527b1a4eb06b086998499a1
 				</v-content>
 			</v-app>
 		</div>
