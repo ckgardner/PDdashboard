@@ -1,27 +1,4 @@
- /*jshint esversion: 6 */
- 
- //Start of functions for the SVG circle
- function getRandomIntInclusive(min, max) {
-     min = Math.ceil(min);
-     max = Math.floor(max);
-     return Math.floor(Math.random() * (max - min + 1)) + min; //The maximum is inclusive and the minimum is inclusive 
- }
-   
- function setStop(id, radius, stop){
-     var c = document.getElementById(id);
-     c.className = "background";
-     var stopVal = Math.PI * radius * 2 * (stop/10);
-     c.setAttribute("stroke-dasharray", stopVal + ", 3000");
-     c.setAttribute("stroke-dashoffset", stopVal);
-     c.className = "overlayLine";
- }
-   
- function randomStops(){
-     setStop("line1", 26, getRandomIntInclusive(1, 10));
-     setStop("line2", 34, getRandomIntInclusive(1, 10));
-     setStop("line3", 42, getRandomIntInclusive(1, 10));
- }
- randomStops();
+/*jshint esversion: 6 */
 
 var app = new Vue({
     el: '#app',
@@ -36,19 +13,19 @@ var app = new Vue({
         yesterdayTitleStatus: "Busy",
         yesterdayZionTotal: "7310",
         yesterdayCanyonTotal: "6256",
-        SEVehicles: "1,203",
+        SEVehicles: "",
         SEPeople: "",
         SEDateUpdated: "03-26-20",
-        EVehicles: "503",
+        EVehicles: "",
         EPeople: "",
-        EastDateUpdated: "03-26-20",
-        riverVehicles: "",
-        riverPeople: "93",
-        RiverDateUpdated: "03-26-20",
-        kolobVehicles: "500",
-        kolobPeople: "1,300",
-        KolobDateUpdated: "03-25-20",
-        MainPage: 'Parking', // Home, Parking, Entrances 
+        EastDateUpdated: "",
+        riverVehicles: "-",
+        riverPeople: "-",
+        RiverDateUpdated: "-",
+        kolobVehicles: "-",
+        kolobPeople: "-",
+        KolobDateUpdated: "-",
+        MainPage: 'Home', // Home, Parking, Entrances 
         EntrancePage: 'SouthEast',
         Entrances: ['SouthEast', 'East', 'River', 'Kolob'],
         serverStats: [],
@@ -61,6 +38,7 @@ var app = new Vue({
     },
     created: function(){
         this.loadStats();
+        this.stops();
         //this.getWeatherAPI();
     },
     methods: {
@@ -72,20 +50,33 @@ var app = new Vue({
 
                 vm.EVehicles = response.data[2].count;
                 vm.EastDateUpdated = response.data[2].date;
-
             }).catch(error => {
                 vm = "Fetch " + error;
             });
+            
         },
-        getWeatherAPI: function() {
-            var vm = this;
-            // not an api we can work with.
-            axios.get("https://forecast.weather.gov/MapClick.php?lat=37.1838&lon=-113.0032&unit=0&lg=english&FcstType=dwml").then(response => {
-                console.log('Resopnse: ', response.data);
-
-            }).catch(error => {
-                console.log(error);
-            })
+        // getWeatherAPI: function() {
+        //     let parser = new DOMParser();
+        //     let doc = parser.parseFromString("https://forecast.weather.gov/MapClick.php?lat=37.1838&lon=-113.0032&unit=0&lg=english&FcstType=dwml", "application/xml");
+        //     var vm = this;
+        //     // not an api we can work with.
+        //     axios.get(doc).then(response => {
+        //         console.log(response.data[0]);
+        //     });    
+        // },
+        setStop: function(id, radius, stop){
+            var c = document.getElementById(id);
+            c.className = "background";
+            var stopVal = Math.PI * radius * 2 * (stop/10);
+            c.setAttribute("stroke-dasharray", stopVal + ", 3000");
+            c.setAttribute("stroke-dashoffset", stopVal);
+            c.className = "overlayLine";
+        },
+        stops: function(){
+            this.setStop("line1", 26, 4);
+            this.setStop("line2", 34, 8);
+            this.setStop("line3", 42, 6);
+            console.log(this.SEVehicles, this.EVehicles);
         },
         visitorSelected: function(){
             this.visitor_selected = true;
