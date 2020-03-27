@@ -67,8 +67,12 @@ var app = new Vue({
         loadStats: function() {
             var vm = this;
             axios.get("https://trailwaze.info/zion/request.php").then(response => {
+<<<<<<< HEAD
                 console.log('response: ', response.data);
                 vm.SEPeople = response.data[0].count
+=======
+                vm.SEPeople = response.data[0].count;
+>>>>>>> 01a41680d5280d0829854f09f2b9dc91e49a6982
                 console.log('SEPeople: ', vm.SEPeople);
             }).catch(error => {
                 vm.titleStatus = "Fetch " + error;
