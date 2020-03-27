@@ -116,56 +116,38 @@
 					<!-- PARKING PAGES -->
 
 					<div v-if="MainPage=='Parking' ">
-						<!-- <v-card  height="150px"> App bar for parking page -->
-							<!-- <v-app-bar shrink-on-scroll color="white" height="150px"> -->
-								<!-- <v-app-bar-title v-on:click="MainPage='Home' ">Park Data</v-app-bar-title> -->
-								<!-- <v-tabs class="d-block" height="40px" >
-									<v-tab>VISITOR LOT</v-tab>
-									<v-tab>OVERFLOW LOT</v-tab>
-								  </v-tabs> -->
-								<!-- <h4 v-on:click="MainPage='Home' " class="d-block">Park Data</h4>
+						<v-card height="150px" class="pt-4"> <!-- App bar -->
+							<h2 v-on:click="MainPage='Home' " class="d-inline ml-6">Park Data</h2>
+							<div class="d-inline float-right">
+								<v-btn v-on:click="MainPage='Parking' "text color="#507282" class="d-inline">Parking</v-btn>
+								<v-menu offset-y>
+									<template v-slot:activator="{ on }">
+										<v-btn color="#C9AC68" text v-on="on">Entrances</v-btn>
+									</template>
+									<v-list>
+										<v-list-item v-for="(enterance, index) in Entrances" :key="index" v-on:click="MainPage='Entrances'; EntrancePage=enterance ">
+											<v-list-item-title>{{ enterance }}</v-list-item-title>
+										</v-list-item>
+									</v-list>
+								</v-menu>
+							</div>
+							<div>
 								<div class="visitorButtonContainer">
 									<button class="visitorButton parkButtons" :class="{parkButtonsfocus: visitor_selected}" @click="visitorSelected">VISITOR LOT</button>
 								</div>
 								<div class="overflowButtonContainer">
-									<button class="d-block overflowButton parkButtons" :class="{parkButtonsfocus: overflow_selected}" @click="overflowSelected">OVERFLOW LOT</button>
+									<button class="overflowButton parkButtons" :class="{parkButtonsfocus: overflow_selected}" @click="overflowSelected">OVERFLOW LOT</button>
 								</div>
-								<v-spacer></v-spacer>
-								<v-btn text color="#507282" v-on:click="MainPage='Parking' ">Parking</v-btn> -->
-								<!-- drop down for Entrances -->
-								<!-- <v-menu offset-y>
-									<template v-slot:activator="{ on }">
-									  <v-btn color="#C9AC68" text v-on="on">Entrances</v-btn>
-									</template>
-									<v-list>
-									  <v-list-item v-for="(enterance, index) in Entrances" :key="index" v-on:click="MainPage='Entrances'; EntrancePage=enterance ">
-										<v-list-item-title>{{ enterance }}</v-list-item-title>
-									  </v-list-item>
-									</v-list>
-								</v-menu>
-								
-							</v-app-bar>
-						</v-card> -->
+							</div>
+						</v-card> 
 
-						<v-card height=150px>
-							<h2 v-on:click="MainPage='Home' " class="d-inline">Park Data</h2>
-							<v-spacer></v-spacer>
-							<v-btn text color="#507282" v-on:click="MainPage='Parking' ">Parking</v-btn>
-						</v-card>
-
-						<div class="visitorButtonContainer">
-							<button class="visitorButton parkButtons" :class="{parkButtonsfocus: visitor_selected}" @click="visitorSelected">VISITOR LOT</button>
-						</div>
-						<div class="overflowButtonContainer">
-							<button class="overflowButton parkButtons" :class="{parkButtonsfocus: overflow_selected}" @click="overflowSelected">OVERFLOW LOT</button>
-						</div>
 						<table id="parkingWrapper">
 							<tr>
 							<th>Time</th>
 							<th class="right">Occupancy Pct(%)</th>
 							</tr>
 						</table>
-					</div>
+					</div> <!-- End App bar -->
 
 					<!-- ENTRANCE PAGES -->
 
