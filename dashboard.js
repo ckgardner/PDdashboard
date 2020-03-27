@@ -66,9 +66,9 @@ var app = new Vue({
             var vm = this;
             axios.get("https://trailwaze.info/zion/request.php").then(function(response){
                 console.log(response.data);
-                vm.titleStatus = response.data[0];
+                vm.SEVehicles = response.data[18];
             }).catch(function(error){
-                vm.titleStatus = "Fetch " + error;
+                vm.SEVehicles = "Fetch " + error;
             });
         },
         visitorSelected: function(){
