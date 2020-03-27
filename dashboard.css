@@ -4,12 +4,12 @@
     }
 }
 .background {
-    stroke-width: 2.7;
+    stroke-width: 7.5;
     fill: none;
 }
 .overlayLine {
     fill: none;
-    stroke-width: 2.7;
+    stroke-width: 7.5;
     animation: dash 2s linear forwards;
 }
 @font-face{
@@ -99,8 +99,10 @@
     }
     #svg{
         position: absolute;
-        top: -425px;
-        left: 335px;
+        top: 18%;
+        left: 72%;
+        width: 250px;
+        height: 250px;
     }
     #svgContainer{
         width: 100%;
