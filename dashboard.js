@@ -48,7 +48,7 @@ var app = new Vue({
         kolobVehicles: "500",
         kolobPeople: "1,300",
         KolobDateUpdated: "03-25-20",
-        MainPage: 'Parking', // Home, Parking, Entrances 
+        MainPage: 'Home', // Home, Parking, Entrances 
         EntrancePage: 'SouthEast',
         Entrances: ['SouthEast', 'East', 'River', 'Kolob'],
         serverStats: [],
