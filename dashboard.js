@@ -48,7 +48,7 @@ var app = new Vue({
         kolobVehicles: "500",
         kolobPeople: "1,300",
         KolobDateUpdated: "03-25-20",
-        MainPage: 'Home', // Home, Parking, Entrances 
+        MainPage: 'Parking', // Home, Parking, Entrances 
         EntrancePage: 'SouthEast',
         Entrances: ['SouthEast', 'East', 'River', 'Kolob'],
         serverStats: [],
@@ -61,6 +61,7 @@ var app = new Vue({
     },
     created: function(){
         this.loadStats();
+        //this.getWeatherAPI();
     },
     methods: {
         loadStats: function() {
@@ -72,12 +73,20 @@ var app = new Vue({
                 vm.EVehicles = response.data[2].count;
                 vm.EastDateUpdated = response.data[2].date;
 
-
             }).catch(error => {
                 vm = "Fetch " + error;
             });
         },
-        
+        getWeatherAPI: function() {
+            var vm = this;
+            // not an api we can work with.
+            axios.get("https://forecast.weather.gov/MapClick.php?lat=37.1838&lon=-113.0032&unit=0&lg=english&FcstType=dwml").then(response => {
+                console.log('Resopnse: ', response.data);
+
+            }).catch(error => {
+                console.log(error);
+            })
+        },
         visitorSelected: function(){
             this.visitor_selected = true;
             this.overflow_selected = false;
