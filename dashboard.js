@@ -51,6 +51,7 @@ var app = new Vue({
         MainPage: 'Home', // Home, Parking, Entrances 
         EntrancePage: 'SouthEast',
         Entrances: ['SouthEast', 'East', 'River', 'Kolob'],
+        serverStats: [],
 
         visitor_selected: true,
         overflow_selected: false,
@@ -62,15 +63,16 @@ var app = new Vue({
         this.loadStats();
     },
     methods: {
-        loadStats: function(){
+        loadStats: function() {
             var vm = this;
-            axios.get("https://trailwaze.info/zion/request.php").then(function(response){
-                console.log(response.data[1]);
-                vm.SEVehicles = response.data[1];
-            }).catch(function(error){
-                vm.SEVehicles = "Fetch " + error;
+            axios.get("https://trailwaze.info/zion/request.php").then(response => {
+                vm.SEPeople = response.data[0].count;
+                console.log('SEPeople: ', vm.SEPeople);
+            }).catch(error => {
+                vm.titleStatus = "Fetch " + error;
             });
         },
+        
         visitorSelected: function(){
             this.visitor_selected = true;
             this.overflow_selected = false;
@@ -93,7 +95,8 @@ var app = new Vue({
             this.ETO_selected = false;
             this.R_selected = true;
             this.ETI_selected = false;
-        }
+        },
 
     },
 });
+
