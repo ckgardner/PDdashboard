@@ -63,17 +63,11 @@ var app = new Vue({
         this.loadStats();
     },
     methods: {
-        loadStats: function(){
+        loadStats: function() {
             var vm = this;
             axios.get("https://trailwaze.info/zion/request.php").then(response => {
-                console.log('response from axios: ', response);
-                console.log('response.data from axios: ', response.data);
-                var myObj = response.data;
-                //serverStats = JSON.parse(myObj);
-                console.log('type: ', typeof myObj);
-                console.log('type serverStats: ', typeof response.serverStats);
-                //vm.titleStatus = response.data[0];
-                console.log('titleStatus: ', vm.titleStatus);  // titleStaus == '['
+                vm.SEPeople = response.data[0].count
+                console.log('SEPeople: ', vm.SEPeople);
             }).catch(error => {
                 vm.titleStatus = "Fetch " + error;
             });
