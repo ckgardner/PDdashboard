@@ -26,7 +26,9 @@ body{
     font-weight: normal;
 }
 #titleWrapper{
-    margin: 15px 91px 25px 91px;
+    width: 65%;
+    margin: 0 auto;
+    margin-top: 16px;
 }
 #title, #titleStatus{
     font-family: "titleRoboto";
@@ -36,20 +38,29 @@ body{
     line-height: 32px;
     color: rgba(0, 0, 0, 0.86);
 }
+#titleStatus{
+    margin-bottom: 30px;
+}
+.yesterdayTitle, .yesterdayTitleStatus{
+    display: inline;
+}
 #totalVisitors{
     font-size: 16px;
     line-height: 19px;
     color: #666666;
     margin-top: 6px;
-    margin-bottom: 30px;
 }
 .stat{
     height: 56px;
 }
+.statWrapper{
+    width: 65%;
+    margin: 0 auto;
+}
 .statImage{
     height: 23px;
     width: 23px;
-    margin: 20px 30px 20px 94px;
+    margin: 20px 30px 20px 0px;
     vertical-align: middle;
 }
 #parkingStat{
@@ -68,12 +79,12 @@ body{
     font-size: 16px;
 }
 #yesterdayWrapper{
-    width: 384px;
+    width: 65%;
     margin: 0 auto;
-    margin-top: 50px;
+    margin-top: 90px;
 }
 table{
-    width: 384px;
+    width: 100%;
     font-size: 16px;
     line-height: 19px;
     font-weight: normal;
@@ -105,7 +116,7 @@ th{
 }
 @media only screen and (min-width: 720px){
     #svg{
-        left: 62%;
+        left: 56%;
     }
 }
 #svgContainer{

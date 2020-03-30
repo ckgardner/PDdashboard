@@ -40,21 +40,27 @@
 						</div>
 
 						<div id="titleWrapper">
+							<div id="totalVisitors">{{totalVisitors}} Visitors in 2019</div>
 							<div id="title">Zion National Park Today:</div>
 							<div id="titleStatus">{{titleStatus}}</div>
-							<div id="totalVisitors">{{totalVisitors}} Visitors in 2019</div>
 						</div>
 						<div class="stat" id="parkingStat">
-							<img class="statImage" src="icons/parking_outline.svg">
-							<span>Parking: {{parkingStat}} Full</span>
+							<div class="statWrapper">
+								<img class="statImage" src="icons/parking_outline.svg">
+								<span>Parking: {{parkingStat}} Full</span>
+							</div>
 						</div>
 						<div class="stat" id="eastEntranceStat">
-							<img class="statImage" src="icons/east_entrance.svg">
-							<span>East Entrance: {{eastEntranceStat}}</span>
+							<div class="statWrapper">
+								<img class="statImage" src="icons/east_entrance.svg">
+								<span>East Entrance: {{eastEntranceStat}}</span>
+							</div>
 						</div>
 						<div class="stat" id="southEntranceStat">
-							<img class="statImage" src="icons/south_entrance.svg">
-							<span>South Entrance: {{southEntranceStat}}</span>
+							<div class="statWrapper">
+								<img class="statImage" src="icons/south_entrance.svg">
+								<span>South Entrance: {{southEntranceStat}}</span>
+							</div>
 						</div>
 						<div id="svgContainer">
 							<svg id="svg" viewBox="50 54 100 100">
@@ -69,8 +75,8 @@
 							</svg>
 						</div>
 						<div id="yesterdayWrapper">
-							<div id="title">Zion National Park Yesterday:</div>
-							<div id="titleStatus">{{yesterdayTitleStatus}}</div>
+							<div id="title" class="yesterdayTitle">Zion National Park Yesterday:</div>
+							<div id="titleStatus" class="yesterdayTitleStatus">{{yesterdayTitleStatus}}</div>
 							<table id="yesterdaysTotals">
 								<tr>
 								<th>Zion Total Visitors</th>

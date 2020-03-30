@@ -5,26 +5,26 @@ var app = new Vue({
     vuetify: new Vuetify(),
     data: {
         currentTemp: "75",
-        titleStatus: "Busy",
+        titleStatus: "N/A",
         totalVisitors: "9,000",
-        parkingStat: "3%",
-        eastEntranceStat: "503",
-        southEntranceStat: "1,203",
+        parkingStat: "N/A%",
+        eastEntranceStat: "N/A",
+        southEntranceStat: "N/A",
         yesterdayTitleStatus: "Busy",
-        yesterdayZionTotal: "7310",
-        yesterdayCanyonTotal: "6256",
-        SEVehicles: "",
-        SEPeople: "",
-        SEDateUpdated: "03-26-20",
-        EVehicles: "",
-        EPeople: "",
-        EastDateUpdated: "",
-        riverVehicles: "-",
-        riverPeople: "-",
-        RiverDateUpdated: "-",
-        kolobVehicles: "-",
-        kolobPeople: "-",
-        KolobDateUpdated: "-",
+        yesterdayZionTotal: "N/A",
+        yesterdayCanyonTotal: "N/A",
+        SEVehicles: "N/A",
+        SEPeople: "...",
+        SEDateUpdated: "...",
+        EVehicles: "N/A",
+        EPeople: "...",
+        EastDateUpdated: "...",
+        riverVehicles: "N/A",
+        riverPeople: "N/A",
+        RiverDateUpdated: "N/A",
+        kolobVehicles: "N/A",
+        kolobPeople: "N/A",
+        KolobDateUpdated: "N/A",
         MainPage: 'Home', // Home, Parking, Entrances 
         EntrancePage: 'SouthEast',
         Entrances: ['SouthEast', 'East', 'River', 'Kolob'],
@@ -45,10 +45,10 @@ var app = new Vue({
         loadStats: function() {
             var vm = this;
             axios.get("https://trailwaze.info/zion/request.php").then(response => {
-                vm.SEVehicles = response.data[0].count;
+                vm.SEPeople = response.data[0].count;
                 vm.SEDateUpdated = response.data[0].date;
 
-                vm.EVehicles = response.data[2].count;
+                vm.EPeople = response.data[2].count;
                 vm.EastDateUpdated = response.data[2].date;
             }).catch(error => {
                 vm = "Fetch " + error;
