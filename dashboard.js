@@ -4,25 +4,27 @@ var app = new Vue({
     el: '#app',
     vuetify: new Vuetify(),
     data: {
+        todaysDate: "",
+        yesterdaysDate: "",
         currentTemp: "75",
-        titleStatus: "N/A",
+        titleStatus: "Busy",
         totalVisitors: "9,000",
-        parkingStat: "N/A%",
+        parkingStat: "3",
         eastEntranceStat: "N/A",
         southEntranceStat: "N/A",
         yesterdayTitleStatus: "Busy",
         yesterdayZionTotal: "N/A",
         yesterdayCanyonTotal: "N/A",
-        SEVehicles: "N/A",
-        SEPeople: "...",
-        SEDateUpdated: "...",
-        EVehicles: "N/A",
-        EPeople: "...",
-        EastDateUpdated: "...",
-        riverVehicles: "N/A",
+        SVehicles: "1,000",
+        SPeople: "N/A",
+        SDateUpdated: "N/A",
+        EVehicles: "600",
+        EPeople: "N/A",
+        EastDateUpdated: "N/A",
+        riverVehicles: "",
         riverPeople: "N/A",
         RiverDateUpdated: "N/A",
-        kolobVehicles: "N/A",
+        kolobVehicles: "300",
         kolobPeople: "N/A",
         KolobDateUpdated: "N/A",
         MainPage: 'Home', // Home, Parking, Entrances 
@@ -38,22 +40,47 @@ var app = new Vue({
     },
     created: function(){
         this.loadStats();
-        this.stops();
         //this.getWeatherAPI();
     },
     methods: {
+        getTodaysDate: function () {
+            var date = new Date();
+            var yesterday = new Date(date);
+            yesterday.setDate(yesterday.getDate()-1);
+            var days = ["Sun", "Mon", "Tues", "Wed", "Thurs", "Fri", "Sat"];
+            var months = ["Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec"];
+
+            var fulldate = days[date.getDay()] + ", " + months[date.getMonth()] + " " + date.getDate() + " " + date.getFullYear();
+            this.todaysDate = fulldate;
+            var yesterdayDate = days[yesterday.getDay()] + ", " + months[yesterday.getMonth()] + " " + yesterday.getDate() + " " + yesterday.getFullYear();
+            this.yesterdaysDate = yesterdayDate;
+        },
         loadStats: function() {
             var vm = this;
             axios.get("https://trailwaze.info/zion/request.php").then(response => {
-                vm.SEPeople = response.data[0].count;
-                vm.SEDateUpdated = response.data[0].date;
+                vm.southEntranceStat = response.data[0].count;
+                vm.SPeople = response.data[0].count;
+                vm.SDateUpdated = response.data[0].date;
 
+                vm.eastEntranceStat = response.data[2].count;
                 vm.EPeople = response.data[2].count;
                 vm.EastDateUpdated = response.data[2].date;
+
+                vm.riverPeople = response.data[4].count;
+                vm.RiverDateUpdated = response.data[4].date;
+
+                vm.kolobPeople = 623;
+                vm.KolobDateUpdated = vm.SDateUpdated;
+
+                vm.yesterdayCanyonTotal = vm.SPeople + vm.EPeople + vm.riverPeople;
+                vm.yesterdayZionTotal = vm.yesterdayCanyonTotal + vm.kolobPeople;
+
+                this.setStop("line1", 26, vm.SPeople/1000);
+                this.setStop("line2", 34, vm.EPeople/1000);
+                this.setStop("line3", 42, 0.5/10);
             }).catch(error => {
                 vm = "Fetch " + error;
             });
-            
         },
         // getWeatherAPI: function() {
         //     let parser = new DOMParser();
@@ -67,16 +94,10 @@ var app = new Vue({
         setStop: function(id, radius, stop){
             var c = document.getElementById(id);
             c.className = "background";
-            var stopVal = Math.PI * radius * 2 * (stop/10);
+            var stopVal = Math.PI * radius * 2 * (stop);
             c.setAttribute("stroke-dasharray", stopVal + ", 3000");
             c.setAttribute("stroke-dashoffset", stopVal);
             c.className = "overlayLine";
-        },
-        stops: function(){
-            this.setStop("line1", 26, 4);
-            this.setStop("line2", 34, 8);
-            this.setStop("line3", 42, 6);
-            console.log(this.SEVehicles, this.EVehicles);
         },
         visitorSelected: function(){
             this.visitor_selected = true;
@@ -101,7 +122,9 @@ var app = new Vue({
             this.R_selected = true;
             this.ETI_selected = false;
         },
-
     },
+    mounted() {
+        this.getTodaysDate();
+    }
 });
 

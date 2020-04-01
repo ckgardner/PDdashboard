@@ -25,6 +25,49 @@ body{
     font-style: normal;
     font-weight: normal;
 }
+#researchTextWrapper, #researchTitle{
+    width: 385px;
+    margin: 0 auto;
+    font-size: 20px;
+    line-height: 23px;
+    text-align: center;
+    color: #283941;
+    text-align: center;
+}
+#researchTitle{
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+#logosWrapper{
+    width: 700px;
+    margin: 0 auto;
+}
+.column{
+    float: left;
+    width: 33.33%;
+    padding: 5px;
+    text-align: center;
+    margin-top: 93px;
+}
+#dsuLogo{
+    background-image: url("images/DSU-Logo-03\ 1.svg");
+    height: 49px;
+    width: 199px;
+    margin-left: auto;
+    margin-top: 15px;
+}
+#iicLogo{
+    background-image: url("images/iic-logo\ 1.svg");
+    height: 85px;
+    width: 85px;
+}
+#suuLogo{
+    background-image: url("images/Primary-Wordmark-bw\ 1.svg");
+    width: 200px;
+    height: 55px;
+    margin-right: auto;
+    margin-top: 15px;
+}
 #titleWrapper{
     width: 65%;
     margin: 0 auto;
@@ -101,6 +144,9 @@ td{
 th{
     text-align: left;
     font-weight: bold;
+}
+.gold{
+    color: #C9AC68;
 }
 .right{
     text-align: right;

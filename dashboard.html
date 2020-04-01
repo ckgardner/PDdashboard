@@ -18,10 +18,28 @@
 		<div id="app">
 			<v-app>
 				<v-content>
+					<div v-if="MainPage=='Login' ">
+						<div id="researchTextWrapper">
+							<h3 id="researchTitle">For Research Purposes Only</h3>
+							<span>No warranty is made by DSU, SUU or the National Park Service as to the accuracy or reliability of this Data. By entering you are agreeing to the terms and conditions of this site.</span><br>
+							<span>This Site contains information which may be confidential and/or privileged. If you are not specifically authorized to access this site, be aware that any disclosure, copying, distribution or use of the contents of this site is strictly prohibited by law.</span>
+						</div>
+						<div id="logosWrapper">
+							<div class="column">
+								<img id="dsuLogo">
+							</div>
+							<div class="column">
+								<img id="iicLogo">
+							</div>
+							<div class="column">
+								<img id="suuLogo">
+							</div>
+						</div>
+					</div>
 					<div v-if="MainPage=='Home' ">
 						<div> <!-- App bar for main page -->
 							<v-app-bar dense>
-								<v-toolbar-title v-on:click="MainPage='Home' ">Parkdata</v-toolbar-title>
+								<v-toolbar-title v-on:click="MainPage='Home' ">Parkdata - Zion National Park</v-toolbar-title>
 								<v-spacer></v-spacer>
 								<v-btn text color="#507282" v-on:click="MainPage='Parking' ">Parking</v-btn>
 								<!-- drop down for Entrances -->
@@ -41,13 +59,13 @@
 
 						<div id="titleWrapper">
 							<div id="totalVisitors">{{totalVisitors}} Visitors in 2019</div>
-							<div id="title">Zion National Park Today:</div>
+							<div id="title">Today: {{todaysDate}}</div>
 							<div id="titleStatus">{{titleStatus}}</div>
 						</div>
 						<div class="stat" id="parkingStat">
 							<div class="statWrapper">
 								<img class="statImage" src="icons/parking_outline.svg">
-								<span>Parking: {{parkingStat}} Full</span>
+								<span>Parking: {{parkingStat}}% Full</span>
 							</div>
 						</div>
 						<div class="stat" id="eastEntranceStat">
@@ -75,18 +93,8 @@
 							</svg>
 						</div>
 						<div id="yesterdayWrapper">
-							<div id="title" class="yesterdayTitle">Zion National Park Yesterday:</div>
-							<div id="titleStatus" class="yesterdayTitleStatus">{{yesterdayTitleStatus}}</div>
-							<table id="yesterdaysTotals">
-								<tr>
-								<th>Zion Total Visitors</th>
-								<th class="right">Canyon Total Visitors</th>
-								</tr>
-								<tr>
-								<td>{{yesterdayZionTotal}}</td>
-								<td class="right">{{yesterdayCanyonTotal}}</td>
-								</tr>
-							</table>
+							<div id="title" class="yesterdayTitle">Yesterday: {{yesterdaysDate}}</div>
+							<div id="titleStatus" class="yesterdayTitleStatus"></div>
 							<table id="yesterdaysEntrances">
 								<tr>
 								<th>Entrance</th>
@@ -95,25 +103,40 @@
 								<th class="right">Date Updated</th>
 								</tr>
 								<tr>
-								<td>South East</td>
-								<td class="right">{{SEVehicles}}</td>
-								<td class="right">{{SEPeople}}</td>
-								<td class="right">{{SEDateUpdated}}</td>
+								<td>South</td>
+								<td class="right">{{SVehicles}}</td>
+								<td class="right">{{SPeople}}</td>
+								<td class="right">{{SDateUpdated}}</td>
 								</tr>
+								<tr>
 								<td>East</td>
 								<td class="right">{{EVehicles}}</td>
 								<td class="right">{{EPeople}}</td>
 								<td class="right">{{EastDateUpdated}}</td>
 								</tr>
+								<tr>
 								<td>River</td>
 								<td class="right">{{riverVehicles}}</td>
 								<td class="right">{{riverPeople}}</td>
 								<td class="right">{{RiverDateUpdated}}</td>
 								</tr>
+								<tr>
+								<td class="gold">Canyon Total</td>
+								<td class="right"></td>
+								<td class="right gold">{{yesterdayCanyonTotal}}</td>
+								<td class="right gold">{{SDateUpdated}}</td>
+								</tr>
+								<tr>
 								<td>Kolob</td>
 								<td class="right">{{kolobVehicles}}</td>
 								<td class="right">{{kolobPeople}}</td>
 								<td class="right">{{KolobDateUpdated}}</td>
+								</tr>
+								<tr>
+								<td class="gold">Zion Total</td>
+								<td class="right"></td>
+								<td class="right gold">{{yesterdayZionTotal}}</td>
+								<td class="right gold">{{SDateUpdated}}</td>
 								</tr>
 							</table>
 						</div>
