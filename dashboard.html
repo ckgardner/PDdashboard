@@ -19,6 +19,18 @@
 			<v-app>
 				<v-content>
 					<div v-if="MainPage=='Login' ">
+						<div> <!-- App bar for login page -->
+							<v-app-bar dense>
+								<v-toolbar-title id="loginTitle" v-on:click="MainPage='Login' "><img class="bison" src="images/blueBison.svg">Parkdata</v-toolbar-title>
+								<v-spacer></v-spacer>
+								<v-btn text color="#507282" id="requestAccessButton" v-on:click="MainPage='requestAccess' ">Request Access</v-btn>
+								<v-btn text color="#507282" id="loginButton" v-on:click="MainPage='loggingIn' ">Login</v-btn>
+							</v-app-bar>
+						</div>
+						<div id="loginWrapper">
+							<img id="loginImage" src="images/background medium.png">
+							<button id="requestAccess" v-on:click="MainPage='requestAccess'">Request Access</button>
+						</div>
 						<div id="researchTextWrapper">
 							<h3 id="researchTitle">For Research Purposes Only</h3>
 							<span>No warranty is made by DSU, SUU or the National Park Service as to the accuracy or reliability of this Data. By entering you are agreeing to the terms and conditions of this site.</span><br>
@@ -36,10 +48,62 @@
 							</div>
 						</div>
 					</div>
+					
+					<div v-if="MainPage=='requestAccess'">
+						<div> <!-- App bar for request access page -->
+							<v-app-bar dense>
+								<v-toolbar-title id="loginTitle" v-on:click="MainPage='Login' "><img class="bison" src="images/blueBison.svg">Parkdata</v-toolbar-title>
+								<v-spacer></v-spacer>
+								<v-btn text color="#507282" id="requestAccessButton" v-on:click="MainPage='requestAccess' ">Request Access</v-btn>
+								<v-btn text color="#507282" id="loginButton" v-on:click="MainPage='loggingIn' ">Login</v-btn>
+							</v-app-bar>
+						</div>
+						<div class="formWrapper">
+							<div class="loginTitles">Request Access</div>
+
+							<div v-if="nameEmpty" v-bind:class="{nameError: nameEmpty}">Your Name</div>
+							<input class="inputs" v-bind:class="{name: nameEmpty}" v-model="nameField" placeholder="Your Name" type="name">
+							<div v-if="nameEmpty" v-bind:class="{nameReq: nameEmpty}">Required</div>
+
+							<div v-if="emailEmpty" v-bind:class="{emailError: emailEmpty}">Your Email</div>
+							<input class="inputs" v-bind:class="{email: emailEmpty}" v-model="emailField" placeholder="Your Email" type="email">
+							<div v-if="emailEmpty" v-bind:class="{emailReq: emailEmpty}">Required</div>
+
+							<textarea rows="10" maxlength="500" v-model="messageField" class="inputsMessage" placeholder="Message" type="message"></textarea>
+							<button class="submitButton" v-on:click="sendClicked">Send</button>
+						</div>
+
+					</div>
+
+					<div v-if="MainPage=='loggingIn'">
+						<div> <!-- App bar for logging in page -->
+							<v-app-bar dense>
+								<v-toolbar-title id="loginTitle" v-on:click="MainPage='Login' "><img class="bison" src="images/blueBison.svg">Parkdata</v-toolbar-title>
+								<v-spacer></v-spacer>
+								<v-btn text color="#507282" id="requestAccessButton" v-on:click="MainPage='requestAccess' ">Request Access</v-btn>
+								<v-btn text color="#507282" id="loginButton" v-on:click="MainPage='loggingIn' ">Login</v-btn>
+							</v-app-bar>
+						</div>
+						<div class="formWrapper">
+							<div class="loginTitles">Login</div>
+
+							<div v-if="usernameEmpty" v-bind:class="{usernameError: usernameEmpty}">Username</div>
+							<input class="inputs" v-bind:class="{username: usernameEmpty}" v-model="usernameField" placeholder="Username" type="text">
+							<div v-if="usernameEmpty" v-bind:class="{usernameReq: usernameEmpty}">Invalid Username</div>
+
+							<div v-if="passEmpty" v-bind:class="{passError: passEmpty}">Password</div>
+							<input class="inputs" v-bind:class="{pass: passEmpty}" v-model="passField" placeholder="Password" type="text">
+							<div v-if="passEmpty" v-bind:class="{passReq: passEmpty}">Invalid Password</div>
+							
+							<button class="submitButton" v-on:click="loginClicked">Login</button>
+						</div>
+
+					</div>
+
 					<div v-if="MainPage=='Home' ">
 						<div> <!-- App bar for main page -->
 							<v-app-bar dense>
-								<v-toolbar-title v-on:click="MainPage='Home' ">Parkdata - Zion National Park</v-toolbar-title>
+								<v-toolbar-title class="homeTitle" v-on:click="MainPage='Home' ">Parkdata - Zion National Park</v-toolbar-title>
 								<v-spacer></v-spacer>
 								<v-btn text color="#507282" v-on:click="MainPage='Parking' ">Parking</v-btn>
 								<!-- drop down for Entrances -->
@@ -54,6 +118,7 @@
 									  </v-list-item>
 									</v-list>
 								</v-menu>
+								<v-btn text color="#507282" v-on:click="logoutClicked">Log Out</v-btn>
 							</v-app-bar>
 						</div>
 

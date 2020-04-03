@@ -4,6 +4,17 @@ var app = new Vue({
     el: '#app',
     vuetify: new Vuetify(),
     data: {
+        nameField: "",
+        nameEmpty: false,
+        emailField: "",
+        emailEmpty: false,
+        messageField: "",
+
+        usernameField: "",
+        usernameEmpty: false,
+        passField: "",
+        passEmpty: false,
+
         todaysDate: "",
         yesterdaysDate: "",
         currentTemp: "75",
@@ -27,7 +38,7 @@ var app = new Vue({
         kolobVehicles: "300",
         kolobPeople: "N/A",
         KolobDateUpdated: "N/A",
-        MainPage: 'Home', // Home, Parking, Entrances 
+        MainPage: 'Login', // Login, loggingIn, requestAccess, Home, Parking, Entrances 
         EntrancePage: 'SouthEast',
         Entrances: ['SouthEast', 'East', 'River', 'Kolob'],
         serverStats: [],
@@ -75,8 +86,8 @@ var app = new Vue({
                 vm.yesterdayCanyonTotal = vm.SPeople + vm.EPeople + vm.riverPeople;
                 vm.yesterdayZionTotal = vm.yesterdayCanyonTotal + vm.kolobPeople;
 
-                this.setStop("line1", 26, vm.SPeople/1000);
-                this.setStop("line2", 34, vm.EPeople/1000);
+                this.setStop("line1", 26, vm.southEntranceStat/2500);
+                this.setStop("line2", 34, vm.eastEntranceStat/2500);
                 this.setStop("line3", 42, 0.5/10);
             }).catch(error => {
                 vm = "Fetch " + error;
@@ -122,6 +133,59 @@ var app = new Vue({
             this.R_selected = true;
             this.ETI_selected = false;
         },
+        validateRequestData: function(){
+            if (this.nameField == ""){
+                this.nameEmpty = true;
+            }else{
+                this.nameEmpty = false;
+            }
+            if (this.emailField == ""){
+                this.emailEmpty = true;
+            }else{
+                this.emailEmpty = false;
+            }
+            if (this.nameEmpty == true || this.emailEmpty == true){
+                return false;
+            }else{
+                return true;
+            }
+        },
+        sendClicked: function(){
+            if(this.validateRequestData()){
+                this.MainPage = "Login";
+                this.nameField = "";
+                this.emailField = "";
+                this.messageField = "";
+            }
+        },
+        validateLoginData: function(){
+            if (this.usernameField == ""){
+                this.usernameEmpty = true;
+            }else{
+                this.usernameEmpty = false;
+            }
+            if (this.passField == ""){
+                this.passEmpty = true;
+            }else{
+                this.passEmpty = false;
+            }
+            if (this.usernameEmpty == true || this.passEmpty == true){
+                return false;
+            }else{
+                return true;
+            }
+        },
+        loginClicked: function(){
+            if(this.validateLoginData()){
+                this.MainPage = "Home";
+                this.usernameField = "";
+                this.passField = "";
+                this.loadStats();
+            }
+        },
+        logoutClicked: function(){
+            this.MainPage = "Login";
+        }
     },
     mounted() {
         this.getTodaysDate();
