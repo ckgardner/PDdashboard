@@ -38,7 +38,7 @@ var app = new Vue({
         kolobVehicles: "N/A",
         kolobPeople: "N/A",
         KolobDateUpdated: "N/A",
-        MainPage: 'Home', // Login, loggingIn, requestAccess, Home, Parking, Entrances 
+        MainPage: 'Login', // Login, loggingIn, requestAccess, Home, Parking, Entrances 
         EntrancePage: 'SouthEast',
         Entrances: ['SouthEast', 'East', 'River', 'Kolob'],
         serverStats: [],
