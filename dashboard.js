@@ -26,19 +26,19 @@ var app = new Vue({
         yesterdayTitleStatus: "Busy",
         yesterdayZionTotal: "N/A",
         yesterdayCanyonTotal: "N/A",
-        SVehicles: "1,000",
+        SVehicles: "N/A",
         SPeople: "N/A",
         SDateUpdated: "N/A",
-        EVehicles: "600",
+        EVehicles: "N/A",
         EPeople: "N/A",
         EastDateUpdated: "N/A",
         riverVehicles: "",
         riverPeople: "N/A",
         RiverDateUpdated: "N/A",
-        kolobVehicles: "300",
+        kolobVehicles: "N/A",
         kolobPeople: "N/A",
         KolobDateUpdated: "N/A",
-        MainPage: 'Login', // Login, loggingIn, requestAccess, Home, Parking, Entrances 
+        MainPage: 'Home', // Login, loggingIn, requestAccess, Home, Parking, Entrances 
         EntrancePage: 'SouthEast',
         Entrances: ['SouthEast', 'East', 'River', 'Kolob'],
         serverStats: [],
@@ -70,25 +70,27 @@ var app = new Vue({
             var vm = this;
             axios.get("https://trailwaze.info/zion/request.php").then(response => {
                 vm.southEntranceStat = response.data[0].count;
-                vm.SPeople = response.data[0].count;
+                vm.SVehicles = response.data[0].count;
                 vm.SDateUpdated = response.data[0].date;
 
                 vm.eastEntranceStat = response.data[2].count;
-                vm.EPeople = response.data[2].count;
+                vm.EVehicles = response.data[2].count;
                 vm.EastDateUpdated = response.data[2].date;
 
                 vm.riverPeople = response.data[4].count;
                 vm.RiverDateUpdated = response.data[4].date;
 
-                vm.kolobPeople = 623;
-                vm.KolobDateUpdated = vm.SDateUpdated;
+                vm.parkingStat = response.data[6].count + response.data[7].count;
+                vm.parkingStat/=500;
 
-                vm.yesterdayCanyonTotal = vm.SPeople + vm.EPeople + vm.riverPeople;
-                vm.yesterdayZionTotal = vm.yesterdayCanyonTotal + vm.kolobPeople;
+                vm.yesterdayCanyonTotal = vm.SVehicles + vm.EVehicles + vm.riverPeople;
+                vm.yesterdayZionTotal = vm.yesterdayCanyonTotal;
 
                 this.setStop("line1", 26, vm.southEntranceStat/2500);
                 this.setStop("line2", 34, vm.eastEntranceStat/2500);
-                this.setStop("line3", 42, 0.5/10);
+                this.setStop("line3", 42, vm.parkingStat);
+                vm.parkingStat*=100;
+                vm.parkingStat = vm.parkingStat.toFixed(0);
             }).catch(error => {
                 vm = "Fetch " + error;
             });
@@ -177,10 +179,10 @@ var app = new Vue({
         },
         loginClicked: function(){
             if(this.validateLoginData()){
+                this.loadStats();
                 this.MainPage = "Home";
                 this.usernameField = "";
                 this.passField = "";
-                this.loadStats();
             }
         },
         logoutClicked: function(){
