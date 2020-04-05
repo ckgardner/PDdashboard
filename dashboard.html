@@ -105,7 +105,7 @@
 							<v-app-bar dense>
 								<v-toolbar-title id="loginTitle" class="homeTitle" v-on:click="MainPage='Home' "><img class="bison" src="images/blueBison.svg">Parkdata - Zion National Park</v-toolbar-title>
 								<v-spacer></v-spacer>
-								<v-btn text color="#507282" v-on:click="MainPage='Parking' ">Parking</v-btn>
+								<v-btn text color="#507282" v-on:click="MainPage='Parking'; resetPages()">Parking</v-btn>
 								<!-- drop down for Entrances -->
 								<v-menu offset-y>
 									<template v-slot:activator="{ on }">
@@ -214,7 +214,7 @@
 						<v-card > 
 							<p v-on:click="MainPage='Home' " class="d-inline ml-6 titles"><img class="bison" src="images/blueBison.svg">Parkdata - Zion National Park</p>
 							<div class="d-inline float-right mt-3">
-								<v-btn v-on:click="MainPage='Parking' "text color="#507282" class="d-inline">Parking</v-btn>
+								<v-btn v-on:click="MainPage='Parking'; resetPages()"text color="#507282" class="d-inline">Parking</v-btn>
 								<v-menu offset-y>
 									<template v-slot:activator="{ on }">
 										<v-btn color="#507282" text v-on="on">Entrances</v-btn>
@@ -330,7 +330,7 @@
 						<v-card> 
 							<p v-on:click="MainPage='Home' " class="d-inline ml-6 titles"><img class="bison" src="images/blueBison.svg">Parkdata - Zion National Park</p>
 							<div class="d-inline float-right mt-3">
-								<v-btn v-on:click="MainPage='Parking' "text color="#507282" class="d-inline">Parking</v-btn>
+								<v-btn v-on:click="MainPage='Parking'; resetPages()"text color="#507282" class="d-inline">Parking</v-btn>
 								<v-menu offset-y>
 									<template v-slot:activator="{ on }">
 										<v-btn color="#507282" text v-on="on">Entrances</v-btn>
