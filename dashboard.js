@@ -17,6 +17,15 @@ var app = new Vue({
 
         todaysDate: "",
         yesterdaysDate: "",
+        previousDates: [
+            'March 19, 2020',
+            'March 18, 2020',
+            'March 17, 2020',
+            'March 16, 2020',
+            'March 15, 2020',
+            'March 14, 2020',
+        ],
+        date: 'March 20, 2020',
         currentTemp: "75",
         titleStatus: "Busy",
         totalVisitors: "9,000",

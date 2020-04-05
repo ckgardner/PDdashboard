@@ -103,7 +103,7 @@
 					<div v-if="MainPage=='Home' ">
 						<div> <!-- App bar for main page -->
 							<v-app-bar dense>
-								<v-toolbar-title class="homeTitle" v-on:click="MainPage='Home' ">Parkdata - Zion National Park</v-toolbar-title>
+								<v-toolbar-title id="loginTitle" class="homeTitle" v-on:click="MainPage='Home' "><img class="bison" src="images/blueBison.svg">Parkdata - Zion National Park</v-toolbar-title>
 								<v-spacer></v-spacer>
 								<v-btn text color="#507282" v-on:click="MainPage='Parking' ">Parking</v-btn>
 								<!-- drop down for Entrances -->
@@ -210,13 +210,14 @@
 					<!-- PARKING PAGES -->
 
 					<div v-if="MainPage=='Parking' ">
-						<v-card height="150px" class="pt-4"> <!-- App bar -->
-							<h2 v-on:click="MainPage='Home' " class="d-inline ml-6">Park Data</h2>
+						<!-- App bar -->
+						<v-card > 
+							<p v-on:click="MainPage='Home' " class="d-inline ml-6 titles"><img class="bison" src="images/blueBison.svg">Parkdata - Zion National Park</p>
 							<div class="d-inline float-right">
 								<v-btn v-on:click="MainPage='Parking' "text color="#507282" class="d-inline">Parking</v-btn>
 								<v-menu offset-y>
 									<template v-slot:activator="{ on }">
-										<v-btn color="#C9AC68" text v-on="on">Entrances</v-btn>
+										<v-btn color="#507282" text v-on="on">Entrances</v-btn>
 									</template>
 									<v-list>
 										<v-list-item v-for="(enterance, index) in Entrances" :key="index" v-on:click="MainPage='Entrances'; EntrancePage=enterance ">
@@ -225,7 +226,7 @@
 									</v-list>
 								</v-menu>
 							</div>
-							<div>
+							<div class="tabs">
 								<div class="visitorButtonContainer">
 									<button class="visitorButton parkButtons" :class="{parkButtonsfocus: visitor_selected}" @click="visitorSelected">VISITOR LOT</button>
 								</div>
@@ -234,37 +235,123 @@
 								</div>
 							</div>
 						</v-card> 
+						<!-- End App bar -->
 
-						<table id="parkingWrapper">
-							<tr>
-							<th>Time</th>
-							<th class="right">Occupancy Pct(%)</th>
-							</tr>
-						</table>
-					</div> <!-- End App bar -->
+						<div v-if="visitor_selected">
+							
+							<div id="parkingWrapper">
+								<p class="parkingInfo" >Parking Visitor Lot</p>
+							</div>
+									
+							<table id="parkingWrapper">
+								<tr> <!-- the date button added to the table -->
+									<th>
+									<v-menu offset-y>
+									<template v-slot:activator="{ on }">
+										<v-btn class="ml-n4" color="#507282" text v-on="on">{{date}} </v-btn>
+									</template>
+									<v-list>
+										<v-list-item v-for="(previousDate, index) in previousDates" :key="index" v-on:click="date=previousDate ">
+											<v-list-item-title>{{ previousDate }}</v-list-item-title>
+										</v-list-item>
+									</v-list>
+									</v-menu>
+									</th>
+									<th></th>
+								</tr>
+								<tr>
+								<td class="tableHeading">Time</td>
+								<td class="right tableHeading">Occupancy Pct(%)</td>
+								</tr>
+								<tr>
+								<td>2020-03-20 00:00:02</td>
+								<td class="right">1</td>
+								</tr>
+								<tr>
+								<td>2020-03-20 00:05:02</td>
+								<td class="right">2</td>
+								</tr>
+								<td>2020-03-20 00:10:01</td>
+								<td class="right">2</td>
+								</tr>
+								<tr>
+								<td>2020-03-20 00:15:01</td>
+								<td class="right">2</td>
+								</tr>
+								<td>2020-03-20 00:20:02</td>
+								<td class="right">2</td>
+								</tr>
+								<tr>
+								<td>2020-03-20 00:25:02</td>
+								<td class="right">2</td>
+								</tr>
+								<td>2020-03-20 00:30:01</td>
+								<td class="right">2</td>
+								</tr>
+								<tr>
+								<td>2020-03-20 00:35:01</td>
+								<td class="right">2</td>
+								</tr>
+								<tr>
+								<td>2020-03-20 00:40:02</td>
+								<td class="right">2</td>
+								</tr>
+								<td>2020-03-20 00:45:02</td>
+								<td class="right">2</td>
+								</tr>
+								<tr>
+								<td>2020-03-20 00:50:01</td>
+								<td class="right">2</td>
+								</tr>
+								<td>2020-03-20 00:55:01</td>
+								<td class="right">2</td>
+								</tr>
+							</table>
+						</div>
+						<!-- We will have to figure out a way to dynamically fill this data based off dates -->
+
+						<div v-if="overflow_selected">
+							<div class="d-flex justify-center mt-5">
+								<p class="parkingInfo">Parking Overflow Lot</p>
+							</div>
+							<table id="parkingWrapper">
+								<tr>
+								<th>Time</th>
+								<th class="right">Occupancy Pct(%)</th>
+								</tr>
+							</table>
+						</div>
+					</div> 
 
 					<!-- ENTRANCE PAGES -->
 
 					<div v-if="MainPage=='Entrances' ">
-						<div> <!-- App bar for main page -->
-							<v-app-bar dense>
-								<v-toolbar-title v-on:click="MainPage='Home' ">Parkdata</v-toolbar-title>
-								<v-spacer></v-spacer>
-								<v-btn text color="#507282" v-on:click="MainPage='Parking' ">Parking</v-btn>
-								<!-- drop down for Entrances -->
+						<!-- App bar -->
+						<v-card> 
+							<p v-on:click="MainPage='Home' " class="d-inline ml-6 titles"><img class="bison" src="images/blueBison.svg">Parkdata - Zion National Park</p>
+							<div class="d-inline float-right">
+								<v-btn v-on:click="MainPage='Parking' "text color="#507282" class="d-inline">Parking</v-btn>
 								<v-menu offset-y>
 									<template v-slot:activator="{ on }">
-									  <v-btn color="#C9AC68" text v-on="on">Entrances</v-btn>
+										<v-btn color="#507282" text v-on="on">Entrances</v-btn>
 									</template>
 									<v-list>
-									  <v-list-item
-										v-for="(enterance, index) in Entrances" :key="index" v-on:click="MainPage='Entrances'; EntrancePage=enterance ">
-										<v-list-item-title>{{ enterance }}</v-list-item-title>
-									  </v-list-item>
+										<v-list-item v-for="(enterance, index) in Entrances" :key="index" v-on:click="MainPage='Entrances'; EntrancePage=enterance ">
+											<v-list-item-title>{{ enterance }}</v-list-item-title>
+										</v-list-item>
 									</v-list>
 								</v-menu>
-							</v-app-bar>
-						</div>
+							</div>
+							<div class="tabs">
+								<div class="visitorButtonContainer">
+									<button class="visitorButton parkButtons" :class="{parkButtonsfocus: visitor_selected}" @click="visitorSelected">VISITOR LOT</button>
+								</div>
+								<div class="overflowButtonContainer">
+									<button class="overflowButton parkButtons" :class="{parkButtonsfocus: overflow_selected}" @click="overflowSelected">OVERFLOW LOT</button>
+								</div>
+							</div>
+						</v-card> 
+						<!-- End App bar -->
 
 						<h1>Entrances page</h1>
 						<div v-if="EntrancePage=='SouthEast'">
