@@ -118,7 +118,7 @@
 									  </v-list-item>
 									</v-list>
 								</v-menu>
-								<v-btn text color="#507282" v-on:click="logoutClicked">Log Out</v-btn>
+								<v-btn text color="#507282" v-on:click="logoutClicked(); resetPages();">Log Out</v-btn>
 							</v-app-bar>
 						</div>
 
@@ -213,7 +213,7 @@
 						<!-- App bar -->
 						<v-card > 
 							<p v-on:click="MainPage='Home' " class="d-inline ml-6 titles"><img class="bison" src="images/blueBison.svg">Parkdata - Zion National Park</p>
-							<div class="d-inline float-right">
+							<div class="d-inline float-right mt-3">
 								<v-btn v-on:click="MainPage='Parking' "text color="#507282" class="d-inline">Parking</v-btn>
 								<v-menu offset-y>
 									<template v-slot:activator="{ on }">
@@ -329,7 +329,7 @@
 						<!-- App bar -->
 						<v-card> 
 							<p v-on:click="MainPage='Home' " class="d-inline ml-6 titles"><img class="bison" src="images/blueBison.svg">Parkdata - Zion National Park</p>
-							<div class="d-inline float-right">
+							<div class="d-inline float-right mt-3">
 								<v-btn v-on:click="MainPage='Parking' "text color="#507282" class="d-inline">Parking</v-btn>
 								<v-menu offset-y>
 									<template v-slot:activator="{ on }">
@@ -343,50 +343,153 @@
 								</v-menu>
 							</div>
 							<div class="tabs">
-								<div class="visitorButtonContainer">
-									<button class="visitorButton parkButtons" :class="{parkButtonsfocus: visitor_selected}" @click="visitorSelected">VISITOR LOT</button>
+								<div class="ETIButtonContainer">
+									<button class="ETIButton entranceButtons" :class="{entranceButtonsfocus: ETI_selected}" @click="ETISelected">TRAFFIC IN</button>
 								</div>
-								<div class="overflowButtonContainer">
-									<button class="overflowButton parkButtons" :class="{parkButtonsfocus: overflow_selected}" @click="overflowSelected">OVERFLOW LOT</button>
+								<div class="ETOButtonContainer">
+									<button class="ETOButton entranceButtons" :class="{entranceButtonsfocus: ETO_selected}" @click="ETOSelected">TRAFFIC OUT</button>
+								</div>
+								<div class="RButtonContainer">
+									<button class="RButton entranceButtons" :class="{entranceButtonsfocus: R_selected}" @click="RSelected">RADAR</button>
+								</div>
+								<div class="SButtonContainer">
+									<button class="SButton entranceButtons" :class="{entranceButtonsfocus: S_selected}" @click="SSelected">STATES</button>
 								</div>
 							</div>
 						</v-card> 
 						<!-- End App bar -->
 
-						<h1>Entrances page</h1>
-						<div v-if="EntrancePage=='SouthEast'">
-							<h2>{{ EntrancePage }}</h2>
+						<div v-if="ETI_selected">
+							<p class="parkingInfo ml-6 mt-6">{{ EntrancePage }} Entrance</p>
+							<table id="entranceStats">
+								<tr>
+									<th>Date</th>
+									<th>Day</th>
+									<th class="right">Total Reads</th>
+									<th class="right">Calc Visitors</th>
+									<th class="right">Unique Plates</th>
+									<th class="right">Re-Entry Count</th>
+									<th class="right">Re-Entry %</th>
+								</tr>
+								<tr>
+									<td>2020-03-20</td>
+									<td>Fri</td>
+									<td class="right">40</td>
+									<td class="right">0</td>
+									<td class="right">31</td>
+									<td class="right">0</td>
+									<td class="right">0.00</td>
+								</tr>
+								<tr>
+									<td>2020-03-19</td>
+									<td>Thur</td>
+									<td class="right">17</td>
+									<td class="right">0</td>
+									<td class="right">17</td>
+									<td class="right">0</td>
+									<td class="right">0.00</td>
+								</tr>
+								<tr>
+									<td>2020-03-18</td>
+									<td>Wed</td>
+									<td class="right">1469</td>
+									<td class="right">3256</td>
+									<td class="right">2042</td>
+									<td class="right">3256</td>
+									<td class="right">3.89</td>
+								</tr>
+							</table>
 						</div>
-						<div v-if="EntrancePage=='East'">
-							<h2>{{ EntrancePage }}</h2>
+						<div v-if="ETO_selected">
+							<p class="parkingInfo ml-6 mt-6">{{ EntrancePage }} Entrance traffic out</p>
 						</div>
-						<div v-if="EntrancePage=='River'">
-							<h2>{{ EntrancePage }}</h2>
+						<div v-if="R_selected" class="mb-9">  
+							<p class="parkingInfo ml-6 mt-6">{{ EntrancePage }} Entrance Radar Traffic Report</p>
+							<p class="ml-6 mt-9 radarLabels">Total in/Out Summary</p>
+							<table class="ml-6" id="radarTable">
+								<tr>
+									<th>Start Date</th>
+									<th>End Date</th>
+									<th class="right">Incoming</th>
+									<th class="right">Outgoing</th>
+								</tr>
+								<tr>
+									<td>2020-02-13</td>
+									<td>2020-03-19</td>
+									<td class="right">51575</td>
+									<td class="right">39045</td>
+								</tr>
+							</table>
+
+							<v-card class="mt-9 ml-6 mr-6">
+								<div class="MonthButtonContainer">
+									<button class="MonthButton entranceButtons" :class="{entranceButtonsfocus: Month_selected}" @click="MonthSelected">MONTHLY</button>
+								</div>
+								<div class="DayButtonContainer">
+									<button class="DayButton entranceButtons" :class="{entranceButtonsfocus: Day_selected}" @click="DaySelected">DAILY</button>
+								</div>
+
+								<div class="mt-11 ml-4"> <!-- need to figure out spacing for these -->
+									<p class="d-inline mr-12 radarLabels">Incoming Speed by Direction</p>
+									<p class="d-inline ml-12 radarLabels">Outgoing Speed by Direction</p>
+								</div>
+									<table id="incominTable" class="pl-4 pr-4">
+										<tr >
+											<th>Month</th>
+											<th>Count</th>
+											<th>Low Speed</th>
+											<th>Avg Speed</th>
+											<th>Month</th>
+											<th>Count</th>
+											<th>Low Speed</th>
+											<th>Avg Speed</th>
+										</tr>
+										<tr>
+											<td>2020-02</td>
+											<td>25209</td>
+											<td>12</td>
+											<td>17.57</td>
+											<td>2020-02</td>
+											<td>25209</td>
+											<td>12</td>
+											<td>17.57</td>
+										</tr>
+										<tr>
+											<td>2020-03</td>
+											<td>26249</td>
+											<td>12</td>
+											<td>16.83</td>
+											<td>2020-03</td>
+											<td>26249</td>
+											<td>12</td>
+											<td>16.83</td>
+										</tr>
+									</table>
+									<p class="ml-4 mt-11 radarLabels">Traffic Count by Size</p>
+									<table class="pl-4 pr-4" id="trafficCountTable">
+										<tr>
+											<th>Month</th>
+											<th>Small</th>
+											<th>Medium</th>
+											<th>Large</th>
+										</tr>
+										<tr>
+											<td>2020-02</td>
+											<td>179</td>
+											<td>35775</td>
+											<td>1150</td>
+										</tr>
+									</table>
+									<p class=" mt-11 ml-4 radarLabels">Zion Count by Speed In</p>
+									<p class="ml-4 pb-6 radarLabels">Zion Count by Speed Out</p>
+							</v-card>
 						</div>
-						<div v-if="EntrancePage=='Kolob'">
-							<h2>{{ EntrancePage }}</h2>
+						<div v-if="S_selected">
+							<p class="parkingInfo ml-6 mt-6">Traffic Stats by State Canyon Junction</p>
 						</div>
 					
-						<div class="ETIButtonContainer">
-							<button class="ETIButton entranceButtons" :class="{entranceButtonsfocus: ETI_selected}" @click="ETISelected">EAST TRAFFIC IN</button>
-						</div>
-						<div class="ETOButtonContainer">
-							<button class="ETOButton entranceButtons" :class="{entranceButtonsfocus: ETO_selected}" @click="ETOSelected">EAST TRAFFIC OUT</button>
-						</div>
-						<div class="RButtonContainer">
-							<button class="RButton entranceButtons" :class="{entranceButtonsfocus: R_selected}" @click="RSelected">RADAR</button>
-						</div>
-						<table id="entranceStats">
-							<tr>
-							<th>Date</th>
-							<th>Day</th>
-							<th class="right">Total Reads</th>
-							<th class="right">Calc Visitors</th>
-							<th class="right">Unique Plates</th>
-							<th class="right">Re-Entry Count</th>
-							<th class="right">Re-Entry %</th>
-							</tr>
-						</table>
+						
+						
 					</div>
 				</div>
 				</v-content>

@@ -47,16 +47,19 @@ var app = new Vue({
         kolobVehicles: "N/A",
         kolobPeople: "N/A",
         KolobDateUpdated: "N/A",
-        MainPage: 'Login', // Login, loggingIn, requestAccess, Home, Parking, Entrances 
-        EntrancePage: 'SouthEast',
-        Entrances: ['SouthEast', 'East', 'River', 'Kolob'],
+        MainPage: 'Entrances', // Login, loggingIn, requestAccess, Home, Parking, Entrances 
+        EntrancePage: 'South East',
+        Entrances: ['South East', 'East', 'River', 'Kolob'],
         serverStats: [],
 
         visitor_selected: true,
         overflow_selected: false,
-        ETI_selected: true,
+        ETI_selected: false,
         ETO_selected: false,
-        R_selected: false,
+        R_selected: true,
+        S_selected: false,
+        Month_selected: true,
+        Day_selected: false
     },
     created: function(){
         this.loadStats();
@@ -133,16 +136,33 @@ var app = new Vue({
             this.ETO_selected = false;
             this.R_selected = false;
             this.ETI_selected = true;
+            this.S_selected = false;
         },
         ETOSelected: function(){
             this.ETO_selected = true;
             this.R_selected = false;
             this.ETI_selected = false;
+            this.S_selected = false;
         },
         RSelected: function(){
             this.ETO_selected = false;
             this.R_selected = true;
             this.ETI_selected = false;
+            this.S_selected = false;
+        },
+        SSelected: function(){
+            this.ETO_selected = false;
+            this.R_selected = false;
+            this.ETI_selected = false;
+            this.S_selected = true;
+        },
+        MonthSelected: function(){
+            this.Month_selected = true;
+            this.Day_selected = false;
+        },
+        DaySelected: function(){
+            this.Month_selected = false;
+            this.Day_selected = true;
         },
         validateRequestData: function(){
             if (this.nameField == ""){
@@ -196,6 +216,10 @@ var app = new Vue({
         },
         logoutClicked: function(){
             this.MainPage = "Login";
+        },
+        resetPages: function(){
+            this.ETISelected();
+            this.MonthSelected();
         }
     },
     mounted() {
