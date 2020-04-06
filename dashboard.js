@@ -47,16 +47,16 @@ var app = new Vue({
         kolobVehicles: "N/A",
         kolobPeople: "N/A",
         KolobDateUpdated: "N/A",
-        MainPage: 'Entrances', // Login, loggingIn, requestAccess, Home, Parking, Entrances 
+        MainPage: 'Login', // Login, loggingIn, requestAccess, Home, Parking, Entrances 
         EntrancePage: 'South East',
         Entrances: ['South East', 'East', 'River', 'Kolob'],
         serverStats: [],
 
         visitor_selected: true,
         overflow_selected: false,
-        ETI_selected: false,
+        ETI_selected: true,
         ETO_selected: false,
-        R_selected: true,
+        R_selected: false,
         S_selected: false,
         Month_selected: true,
         Day_selected: false
