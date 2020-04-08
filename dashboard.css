@@ -363,6 +363,7 @@ th{
 }
 .parkButtons{
     color: #507282;
+    margin: 0px 20px;
 }
 .entranceButtons{
     color: #666666;
@@ -419,6 +420,7 @@ th{
         width: 420px;
         margin: 0 auto;
         margin-top: 15px;
+        margin-bottom: 20px;
     }
     table{
         width: 420px;

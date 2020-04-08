@@ -47,7 +47,7 @@ var app = new Vue({
         kolobVehicles: "N/A",
         kolobPeople: "N/A",
         KolobDateUpdated: "N/A",
-        MainPage: 'Login', // Login, loggingIn, requestAccess, Home, Parking, Entrances 
+        MainPage: 'Home', // Login, loggingIn, requestAccess, Home, Parking, Entrances 
         EntrancePage: 'South East',
         Entrances: ['South East', 'East', 'River', 'Kolob'],
         serverStats: [],
@@ -220,6 +220,10 @@ var app = new Vue({
         resetPages: function(){
             this.ETISelected();
             this.MonthSelected();
+        },
+        statRefresh: function(){
+            console.log("stats refreshing");
+            this.loadStats();
         }
     },
     mounted() {
