@@ -81,26 +81,70 @@ var app = new Vue({
         loadStats: function() {
             var vm = this;
             axios.get("https://trailwaze.info/zion/request.php").then(response => {
-                vm.southEntranceStat = response.data[0].count;
-                vm.SVehicles = response.data[0].count;
-                vm.SDateUpdated = response.data[0].date;
+                if(response.data.hasOwnProperty("ZionSouthEntrance")){
+                    if(response.data.ZionSouthEntrance.hasOwnProperty("Yesterday")){
+                        vm.SVehicles = response.data.ZionSouthEntrance.Yesterday.count;
+                        vm.SDateUpdated = response.data.ZionSouthEntrance.Yesterday.date;
+                    }if(response.data.ZionSouthEntrance.hasOwnProperty("Today")){
+                        vm.southEntranceStat = response.data.ZionSouthEntrance.Today.count;
+                    }
+                }
 
-                vm.eastEntranceStat = response.data[2].count;
-                vm.EVehicles = response.data[2].count;
-                vm.EastDateUpdated = response.data[2].date;
+                if(response.data.hasOwnProperty("ZionEastEntrance1")){
+                    if(response.data.ZionEastEntrance1.hasOwnProperty("Yesterday")){
+                        vm.EVehicles = response.data.ZionEastEntrance1.Yesterday.count;
+                        vm.EastDateUpdated = response.data.ZionEastEntrance1.Yesterday.date;
+                    }if(response.data.ZionEastEntrance1.hasOwnProperty("Today")){
+                        vm.eastEntranceStat = response.data.ZionEastEntrance1.Today.count;
+                    }
+                }
+                    
+                if(response.data.hasOwnProperty("ZionRiverEntrance")){
+                    if(response.data.ZionRiverEntrance.hasOwnProperty("Yesterday")){
+                        vm.riverPeople = response.data.ZionRiverEntrance.Yesterday.count;
+                        vm.RiverDateUpdated = response.data.ZionRiverEntrance.Yesterday.date;
+                    }
+                }
 
-                vm.riverPeople = response.data[4].count;
-                vm.RiverDateUpdated = response.data[4].date;
+                if(response.data.hasOwnProperty("ParkingVisitorCenter") || response.data.hasOwnProperty("ParkingOverflow")){
+                    var parkingStatSum = 0;
+                    if(response.data.hasOwnProperty("ParkingVisitorCenter") && response.data.ParkingVisitorCenter.hasOwnProperty("Today")){
+                        parkingStatSum += response.data.ParkingVisitorCenter.Today.count;
+                    }
+                    if(response.data.hasOwnProperty("ParkingOverflow") && response.data.ParkingOverflow.hasOwnProperty("Today")){
+                        parkingStatSum += response.data.ParkingOverflow.Today.count;
+                    }
+                    vm.parkingStat = parkingStatSum;
+                    vm.parkingStat/=500;
+                }
 
-                vm.parkingStat = response.data[6].count + response.data[7].count;
-                vm.parkingStat/=500;
-
-                vm.yesterdayCanyonTotal = vm.SVehicles + vm.EVehicles + vm.riverPeople;
+                vm.yesterdayCanyonTotal = 0;
+                if(vm.SVehicles != "N/A"){vm.yesterdayCanyonTotal += vm.SVehicles;}
+                if(vm.EVehicles != "N/A"){vm.yesterdayCanyonTotal += vm.EVehicles;}
+                if(vm.riverPeople != "N/A"){vm.yesterdayCanyonTotal += vm.riverPeople;}
                 vm.yesterdayZionTotal = vm.yesterdayCanyonTotal;
+                
+                if(response.data.hasOwnProperty("LastYearVisitation")){
+                    vm.totalVisitors = response.data.LastYearVisitation.count;
+                }
 
-                this.setStop("line1", 26, vm.southEntranceStat/2500);
-                this.setStop("line2", 34, vm.eastEntranceStat/2500);
-                this.setStop("line3", 42, vm.parkingStat);
+                var PS = vm.parkingStat;
+                if (PS < 0.1){
+                    PS = 0.1;
+                }
+
+                var SES = vm.southEntranceStat / 2500;
+                if (SES < 0.1){
+                    SES = 0.1;
+                }
+                var ES = vm.eastEntranceStat / 2500;
+                if (ES < 0.1){
+                    ES = 0.1;
+                }
+
+                this.setStop("line1", 26, SES);
+                this.setStop("line2", 34, ES);
+                this.setStop("line3", 42, PS);
                 vm.parkingStat*=100;
                 vm.parkingStat = vm.parkingStat.toFixed(0);
             }).catch(error => {
