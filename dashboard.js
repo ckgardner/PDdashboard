@@ -51,6 +51,7 @@ var app = new Vue({
         EntrancePage: 'South East',
         Entrances: ['South East', 'East', 'River', 'Kolob'],
         serverStats: [],
+        weatherImage: "icons/lightning_outline.svg",
 
         visitor_selected: true,
         overflow_selected: false,
