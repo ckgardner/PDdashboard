@@ -1,4 +1,27 @@
 /*jshint esversion: 6 */
+import VueApexCharts from 'vue-apexcharts';
+
+Vue.component('apexchart', VueApexCharts);
+
+var app1 = new Vue({
+    el: '#appl',
+    data: function(){
+        return {
+            options: {
+              chart: {
+                id: 'vuechart-example'
+              },
+              xaxis: {
+                categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998]
+              }
+            },
+            series: [{
+              name: 'series-1',
+              data: [30, 40, 45, 50, 49, 60, 70, 91]
+            }]
+        };
+    }
+});
 
 var app = new Vue({
     el: '#app',
@@ -47,7 +70,7 @@ var app = new Vue({
         kolobVehicles: "N/A",
         kolobPeople: "N/A",
         KolobDateUpdated: "N/A",
-        MainPage: 'Home', // Login, loggingIn, requestAccess, Home, Parking, Entrances 
+        MainPage: 'Entrances', // Login, loggingIn, requestAccess, Home, Parking, Entrances 
         EntrancePage: 'South East',
         Entrances: ['South East', 'East', 'River', 'Kolob'],
         serverStats: [],
