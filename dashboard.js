@@ -47,7 +47,6 @@ var app = new Vue({
             'March 15, 2020',
             'March 14, 2020',
         ],
-        date: 'March 20, 2020',
         currentTemp: "75",
         titleStatus: "Busy",
         totalVisitors: "9,000",
@@ -70,8 +69,8 @@ var app = new Vue({
         kolobPeople: "N/A",
         KolobDateUpdated: "N/A",
         MainPage: 'Home', // Login, loggingIn, requestAccess, Home, Parking, Entrances 
-        EntrancePage: 'South East',
-        Entrances: ['South East', 'East', 'River', 'Kolob'],
+        EntrancePage: 'South',
+        Entrances: ['South', 'East', 'River', 'Kolob'],
         serverStats: [],
         weatherImage: "icons/lightning_outline.svg",
 
@@ -154,6 +153,7 @@ var app = new Vue({
                 var PS = vm.parkingStat;
                 if (PS < 0.1){
                     PS = 0.1;
+                    vm.parkingStat = 0.1;
                 }
 
                 var SES = vm.southEntranceStat / 2500;

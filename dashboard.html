@@ -250,7 +250,7 @@
 									<th>
 									<v-menu offset-y>
 									<template v-slot:activator="{ on }">
-										<v-btn class="ml-n4" color="#507282" text v-on="on">{{date}} </v-btn>
+										<v-btn class="ml-n4" color="#507282" text v-on="on">{{todaysDate}} </v-btn>
 									</template>
 									<v-list>
 										<v-list-item v-for="(previousDate, index) in previousDates" :key="index" v-on:click="date=previousDate ">
@@ -346,10 +346,10 @@
 							</div>
 							<div class="tabs">
 								<div class="ETIButtonContainer">
-									<button class="ETIButton entranceButtons" :class="{entranceButtonsfocus: ETI_selected}" @click="ETISelected">TRAFFIC IN</button>
+									<button class="ETIButton entranceButtons" :class="{entranceButtonsfocus: ETI_selected}" @click="ETISelected">CAMERA IN</button>
 								</div>
 								<div class="ETOButtonContainer">
-									<button class="ETOButton entranceButtons" :class="{entranceButtonsfocus: ETO_selected}" @click="ETOSelected">TRAFFIC OUT</button>
+									<button class="ETOButton entranceButtons" :class="{entranceButtonsfocus: ETO_selected}" @click="ETOSelected">CAMERA OUT</button>
 								</div>
 								<div class="RButtonContainer">
 									<button class="RButton entranceButtons" :class="{entranceButtonsfocus: R_selected}" @click="RSelected">RADAR</button>
@@ -362,135 +362,63 @@
 						<!-- End App bar -->
 
 						<div v-if="ETI_selected">
-							<p class="parkingInfo ml-6 mt-6">{{ EntrancePage }} Entrance</p>
-							<table id="entranceStats">
-								<tr>
-									<th>Date</th>
-									<th>Day</th>
-									<th class="right">Total Reads</th>
-									<th class="right">Calc Visitors</th>
-									<th class="right">Unique Plates</th>
-									<th class="right">Re-Entry Count</th>
-									<th class="right">Re-Entry %</th>
-								</tr>
-								<tr>
-									<td>2020-03-20</td>
-									<td>Fri</td>
-									<td class="right">40</td>
-									<td class="right">0</td>
-									<td class="right">31</td>
-									<td class="right">0</td>
-									<td class="right">0.00</td>
-								</tr>
-								<tr>
-									<td>2020-03-19</td>
-									<td>Thur</td>
-									<td class="right">17</td>
-									<td class="right">0</td>
-									<td class="right">17</td>
-									<td class="right">0</td>
-									<td class="right">0.00</td>
-								</tr>
-								<tr>
-									<td>2020-03-18</td>
-									<td>Wed</td>
-									<td class="right">1469</td>
-									<td class="right">3256</td>
-									<td class="right">2042</td>
-									<td class="right">3256</td>
-									<td class="right">3.89</td>
-								</tr>
-							</table>
+							<div v-if="EntrancePage=='South'">
+								<iframe class="radarCharts" src="https://trailwaze.info/vehicleTrafficStats.php"></iframe>
+							</div>
+							<div v-if="EntrancePage=='East'">
+								<iframe class="radarCharts" src="https://trailwaze.info/vehicleTrafficStats.php?site=zioneastin"></iframe>
+							</div>
+							<div v-if="EntrancePage=='River'">
+								No Camera Data
+							</div>
+							<div v-if="EntrancePage=='Kolob'">
+								No Camera Data
+							</div>
 						</div>
+
 						<div v-if="ETO_selected">
-							<p class="parkingInfo ml-6 mt-6">{{ EntrancePage }} Entrance traffic out</p>
+							<div v-if="EntrancePage=='South'">
+								<iframe class="radarCharts" src="https://trailwaze.info/vehicleTrafficStats.php"></iframe>
+							</div>
+							<div v-if="EntrancePage=='East'">
+								<iframe class="radarCharts" src="https://trailwaze.info/vehicleTrafficStats.php?site=zioneastout"></iframe>
+							</div>
+							<div v-if="EntrancePage=='River'">
+								No Camera Data
+							</div>
+							<div v-if="EntrancePage=='Kolob'">
+								No Camera Data
+							</div>
 						</div>
-						<div v-if="R_selected" class="mb-9">  
-							<p class="parkingInfo ml-6 mt-6">{{ EntrancePage }} Entrance Radar Traffic Report</p>
-							<p class="ml-6 mt-9 radarLabels">Total in/Out Summary</p>
-							<table class="ml-6" id="radarTable">
-								<tr>
-									<th>Start Date</th>
-									<th>End Date</th>
-									<th class="right">Incoming</th>
-									<th class="right">Outgoing</th>
-								</tr>
-								<tr>
-									<td>2020-02-13</td>
-									<td>2020-03-19</td>
-									<td class="right">51575</td>
-									<td class="right">39045</td>
-								</tr>
-							</table>
-
-							<v-card class="mt-9 ml-6 mr-6">
-								<div class="MonthButtonContainer">
-									<button class="MonthButton entranceButtons" :class="{entranceButtonsfocus: Month_selected}" @click="MonthSelected">MONTHLY</button>
-								</div>
-								<div class="DayButtonContainer">
-									<button class="DayButton entranceButtons" :class="{entranceButtonsfocus: Day_selected}" @click="DaySelected">DAILY</button>
-								</div>
-
-								<div class="mt-11 ml-4"> <!-- need to figure out spacing for these -->
-									<p class="d-inline mr-12 radarLabels">Incoming Speed by Direction</p>
-									<p class="d-inline ml-12 radarLabels">Outgoing Speed by Direction</p>
-								</div>
-									<table id="incominTable" class="pl-4 pr-4">
-										<tr >
-											<th>Month</th>
-											<th>Count</th>
-											<th>Low Speed</th>
-											<th>Avg Speed</th>
-											<th>Month</th>
-											<th>Count</th>
-											<th>Low Speed</th>
-											<th>Avg Speed</th>
-										</tr>
-										<tr>
-											<td>2020-02</td>
-											<td>25209</td>
-											<td>12</td>
-											<td>17.57</td>
-											<td>2020-02</td>
-											<td>25209</td>
-											<td>12</td>
-											<td>17.57</td>
-										</tr>
-										<tr>
-											<td>2020-03</td>
-											<td>26249</td>
-											<td>12</td>
-											<td>16.83</td>
-											<td>2020-03</td>
-											<td>26249</td>
-											<td>12</td>
-											<td>16.83</td>
-										</tr>
-									</table>
-									<p class="ml-4 mt-11 radarLabels">Traffic Count by Size</p>
-									<table class="pl-4 pr-4" id="trafficCountTable">
-										<tr>
-											<th>Month</th>
-											<th>Small</th>
-											<th>Medium</th>
-											<th>Large</th>
-										</tr>
-										<tr>
-											<td>2020-02</td>
-											<td>179</td>
-											<td>35775</td>
-											<td>1150</td>
-										</tr>
-									</table>
-									<p class=" mt-11 ml-4 radarLabels">Zion Count by Speed In</p>
-									<!-- <div id="appl">
-										<apexchart width="500" type="line" :options="options" :series="series"></apexchart>
-									</div> -->
-									<p class="ml-4 pb-6 radarLabels">Zion Count by Speed Out</p>
-							</v-card>
+						
+						<div v-if="R_selected" class="mb-9 iframeContainer">
+							<div v-if="EntrancePage=='South'">
+								<iframe class="radarCharts" src="https://trailwaze.info/zion/radar_monthly.php"></iframe>
+							</div>
+							<div v-if="EntrancePage=='East'">
+								No Radar Data
+							</div>
+							<div v-if="EntrancePage=='River'">
+								No Radar Data
+							</div>
+							<div v-if="EntrancePage=='Kolob'">
+								<iframe class="radarCharts" src="https://trailwaze.info/kolob/daily.php"></iframe>
+							</div>
 						</div>
+
 						<div v-if="S_selected">
-							<p class="parkingInfo ml-6 mt-6">Traffic Stats by State Canyon Junction</p>
+							<div v-if="EntrancePage=='South'">
+								No State Data
+							</div>
+							<div v-if="EntrancePage=='East'">
+								<iframe class="radarCharts" src="https://trailwaze.info/vehicleTrafficByState.php?site=zioneastin&interval=yesterday"></iframe>
+							</div>
+							<div v-if="EntrancePage=='River'">
+								No State Data
+							</div>
+							<div v-if="EntrancePage=='Kolob'">
+								No State Data
+							</div>
 						</div>
 					
 						
