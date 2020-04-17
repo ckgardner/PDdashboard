@@ -80,6 +80,7 @@ var app = new Vue({
         ETO_selected: false,
         R_selected: false,
         S_selected: false,
+        Ratio_selected: false,
         Month_selected: true,
         Day_selected: false
     },
@@ -204,9 +205,18 @@ var app = new Vue({
             this.R_selected = false;
             this.ETI_selected = true;
             this.S_selected = false;
+            this.Ratio_selected = false;
         },
         ETOSelected: function(){
             this.ETO_selected = true;
+            this.R_selected = false;
+            this.ETI_selected = false;
+            this.S_selected = false;
+            this.Ratio_selected = false;
+        },
+        ratioSelected: function(){
+            this.Ratio_selected = true;
+            this.ETO_selected = false;
             this.R_selected = false;
             this.ETI_selected = false;
             this.S_selected = false;
@@ -216,12 +226,14 @@ var app = new Vue({
             this.R_selected = true;
             this.ETI_selected = false;
             this.S_selected = false;
+            this.Ratio_selected = false;
         },
         SSelected: function(){
             this.ETO_selected = false;
             this.R_selected = false;
             this.ETI_selected = false;
             this.S_selected = true;
+            this.Ratio_selected = false;
         },
         MonthSelected: function(){
             this.Month_selected = true;

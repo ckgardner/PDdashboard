@@ -344,12 +344,29 @@
 									</v-list>
 								</v-menu>
 							</div>
-							<div class="tabs">
+							<div v-if="EntrancePage!='East'" class="tabs">
 								<div class="ETIButtonContainer">
 									<button class="ETIButton entranceButtons" :class="{entranceButtonsfocus: ETI_selected}" @click="ETISelected">CAMERA IN</button>
 								</div>
 								<div class="ETOButtonContainer">
 									<button class="ETOButton entranceButtons" :class="{entranceButtonsfocus: ETO_selected}" @click="ETOSelected">CAMERA OUT</button>
+								</div>
+								<div class="RButtonContainer">
+									<button class="RButton entranceButtons" :class="{entranceButtonsfocus: R_selected}" @click="RSelected">RADAR</button>
+								</div>
+								<div class="SButtonContainer">
+									<button class="SButton entranceButtons" :class="{entranceButtonsfocus: S_selected}" @click="SSelected">STATES</button>
+								</div>
+							</div>
+							<div v-if="EntrancePage=='East'" class="tabs">
+								<div class="ETIButtonContainer">
+									<button class="ETIButton entranceButtons" :class="{entranceButtonsfocus: ETI_selected}" @click="ETISelected">CAMERA IN</button>
+								</div>
+								<div class="ETOButtonContainer">
+									<button class="ETOButton entranceButtons" :class="{entranceButtonsfocus: ETO_selected}" @click="ETOSelected">CAMERA OUT</button>
+								</div>
+								<div class="ETOButtonContainer">
+									<button class="ETOButton entranceButtons" :class="{entranceButtonsfocus: Ratio_selected}" @click="ratioSelected">IN/OUT RATIO</button>
 								</div>
 								<div class="RButtonContainer">
 									<button class="RButton entranceButtons" :class="{entranceButtonsfocus: R_selected}" @click="RSelected">RADAR</button>
@@ -388,6 +405,12 @@
 							</div>
 							<div v-if="EntrancePage=='Kolob'">
 								<h3 class="noData">No Camera Data</h3>
+							</div>
+						</div>
+
+						<div v-if="Ratio_selected">
+							<div v-if="EntrancePage=='East'">
+								<iframe class="radarCharts" src="https://trailwaze.info/zion/inOut_east.php"></iframe>
 							</div>
 						</div>
 						
