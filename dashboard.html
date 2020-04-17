@@ -369,10 +369,10 @@
 								<iframe class="radarCharts" src="https://trailwaze.info/vehicleTrafficStats.php?site=zioneastin"></iframe>
 							</div>
 							<div v-if="EntrancePage=='River'">
-								No Camera Data
+								<h3 class="noData">No Camera Data</h3>
 							</div>
 							<div v-if="EntrancePage=='Kolob'">
-								No Camera Data
+								<h3 class="noData">No Camera Data</h3>
 							</div>
 						</div>
 
@@ -384,10 +384,10 @@
 								<iframe class="radarCharts" src="https://trailwaze.info/vehicleTrafficStats.php?site=zioneastout"></iframe>
 							</div>
 							<div v-if="EntrancePage=='River'">
-								No Camera Data
+								<h3 class="noData">No Camera Data</h3>
 							</div>
 							<div v-if="EntrancePage=='Kolob'">
-								No Camera Data
+								<h3 class="noData">No Camera Data</h3>
 							</div>
 						</div>
 						
@@ -396,10 +396,10 @@
 								<iframe class="radarCharts" src="https://trailwaze.info/zion/radar_monthly.php"></iframe>
 							</div>
 							<div v-if="EntrancePage=='East'">
-								No Radar Data
+								<h3 class="noData">No Radar Data</h3>
 							</div>
 							<div v-if="EntrancePage=='River'">
-								No Radar Data
+								<h3 class="noData">No Radar Data</h3>
 							</div>
 							<div v-if="EntrancePage=='Kolob'">
 								<iframe class="radarCharts" src="https://trailwaze.info/kolob/daily.php"></iframe>
@@ -408,16 +408,16 @@
 
 						<div v-if="S_selected">
 							<div v-if="EntrancePage=='South'">
-								No State Data
+								<h3 class="noData">No State Data</h3>
 							</div>
 							<div v-if="EntrancePage=='East'">
 								<iframe class="radarCharts" src="https://trailwaze.info/vehicleTrafficByState.php?site=zioneastin&interval=yesterday"></iframe>
 							</div>
 							<div v-if="EntrancePage=='River'">
-								No State Data
+								<h3 class="noData">No State Data</h3>
 							</div>
 							<div v-if="EntrancePage=='Kolob'">
-								No State Data
+								<h3 class="noData">No State Data</h3>
 							</div>
 						</div>
 					

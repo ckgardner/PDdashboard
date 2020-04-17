@@ -335,6 +335,13 @@ th{
 body {
     margin: 0;
 }
+.noData{
+    text-align: center;
+    left: 0;
+    right: 0;
+    margin-top: 20%;
+    font-size: 30px;
+}
 
 /* ----------------- Parking Page ----------------------- */
 .visitorButtonContainer, .ETIButtonContainer{
