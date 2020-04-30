@@ -112,6 +112,7 @@ var app = new Vue({
                         vm.southEntranceStat = response.data.ZionSouthEntrance.Today.count;
                     }
                 }
+                console.log(vm.southEntranceStat);
 
                 if(response.data.hasOwnProperty("ZionEastEntrance1")){
                     if(response.data.ZionEastEntrance1.hasOwnProperty("Yesterday")){
@@ -165,6 +166,7 @@ var app = new Vue({
                 if (ES < 0.1){
                     ES = 0.1;
                 }
+                console.log(SES);
 
                 this.setStop("line1", 26, SES);
                 this.setStop("line2", 34, ES);
