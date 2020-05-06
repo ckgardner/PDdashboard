@@ -105,13 +105,20 @@
 					<div v-if="MainPage=='Home' ">
 						<div> <!-- App bar for main page -->
 							<v-app-bar dense>
-								<v-toolbar-title id="loginTitle" class="homeTitle" v-on:click="MainPage='Home'; statRefresh();"><img class="bison" src="images/blueBison.svg">Parkdata - Zion National Park</v-toolbar-title>
+								<v-toolbar-title id="loginTitle" class="homeTitle d-none d-sm-flex" v-on:click="MainPage='Home'; statRefresh();"><img class="bison" src="images/blueBison.svg">Parkdata - Zion National Park</v-toolbar-title>
+								<v-toolbar-title class="d-xs-flex d-sm-none">Parkdata</v-toolbar-title>
 								<v-spacer></v-spacer>
-								<v-btn text color="#507282" v-on:click="MainPage='Parking'; resetPages()">Parking</v-btn>
+								<v-btn class="d-none d-sm-flex" text color="#507282" v-on:click="MainPage='Parking'; resetPages()">Parking</v-btn>
+								<v-btn class="d-xs-flex d-sm-none" text color="#507282" v-on:click="MainPage='Parking'; resetPages()">
+									<img src="icons/parking_outline_blue.svg" alt="">
+								</v-btn>
 								<!-- drop down for Entrances -->
 								<v-menu offset-y>
 									<template v-slot:activator="{ on }">
-									  <v-btn color="#C9AC68" text v-on="on">Entrances</v-btn>
+									  <v-btn class="d-none d-sm-flex" color="#C9AC68" text v-on="on">Entrances</v-btn>
+									  <v-btn class="d-xs-flex d-sm-none" color="#C9AC68" text v-on="on">
+										  <img src="icons/kolob_outline_yellow.svg" alt="">
+									  </v-btn>
 									</template>
 									<v-list>
 									  <v-list-item
@@ -120,7 +127,7 @@
 									  </v-list-item>
 									</v-list>
 								</v-menu>
-								<v-btn text color="#507282" v-on:click="logoutClicked(); resetPages();">Log Out</v-btn>
+								<!-- <v-btn text color="#507282" v-on:click="logoutClicked(); resetPages();">Log Out</v-btn> -->
 							</v-app-bar>
 						</div>
 
@@ -213,8 +220,14 @@
 
 					<div v-if="MainPage=='Parking' ">
 						<!-- App bar -->
-						<v-card > 
-							<p v-on:click="MainPage='Home'; statRefresh();" class="d-inline ml-6 titles"><img class="bison" src="images/blueBison.svg">Parkdata - Zion National Park</p>
+						<v-card>
+							<span class=" d-none d-sm-flex">
+								<p v-on:click="MainPage='Home'; statRefresh();" class="ml-6 titles" ><img class="bison" src="images/blueBison.svg">Parkdata - Zion National Park</p>
+							</span>
+							<div class=" d-xs-flex d-sm-none d-inline">
+								<p v-on:click="MainPage='Home'; statRefresh();" class="d-inline ml-6 titles">Parkdata</p>
+							</div>
+							
 							<div class="d-inline float-right mt-3">
 								<v-btn v-on:click="MainPage='Parking'; resetPages()"text color="#507282" class="d-inline">Parking</v-btn>
 								<v-menu offset-y>
@@ -237,6 +250,7 @@
 								</div>
 							</div>
 						</v-card> 
+
 						<!-- End App bar -->
 
 						<div v-if="visitor_selected">
