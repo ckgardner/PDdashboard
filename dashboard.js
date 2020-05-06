@@ -47,8 +47,10 @@ var app = new Vue({
             'March 15, 2020',
             'March 14, 2020',
         ],
-        currentTemp: "75",
-        weatherDescription: "",
+        currentTemp: "",
+        currentCond: "",
+        weatherImage: "",
+
         titleStatus: "Busy",
         totalVisitors: "9,000",
         parkingStat: "3",
@@ -73,7 +75,6 @@ var app = new Vue({
         EntrancePage: 'South',
         Entrances: ['South', 'East', 'River', 'Kolob', 'Canyon Junction'],
         serverStats: [],
-        weatherImage: "icons/lightning_outline.svg",
 
         visitor_selected: true,
         overflow_selected: false,
@@ -87,7 +88,7 @@ var app = new Vue({
     },
     created: function(){
         this.loadStats();
-        this.loadWeather();
+        this.getWeatherAPI();
     },
     methods: {
         getTodaysDate: function () {
@@ -178,17 +179,27 @@ var app = new Vue({
                 vm = "Fetch " + error;
             });
         },
-        loadWeather: function() {
-            var vm = this;
-            axios.get("https://api.weather.gov/stations/KKNB/observations/latest").then(response => {
-                if(response.data.hasOwnProperty("properties")){
-                    vm.weatherDescription = response.data.properties.textDescription;
-                    vm.currentTemp = response.data.properties.temperature.value;
-                }
-                console.log(vm.weatherDescription, vm.currentTemp);
-            }).catch(error => {
+        getWeatherAPI: function() {
+			var vm = this;				
+			axios.get("https://forecast.weather.gov/MapClick.php?lat=37.1838&lon=-113.0032&unit=0&lg=english&FcstType=dwml").then(response => {
+				let parser = new DOMParser();
+				let doc = parser.parseFromString(response.data, "text/xml");
+				var currentWeather = doc.getElementsByTagName("data")[1];
+
+				var temp = currentWeather.getElementsByTagName("temperature")[0];
+                var tempVal = temp.getElementsByTagName("value")[0].childNodes[0].nodeValue;
+
+                var cond = currentWeather.getElementsByTagName("weather")[0];
+                var cond1 = cond.getElementsByTagName("weather-conditions")[0];
+                var condVal = cond1.getAttribute("weather-summary");
+                console.log(tempVal, condVal);
+
+                vm.currentTemp = tempVal;
+                vm.currentCond = condVal;
+                this.checkWeatherImage(vm.currentCond);
+			}).catch(error => {
                 vm = "Fetch " + error;
-            }); 
+            });
         },
         setStop: function(id, radius, stop){
             var c = document.getElementById(id);
@@ -309,6 +320,24 @@ var app = new Vue({
         statRefresh: function(){
             console.log("stats refreshing");
             this.loadStats();
+        },
+        checkWeatherImage: function(c){
+            var d = new Date();
+            var n = d.getHours();
+            console.log(n);
+            if (c == "Clear" || c == "Sunny"){
+                if (n < 7 || n > 20){
+                    this.weatherImage = "./icons/weatherNight/skc.svg";
+                }
+                this.weatherImage = "./icons/weather/skc.svg";
+            }
+            if (c == "Mostly Clear" || c == "Mostly Sunny" ){
+                if (n < 7 || n > 20){
+                    this.weatherImage = "./icons/weatherNight/few.svg";
+                }
+                this.weatherImage = "./icons/weather/few.svg";
+            }
+
         }
     },
     mounted() {
