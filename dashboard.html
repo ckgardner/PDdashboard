@@ -2,7 +2,7 @@
 <html>
 
   <head>
-      <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
       <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
       <meta content="utf-8" http-equiv="encoding">
       <title>Parkdata Dashboard</title>
@@ -167,43 +167,43 @@
 								<th>Entrance</th>
 								<th class="right">Vehicles</th>
 								<th class="right">People</th>
-								<th class="right">Date Updated</th>
+								<th class="right smallHide">Date Updated</th>
 								</tr>
 								<tr>
 								<td>South</td>
 								<td class="right">{{SVehicles}}</td>
 								<td class="right">{{SPeople}}</td>
-								<td class="right">{{SDateUpdated}}</td>
+								<td class="right smallHide">{{SDateUpdated}}</td>
 								</tr>
 								<tr>
 								<td>East</td>
 								<td class="right">{{EVehicles}}</td>
 								<td class="right">{{EPeople}}</td>
-								<td class="right">{{EastDateUpdated}}</td>
+								<td class="right smallHide">{{EastDateUpdated}}</td>
 								</tr>
 								<tr>
 								<td>River</td>
 								<td class="right">{{riverVehicles}}</td>
 								<td class="right">{{riverPeople}}</td>
-								<td class="right">{{RiverDateUpdated}}</td>
+								<td class="right smallHide">{{RiverDateUpdated}}</td>
 								</tr>
 								<tr>
 								<td class="gold">Canyon Total</td>
 								<td class="right"></td>
 								<td class="right gold">{{yesterdayCanyonTotal}}</td>
-								<td class="right gold">{{SDateUpdated}}</td>
+								<td class="right gold smallHide">{{SDateUpdated}}</td>
 								</tr>
 								<tr>
 								<td>Kolob</td>
 								<td class="right">{{kolobVehicles}}</td>
 								<td class="right">{{kolobPeople}}</td>
-								<td class="right">{{KolobDateUpdated}}</td>
+								<td class="right smallHide">{{KolobDateUpdated}}</td>
 								</tr>
 								<tr>
 								<td class="gold">Zion Total</td>
 								<td class="right"></td>
 								<td class="right gold">{{yesterdayZionTotal}}</td>
-								<td class="right gold">{{SDateUpdated}}</td>
+								<td class="right gold smallHide">{{SDateUpdated}}</td>
 								</tr>
 							</table>
 						</div>
@@ -314,7 +314,7 @@
 
 						<div v-if="overflow_selected">
 							<div class="d-flex justify-center mt-5">
-								<p class="parkingInfo">Parking Overflow Lot</p>
+								<p class="parkingInfo">Parking Overflow Lot N/A</p>
 							</div>
 							<table id="parkingWrapper">
 								<tr>
@@ -441,6 +441,9 @@
 							</div>
 							<div v-if="EntrancePage=='Kolob'">
 								<h3 class="noData">No State Data</h3>
+							</div>
+							<div v-if="EntrancePage=='Canyon Junction'">
+								<iframe class="radarCharts" src="https://trailwaze.info/vehicleTrafficByState.php?site=canyonjct&interval=1days"></iframe>
 							</div>
 						</div>
 					

@@ -27,6 +27,10 @@ body{
     font-style: normal;
     font-weight: normal;
 }
+html,body{
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
 v-app-bar{
     height: 80px;
 }
@@ -77,9 +81,9 @@ v-app-bar{
     width: 15%;
     font-weight: 500;
     font-size: 1.3vw;
-    line-height: 28px;
     text-align: center;
     text-transform: uppercase;
+    vertical-align: middle;
     position: absolute;
     left: 42%;
     top: 50%;
@@ -425,6 +429,16 @@ body {
     font-weight: bold;
 }
 @media only screen and (max-width: 719px){
+    #logosWrapper{
+        text-align: center;
+    }
+    #researchTextWrapper{
+        width: 330px;
+    }
+    #dsulogo, #iiclogo, #suulogo, .column{
+        width: 70%;
+        margin-top: 0px;
+    }
     .stat{
         display: none;
     }
@@ -441,18 +455,29 @@ body {
     }
     #yesterdayWrapper{
         width: 420px;
-        margin-top: 10px; 
+        margin-top: 10px;
+        margin-right: 5px;
+        margin-left: 5px;
     }
     #titleWrapper{
         width: 420px;
         margin: 0 auto;
         margin-top: 15px;
         margin-bottom: 20px;
+        margin-left: 5px;
     }
     table{
         width: 420px;
     }
     #title, #titleStatus{
         display: inline;
+    }
+}
+@media only screen and (max-width: 450px){
+    #title, #titleStatus, #yesterdayTitle{
+        font-size: 18px;
+    }
+    table{
+        overflow: scroll;
     }
 }

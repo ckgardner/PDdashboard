@@ -70,7 +70,7 @@ var app = new Vue({
         KolobDateUpdated: "N/A",
         MainPage: 'Home', // Login, loggingIn, requestAccess, Home, Parking, Entrances 
         EntrancePage: 'South',
-        Entrances: ['South', 'East', 'River', 'Kolob'],
+        Entrances: ['South', 'East', 'River', 'Kolob', 'Canyon Junction'],
         serverStats: [],
         weatherImage: "icons/lightning_outline.svg",
 
