@@ -48,6 +48,7 @@ var app = new Vue({
             'March 14, 2020',
         ],
         currentTemp: "75",
+        weatherDescription: "",
         titleStatus: "Busy",
         totalVisitors: "9,000",
         parkingStat: "3",
@@ -86,7 +87,7 @@ var app = new Vue({
     },
     created: function(){
         this.loadStats();
-        //this.getWeatherAPI();
+        this.loadWeather();
     },
     methods: {
         getTodaysDate: function () {
@@ -177,15 +178,18 @@ var app = new Vue({
                 vm = "Fetch " + error;
             });
         },
-        // getWeatherAPI: function() {
-        //     let parser = new DOMParser();
-        //     let doc = parser.parseFromString("https://forecast.weather.gov/MapClick.php?lat=37.1838&lon=-113.0032&unit=0&lg=english&FcstType=dwml", "application/xml");
-        //     var vm = this;
-        //     // not an api we can work with.
-        //     axios.get(doc).then(response => {
-        //         console.log(response.data[0]);
-        //     });    
-        // },
+        loadWeather: function() {
+            var vm = this;
+            axios.get("https://api.weather.gov/stations/KKNB/observations/latest").then(response => {
+                if(response.data.hasOwnProperty("properties")){
+                    vm.weatherDescription = response.data.properties.textDescription;
+                    vm.currentTemp = response.data.properties.temperature.value;
+                }
+                console.log(vm.weatherDescription, vm.currentTemp);
+            }).catch(error => {
+                vm = "Fetch " + error;
+            }); 
+        },
         setStop: function(id, radius, stop){
             var c = document.getElementById(id);
             c.className = "background";
