@@ -166,6 +166,26 @@
 								<circle id="line3" class="overlayLine" cx="100" cy="100" r="42" stroke="#507282" stroke-dasharray="0, 3000" stroke-dashoffset="251" transform="rotate(-90,100,100)" />
 							</svg>
 						</div>
+						<div class="smallShow">
+							<div class="smallStat" id="parkingStat">
+								<div class="statWrapper">
+									<img class="statImage" src="icons/parking_outline.svg">
+									<span>Parking: {{parkingStat}}% Full</span>
+								</div>
+							</div>
+							<div class="smallStat" id="eastEntranceStat">
+								<div class="statWrapper">
+									<img class="statImage" src="icons/east_entrance_outline.svg">
+									<span>East Entrance: {{eastEntranceStat}}</span>
+								</div>
+							</div>
+							<div class="smallStat" id="southEntranceStat">
+								<div class="statWrapper">
+									<img class="statImage" src="icons/south_entrance_outline.svg">
+									<span>South Entrance: {{southEntranceStat}}</span>
+								</div>
+							</div>
+						</div>
 						<div id="yesterdayWrapper">
 							<div id="title" class="yesterdayTitle">Yesterday: {{yesterdaysDate}}</div>
 							<div id="titleStatus" class="yesterdayTitleStatus"></div>

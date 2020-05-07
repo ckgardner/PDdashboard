@@ -432,6 +432,9 @@ body {
     height: 700px;
     width: 100%;
 }
+.smallShow{
+    display: none;
+}
 @media only screen and (max-width: 719px){
     #logosWrapper{
         text-align: center;
@@ -451,6 +454,9 @@ body {
         top: 18%;
         display: block;
         margin: 0 auto;
+    }
+    .smallShow{
+        display: block;
     }
     #svgContainer{
         display: block;
