@@ -2,19 +2,19 @@
 <html>
 
   <head>
-      <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-      <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
-      <meta content="utf-8" http-equiv="encoding">
-      <title>Parkdata Dashboard</title>
-      <link rel="stylesheet" type="text/css" href="vuetify.min.css">
-      <link rel="stylesheet" type="text/css" href="dashboard.css">
-      <link rel="apple-touch-icon" sizes="180x180" href="images/favicon.ico">
-      <link rel="icon" type="image/png" sizes="192x192" href="./images/favicon.ico">
-      <link rel="icon" type="image/png" sizes="512x512" href="./images/favicon.ico">
-	  <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
-	  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-	  <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
-	  <script src="https://cdn.jsdelivr.net/npm/vue-apexcharts"></script>
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
+		<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+		<meta content="utf-8" http-equiv="encoding">
+		<title>Parkdata Dashboard</title>
+		<link rel="stylesheet" type="text/css" href="vuetify.min.css">
+		<link rel="stylesheet" type="text/css" href="dashboard.css">
+		<link rel="apple-touch-icon" sizes="180x180" href="images/favicon.ico">
+		<link rel="icon" type="image/png" sizes="192x192" href="./images/favicon.ico">
+		<link rel="icon" type="image/png" sizes="512x512" href="./images/favicon.ico">
+		<link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
+		<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+		<script src="https://cdn.jsdelivr.net/npm/vue-apexcharts"></script>
   </head>
 	<body>
 		<div id="app">
@@ -267,12 +267,12 @@
 
 						<div v-if="visitor_selected">
 							
-							<div id="parkingWrapper">
+							<!-- <div id="parkingWrapper">
 								<p class="parkingInfo" >Parking Visitor Lot</p>
 							</div>
 									
 							<table id="parkingWrapper">
-								<tr> <!-- the date button added to the table -->
+								<tr> 
 									<th>
 									<v-menu offset-y>
 									<template v-slot:activator="{ on }">
@@ -285,56 +285,8 @@
 									</v-list>
 									</v-menu>
 									</th>
-									<th></th>
-								</tr>
-								<tr>
-								<td class="tableHeading">Time</td>
-								<td class="right tableHeading">Occupancy Pct(%)</td>
-								</tr>
-								<tr>
-								<td>2020-03-20 00:00:02</td>
-								<td class="right">1</td>
-								</tr>
-								<tr>
-								<td>2020-03-20 00:05:02</td>
-								<td class="right">2</td>
-								</tr>
-								<td>2020-03-20 00:10:01</td>
-								<td class="right">2</td>
-								</tr>
-								<tr>
-								<td>2020-03-20 00:15:01</td>
-								<td class="right">2</td>
-								</tr>
-								<td>2020-03-20 00:20:02</td>
-								<td class="right">2</td>
-								</tr>
-								<tr>
-								<td>2020-03-20 00:25:02</td>
-								<td class="right">2</td>
-								</tr>
-								<td>2020-03-20 00:30:01</td>
-								<td class="right">2</td>
-								</tr>
-								<tr>
-								<td>2020-03-20 00:35:01</td>
-								<td class="right">2</td>
-								</tr>
-								<tr>
-								<td>2020-03-20 00:40:02</td>
-								<td class="right">2</td>
-								</tr>
-								<td>2020-03-20 00:45:02</td>
-								<td class="right">2</td>
-								</tr>
-								<tr>
-								<td>2020-03-20 00:50:01</td>
-								<td class="right">2</td>
-								</tr>
-								<td>2020-03-20 00:55:01</td>
-								<td class="right">2</td>
-								</tr>
-							</table>
+								</tr> -->
+							<iframe id="parkingApi" src="https://trailwaze.info/zion/parking_date.php#"></iframe>				
 						</div>
 						<!-- We will have to figure out a way to dynamically fill this data based off dates -->
 

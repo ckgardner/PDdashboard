@@ -29,7 +29,6 @@ body{
 }
 html,body{
     overflow-x: hidden;
-    overflow-y: hidden;
 }
 v-app-bar{
     height: 80px;
@@ -428,6 +427,11 @@ body {
 .tableHeading {
     font-weight: bold;
 }
+#parkingApi{
+    text-align: center;
+    height: 700px;
+    width: 100%;
+}
 @media only screen and (max-width: 719px){
     #logosWrapper{
         text-align: center;
@@ -455,16 +459,13 @@ body {
     }
     #yesterdayWrapper{
         width: 420px;
-        margin-top: 10px;
-        margin-right: 5px;
-        margin-left: 5px;
+        margin-top: 10px; 
     }
     #titleWrapper{
         width: 420px;
         margin: 0 auto;
         margin-top: 15px;
         margin-bottom: 20px;
-        margin-left: 5px;
     }
     table{
         width: 420px;
@@ -479,5 +480,11 @@ body {
     }
     table{
         overflow: scroll;
+    }
+    #yesterdayWrapper{
+        width: 100%;
+        margin-top: 10px;
+        margin-left: 5px;
+        margin-right: 5px;
     }
 }
