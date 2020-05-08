@@ -330,21 +330,43 @@
 
 					<div v-if="MainPage=='Entrances' ">
 						<!-- App bar -->
-						<v-card> 
-							<p v-on:click="MainPage='Home'; statRefresh();" class="d-inline ml-6 titles"><img class="bison" src="images/blueBison.svg">Parkdata - Zion National Park</p>
-							<div class="d-inline float-right mt-3">
-								<v-btn v-on:click="MainPage='Parking'; resetPages()"text color="#507282" class="d-inline">Parking</v-btn>
-								<v-menu offset-y>
-									<template v-slot:activator="{ on }">
-										<v-btn color="#C9AC68" text v-on="on">Entrances</v-btn>
-									</template>
-									<v-list>
-										<v-list-item v-for="(enterance, index) in Entrances" :key="index" v-on:click="MainPage='Entrances'; EntrancePage=enterance ">
-											<v-list-item-title>{{ enterance }}</v-list-item-title>
-										</v-list-item>
-									</v-list>
-								</v-menu>
+						<v-card>
+							<div>
+								<div class="d-none d-md-inline-flex">
+									<p v-on:click="MainPage='Home'; statRefresh();" class="ml-6 titles mr-0 " ><img class="bison" src="images/blueBison.svg">Parkdata - Zion National Park</p>
+									<!-- <p v-on:click="MainPage='Home'; statRefresh();" class="ml-6 mr-0 d-flex d-md-none" >Parkdata</p> -->
+								</div>
+								<div class="d-sm-inline-flex d-md-none d-inline-flex">
+									<p v-on:click="MainPage='Home'; statRefresh();" class="ml-6 mt-4 appbar__title--mobile">Parkdata</p>
+								</div>
+
+								<div class="float-right d-inline-flex">
+									<!-- <v-btn v-on:click="MainPage='Parking'; resetPages()"text color="#507282" class="d-inline">Parking</v-btn> -->
+									<v-btn class="d-none d-md-flex mt-8" text color="#507282" v-on:click="MainPage='Parking'; resetPages()">Parking</v-btn>
+									<v-btn class="d-none d-sm-flex d-md-none mt-4" text color="#507282" v-on:click="MainPage='Parking'; resetPages()">Parking</v-btn>
+									<v-btn class="d-xs-flex d-sm-none mt-3" text color="#507282" v-on:click="MainPage='Parking'; resetPages()">
+										<img src="icons/parking_outline_blue.svg" alt="">
+									</v-btn>
+
+									<v-menu offset-y>
+										<template v-slot:activator="{ on }">
+											<!-- <v-btn color="#C9AC68" text v-on="on">Entrances</v-btn> -->
+											<v-btn class="d-none d-md-flex mt-8" color="#C9AC68" text v-on="on">Entrances</v-btn>
+											<v-btn class="d-none d-sm-flex d-md-none mt-4" color="#C9AC68" text v-on="on">Entrances</v-btn>
+											<v-btn class="d-xs-flex d-sm-none mt-3" color="#C9AC68" text v-on="on">
+												<img src="icons/kolob_outline_yellow.svg" alt="">
+											</v-btn>
+										</template>
+										<v-list>
+											<v-list-item v-for="(enterance, index) in Entrances" :key="index" v-on:click="MainPage='Entrances'; EntrancePage=enterance ">
+												<v-list-item-title>{{ enterance }}</v-list-item-title>
+											</v-list-item>
+										</v-list>
+									</v-menu>
+								</div>
 							</div>
+
+							
 							<div v-if="EntrancePage!='East'" class="tabs">
 								<div class="ETIButtonContainer">
 									<button class="ETIButton entranceButtons" :class="{entranceButtonsfocus: ETI_selected}" @click="ETISelected">CAMERA IN</button>
@@ -381,10 +403,10 @@
 
 						<div v-if="ETI_selected">
 							<div v-if="EntrancePage=='South'">
-								<iframe class="radarCharts" src="https://trailwaze.info/vehicleTrafficStats.php"></iframe>
+								<iframe class="radarCharts mt-8" src="https://trailwaze.info/vehicleTrafficStats.php"></iframe>
 							</div>
 							<div v-if="EntrancePage=='East'">
-								<iframe class="radarCharts" src="https://trailwaze.info/vehicleTrafficStats.php?site=zioneastin"></iframe>
+								<iframe class="radarCharts  mt-5" src="https://trailwaze.info/vehicleTrafficStats.php?site=zioneastin"></iframe>
 							</div>
 							<div v-if="EntrancePage=='River'">
 								<h3 class="noData">No Camera Data</h3>
@@ -396,10 +418,10 @@
 
 						<div v-if="ETO_selected">
 							<div v-if="EntrancePage=='South'">
-								<iframe class="radarCharts" src="https://trailwaze.info/vehicleTrafficStats.php"></iframe>
+								<iframe class="radarCharts mt-5" src="https://trailwaze.info/vehicleTrafficStats.php"></iframe>
 							</div>
 							<div v-if="EntrancePage=='East'">
-								<iframe class="radarCharts" src="https://trailwaze.info/vehicleTrafficStats.php?site=zioneastout"></iframe>
+								<iframe class="radarCharts mt-5" src="https://trailwaze.info/vehicleTrafficStats.php?site=zioneastout"></iframe>
 							</div>
 							<div v-if="EntrancePage=='River'">
 								<h3 class="noData">No Camera Data</h3>
@@ -411,13 +433,13 @@
 
 						<div v-if="Ratio_selected">
 							<div v-if="EntrancePage=='East'">
-								<iframe class="radarCharts" src="https://trailwaze.info/zion/inOut_east.php"></iframe>
+								<iframe class="radarCharts mt-5" src="https://trailwaze.info/zion/inOut_east.php"></iframe>
 							</div>
 						</div>
 						
 						<div v-if="R_selected" class="mb-9 iframeContainer">
 							<div v-if="EntrancePage=='South'">
-								<iframe class="radarCharts" src="https://trailwaze.info/zion/radar_monthly.php"></iframe>
+								<iframe class="radarCharts mt-6" src="https://trailwaze.info/zion/radar_monthly.php"></iframe>
 							</div>
 							<div v-if="EntrancePage=='East'">
 								<h3 class="noData">No Radar Data</h3>
@@ -426,16 +448,16 @@
 								<h3 class="noData">No Radar Data</h3>
 							</div>
 							<div v-if="EntrancePage=='Kolob'">
-								<iframe class="radarCharts" src="https://trailwaze.info/kolob/daily.php"></iframe>
+								<iframe class="radarCharts mt-7" src="https://trailwaze.info/kolob/daily.php"></iframe>
 							</div>
 						</div>
 
 						<div v-if="S_selected">
 							<div v-if="EntrancePage=='South'">
-								<iframe class="radarCharts" src="https://trailwaze.info/zion/vehicleTrafficByState.php"></iframe>
+								<iframe class="radarCharts mt-5" src="https://trailwaze.info/zion/vehicleTrafficByState.php"></iframe>
 							</div>
 							<div v-if="EntrancePage=='East'">
-								<iframe class="radarCharts" src="https://trailwaze.info/vehicleTrafficByState.php?site=zioneastin&interval=yesterday"></iframe>
+								<iframe class="radarCharts mt-5" src="https://trailwaze.info/vehicleTrafficByState.php?site=zioneastin&interval=yesterday"></iframe>
 							</div>
 							<div v-if="EntrancePage=='River'">
 								<h3 class="noData">No State Data</h3>
@@ -444,7 +466,7 @@
 								<h3 class="noData">No State Data</h3>
 							</div>
 							<div v-if="EntrancePage=='Canyon Junction'">
-								<iframe class="radarCharts" src="https://trailwaze.info/vehicleTrafficByState.php?site=canyonjct&interval=1days"></iframe>
+								<iframe class="radarCharts mt-7" src="https://trailwaze.info/vehicleTrafficByState.php?site=canyonjct&interval=1days"></iframe>
 							</div>
 						</div>
 					
