@@ -366,6 +366,12 @@ body {
     margin: 20px;
     cursor: pointer;
 }
+.appbar__title--mobile {
+    font-size: 20px;
+    line-height: 23px;
+    font-family: "titleRoboto";
+    color: rgba(0, 0, 0, 0.86);
+}
 .tabs{
     margin-top: 20px;
 }
