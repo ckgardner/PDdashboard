@@ -342,7 +342,7 @@
 									</v-list>
 								</v-menu>
 							</div>
-							<div v-if="EntrancePage!='East'" class="tabs">
+							<div v-if="EntrancePage!='East' && EntrancePage!='River'" class="tabs">
 								<div class="ETIButtonContainer">
 									<button class="ETIButton entranceButtons" :class="{entranceButtonsfocus: ETI_selected}" @click="ETISelected">CAMERA IN</button>
 								</div>
@@ -366,11 +366,22 @@
 								<div class="ETOButtonContainer">
 									<button class="ETOButton entranceButtons" :class="{entranceButtonsfocus: Ratio_selected}" @click="ratioSelected">IN/OUT RATIO</button>
 								</div>
+								<div class="ETOButtonContainer">
+									<button class="DButton entranceButtons" :class="{entranceButtonsfocus: D_selected}" @click="DSelected">DWELL</button>
+								</div>
 								<div class="RButtonContainer">
-									<button class="RButton entranceButtons" :class="{entranceButtonsfocus: R_selected}" @click="RSelected">RADAR</button>
+									<button class="RButton entranceButtons" :class="{entranceButtonsfocus: R_selected}" @click="RSelected">RADAR/LOOP</button>
 								</div>
 								<div class="SButtonContainer">
 									<button class="SButton entranceButtons" :class="{entranceButtonsfocus: S_selected}" @click="SSelected">STATES</button>
+								</div>
+							</div>
+							<div v-if="EntrancePage=='River'" class="tabs">
+								<div class="ETIButtonContainer">
+									<button class="ETIButton entranceButtons" :class="{entranceButtonsfocus: ETI_selected}" @click="ETISelected">CAMERA IN</button>
+								</div>
+								<div class="ETOButtonContainer">
+									<button class="ETOButton entranceButtons" :class="{entranceButtonsfocus: ETO_selected}" @click="ETOSelected">CAMERA OUT</button>
 								</div>
 							</div>
 						</v-card> 
@@ -389,6 +400,9 @@
 							<div v-if="EntrancePage=='Kolob'">
 								<h3 class="noData">No Camera Data</h3>
 							</div>
+							<div v-if="EntrancePage=='Canyon Junction'">
+								<h3 class="noData">No Camera Data</h3>
+							</div>
 						</div>
 
 						<div v-if="ETO_selected">
@@ -402,6 +416,9 @@
 								<h3 class="noData">No Camera Data</h3>
 							</div>
 							<div v-if="EntrancePage=='Kolob'">
+								<h3 class="noData">No Camera Data</h3>
+							</div>
+							<div v-if="EntrancePage=='Canyon Junction'">
 								<h3 class="noData">No Camera Data</h3>
 							</div>
 						</div>
@@ -424,6 +441,9 @@
 							</div>
 							<div v-if="EntrancePage=='Kolob'">
 								<iframe class="radarCharts" src="https://trailwaze.info/kolob/daily.php"></iframe>
+							</div>
+							<div v-if="EntrancePage=='Canyon Junction'">
+								<h3 class="noData">No Radar Data</h3>
 							</div>
 						</div>
 
