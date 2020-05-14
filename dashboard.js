@@ -53,7 +53,9 @@ var app = new Vue({
 
         titleStatus: "Busy",
         totalVisitors: "9,000",
-        parkingStat: "3",
+        parkingStat: "",
+        overflowStat: "5",
+        vcStat: "5",
         eastEntranceStat: "N/A",
         southEntranceStat: "N/A",
         yesterdayTitleStatus: "Busy",
@@ -200,8 +202,13 @@ var app = new Vue({
                 vm = "Fetch " + error;
             });
         },
+        loadParking: function(){
+            this.setStop("line4", 9, 0.1);
+            this.setStop("line5", 9, 0.1);
+        },
         setStop: function(id, radius, stop){
             var c = document.getElementById(id);
+            console.log(c);
             c.className = "background";
             var stopVal = Math.PI * radius * 2 * (stop);
             c.setAttribute("stroke-dasharray", stopVal + ", 3000");

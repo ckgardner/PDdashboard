@@ -289,6 +289,16 @@
 						<!-- End App bar -->
 
 						<div v-if="visitor_selected">
+							<div class="statHeader">
+								<h3 class="headerTitle">Parking Visitor Lot: {{vcStat}}% Full</h3>
+							</div>
+							<div id="svgContainer">
+								<svg id="svg2" viewBox="86 86 30 30" height="50px" width="50px">
+									<circle cx="100" cy="100" r="13" style="stroke: white; fill: white;"/> 
+									<circle class="background" cx="100" cy="100" r="9" stroke="#DCE3E6" />
+									<circle id="line4" class="overlayLine" cx="100" cy="100" r="9" stroke="#507282" stroke-dasharray="0, 3000" stroke-dashoffset="126" transform="rotate(-90,100,100)" />
+								</svg>
+							</div>
 							
 							<!-- <div id="parkingWrapper">
 								<p class="parkingInfo" >Parking Visitor Lot</p>
@@ -314,6 +324,16 @@
 						<!-- We will have to figure out a way to dynamically fill this data based off dates -->
 
 						<div v-if="overflow_selected">
+							<div class="statHeader">
+								<h3 class="headerTitle">Parking Overflow Lot: {{overflowStat}}% Full</h3>
+							</div>
+							<div id="svgContainer">
+								<svg id="svg2" viewBox="86 85 30 30" height="50px" width="50px">
+									<circle cx="100" cy="100" r="13" style="stroke: white; fill: white;"/> 
+									<circle class="background" cx="100" cy="100" r="9" stroke="#DCE3E6" />
+									<circle id="line5" class="overlayLine" cx="100" cy="100" r="9" stroke="#507282" stroke-dasharray="0, 3000" stroke-dashoffset="126" transform="rotate(-90,100,100)" />
+								</svg>
+							</div>
 							<div class="d-flex justify-center mt-5">
 								<p class="parkingInfo">Parking Overflow Lot N/A</p>
 							</div>
