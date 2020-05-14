@@ -54,8 +54,8 @@ var app = new Vue({
         titleStatus: "Busy",
         totalVisitors: "9,000",
         parkingStat: "",
-        overflowStat: "5",
-        vcStat: "5",
+        overflowStat: "10",
+        vcStat: "10",
         eastEntranceStat: "N/A",
         southEntranceStat: "N/A",
         yesterdayTitleStatus: "Busy",
@@ -91,6 +91,7 @@ var app = new Vue({
     },
     created: function(){
         this.loadStats();
+        this.loadParking();
         this.getWeatherAPI();
     },
     methods: {
@@ -137,13 +138,16 @@ var app = new Vue({
                 if(response.data.hasOwnProperty("ParkingVisitorCenter") || response.data.hasOwnProperty("ParkingOverflow")){
                     var parkingStatSum = 0;
                     if(response.data.hasOwnProperty("ParkingVisitorCenter") && response.data.ParkingVisitorCenter.hasOwnProperty("Today")){
-                        parkingStatSum += response.data.ParkingVisitorCenter.Today.count;
+                        vm.vcStat = response.data.ParkingVisitorCenter.Today.count;
+                        parkingStatSum += vm.vcStat;
                     }
                     if(response.data.hasOwnProperty("ParkingOverflow") && response.data.ParkingOverflow.hasOwnProperty("Today")){
-                        parkingStatSum += response.data.ParkingOverflow.Today.count;
+                        vm.overflowStat = response.data.ParkingOverflow.Today.count;
+                        parkingStatSum += vm.overflowStat;
                     }
                     vm.parkingStat = parkingStatSum;
-                    vm.parkingStat/=500;
+                    console.log(vm.parkingStat, "Pre");
+                    vm.parkingStat /= 550;
                 }
 
                 vm.yesterdayCanyonTotal = 0;
@@ -163,7 +167,7 @@ var app = new Vue({
                 }
 
                 var SES = vm.southEntranceStat / 2500;
-                if (SES < 0.1){
+                if (SES < 0.1 || vm.southEntranceStat == "N/A"){
                     SES = 0.1;
                 }
                 var ES = vm.eastEntranceStat / 2500;
@@ -174,8 +178,10 @@ var app = new Vue({
                 this.setStop("line1", 26, SES);
                 this.setStop("line2", 34, ES);
                 this.setStop("line3", 42, PS);
-                vm.parkingStat*=100;
+                vm.parkingStat *= 100;
                 vm.parkingStat = vm.parkingStat.toFixed(0);
+                this.loadParking();
+
             }).catch(error => {
                 vm = "Fetch " + error;
             });
@@ -203,12 +209,28 @@ var app = new Vue({
             });
         },
         loadParking: function(){
-            this.setStop("line4", 9, 0.1);
-            this.setStop("line5", 9, 0.1);
+            this.vcStat /= 465;
+            this.overflowStat /= 100;
+            var VC = this.vcStat;
+            if(VC < 0.1){
+                VC = 0.1;
+                this.vcStat = 0.1;
+            }
+            var OS = this.overflowStat;
+            if (OS < 0.1){
+                OS = 0.1;
+                this.overflowStat = 0.1;
+            }
+            this.vcStat *= 100;
+            this.vcStat = this.vcStat.toFixed(0);
+            this.overflowStat *= 100;
+            this.overflowStat = this.overflowStat.toFixed(0);
+
+            this.setStop("line4", 9, VC);
+            this.setStop("line5", 9, OS);
         },
         setStop: function(id, radius, stop){
             var c = document.getElementById(id);
-            console.log(c);
             c.className = "background";
             var stopVal = Math.PI * radius * 2 * (stop);
             c.setAttribute("stroke-dasharray", stopVal + ", 3000");

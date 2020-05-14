@@ -108,8 +108,8 @@
 								<v-toolbar-title id="loginTitle" class="homeTitle d-none d-sm-flex" v-on:click="MainPage='Home'; statRefresh();"><img class="bison" src="images/blueBison.svg">Parkdata - Zion National Park</v-toolbar-title>
 								<v-toolbar-title class="d-xs-flex d-sm-none">Parkdata</v-toolbar-title>
 								<v-spacer></v-spacer>
-								<v-btn class="d-none d-sm-flex" text color="#507282" v-on:click="MainPage='Parking'; resetPages()">Parking</v-btn>
-								<v-btn class="d-xs-flex d-sm-none" text color="#507282" v-on:click="MainPage='Parking'; resetPages()">
+								<v-btn class="d-none d-sm-flex" text color="#507282" v-on:click="MainPage='Parking'; resetPages(); loadParking">Parking</v-btn>
+								<v-btn class="d-xs-flex d-sm-none" text color="#507282" v-on:click="MainPage='Parking'; resetPages(); loadParking">
 									<img src="icons/parking_outline_blue.svg" alt="">
 								</v-btn>
 								<!-- drop down for Entrances -->
@@ -328,7 +328,7 @@
 								<h3 class="headerTitle">Parking Overflow Lot: {{overflowStat}}% Full</h3>
 							</div>
 							<div id="svgContainer">
-								<svg id="svg2" viewBox="86 85 30 30" height="50px" width="50px">
+								<svg id="svg3" viewBox="86 86 30 30" height="50px" width="50px">
 									<circle cx="100" cy="100" r="13" style="stroke: white; fill: white;"/> 
 									<circle class="background" cx="100" cy="100" r="9" stroke="#DCE3E6" />
 									<circle id="line5" class="overlayLine" cx="100" cy="100" r="9" stroke="#507282" stroke-dasharray="0, 3000" stroke-dashoffset="126" transform="rotate(-90,100,100)" />

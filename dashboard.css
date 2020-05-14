@@ -315,6 +315,11 @@ th{
     top: 18.3%;
     right: 25%;
 }
+#svg3{
+    position: absolute;
+    top: 23.2%;
+    right: 15%;
+}
 @media only screen and (min-width: 720px){
     #svg{
         left: 56%;
@@ -325,9 +330,17 @@ th{
         top: 14.5%;
         right: 15%;
     }
+    #svg3{
+        position: absolute;
+        top: 17.5%;
+        right: 10%;
+    }
 }
 @media only screen and (max-width: 690px){
     #svg2{
+        display: none;
+    }
+    #svg3{
         display: none;
     }
 }
