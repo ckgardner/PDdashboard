@@ -58,6 +58,7 @@ var app = new Vue({
         vcStat: "10",
         eastEntranceStat: "N/A",
         southEntranceStat: "N/A",
+        canyonStat: "N/A",
         yesterdayTitleStatus: "Busy",
         yesterdayZionTotal: "N/A",
         yesterdayCanyonTotal: "N/A",
@@ -166,18 +167,25 @@ var app = new Vue({
                     vm.parkingStat = 0.1;
                 }
 
-                var SES = vm.southEntranceStat / 2500;
-                if (SES < 0.1 || vm.southEntranceStat == "N/A"){
-                    SES = 0.1;
-                }
                 var ES = vm.eastEntranceStat / 2500;
                 if (ES < 0.1){
                     ES = 0.1;
                 }
 
-                this.setStop("line1", 26, SES);
-                this.setStop("line2", 34, ES);
-                this.setStop("line3", 42, PS);
+                var SES = vm.southEntranceStat / 2500;
+                if (SES < 0.1 || vm.southEntranceStat == "N/A"){
+                    SES = 0.1;
+                }
+
+                var CJ = vm.canyonStat / 2500;
+                if (CJ < 0.1 || vm.canyonStat == "N/A"){
+                    CJ = 0.1;
+                }
+
+                this.setStop("line0", 23, CJ);
+                this.setStop("line1", 31, SES);
+                this.setStop("line2", 39, ES);
+                this.setStop("line3", 47, PS);
                 vm.parkingStat *= 100;
                 vm.parkingStat = vm.parkingStat.toFixed(0);
                 this.loadParking();
