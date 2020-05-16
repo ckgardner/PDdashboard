@@ -398,38 +398,38 @@
 								</div>
 							</div>
 							<div v-if="EntrancePage!='East' && EntrancePage!='River'" class="tabs">
-								<div class="ETIButtonContainer">
-									<button class="ETIButton entranceButtons" :class="{entranceButtonsfocus: ETI_selected}" @click="ETISelected">CAMERA IN</button>
-								</div>
-								<div class="ETOButtonContainer">
-									<button class="ETOButton entranceButtons" :class="{entranceButtonsfocus: ETO_selected}" @click="ETOSelected">CAMERA OUT</button>
-								</div>
-								<div class="RButtonContainer">
-									<button class="RButton entranceButtons" :class="{entranceButtonsfocus: R_selected}" @click="RSelected">RADAR</button>
-								</div>
-								<div class="SButtonContainer">
-									<button class="SButton entranceButtons" :class="{entranceButtonsfocus: S_selected}" @click="SSelected">STATES</button>
-								</div>
+								<!-- need to figure a better way to change with smaller devices; too much repetition -->
+								<div class="ETIButtonContainer desktop-tabs"><button class="ETIButton entranceButtons" :class="{entranceButtonsfocus: ETI_selected}" @click="ETISelected">CAMERA IN</button></div>
+								<div class="ETIButtonContainer mobile-tabs"><button class="ETIButton entranceButtons" :class="{entranceButtonsfocus: ETI_selected}" @click="ETISelected">IN</button></div>
+
+								<div class="ETOButtonContainer desktop-tabs"><button class="ETOButton entranceButtons" :class="{entranceButtonsfocus: ETO_selected}" @click="ETOSelected">CAMERA OUT</button></div>
+								<div class="ETOButtonContainer mobile-tabs"><button class="ETOButton entranceButtons" :class="{entranceButtonsfocus: ETO_selected}" @click="ETOSelected">OUT</button></div>
+
+								<div class="RButtonContainer desktop-tabs"><button class="RButton entranceButtons" :class="{entranceButtonsfocus: R_selected}" @click="RSelected">RADAR</button></div>
+								<div class="RButtonContainer mobile-tabs mr-3"><button class="RButton entranceButtons" :class="{entranceButtonsfocus: R_selected}" @click="RSelected">RADAR</button></div>
+
+								<div class="SButtonContainer desktop-tabs"><button class="SButton entranceButtons" :class="{entranceButtonsfocus: S_selected}" @click="SSelected">STATES</button></div>
+								<div class="SButtonContainer mobile-tabs"><button class="SButton entranceButtons" :class="{entranceButtonsfocus: S_selected}" @click="SSelected">STATES</button></div>
 							</div>
 							<div v-if="EntrancePage=='East'" class="tabs">
-								<div class="ETIButtonContainer">
-									<button class="ETIButton entranceButtons" :class="{entranceButtonsfocus: ETI_selected}" @click="ETISelected">CAMERA IN</button>
-								</div>
-								<div class="ETOButtonContainer">
-									<button class="ETOButton entranceButtons" :class="{entranceButtonsfocus: ETO_selected}" @click="ETOSelected">CAMERA OUT</button>
-								</div>
-								<div class="ETOButtonContainer">
-									<button class="ETOButton entranceButtons" :class="{entranceButtonsfocus: Ratio_selected}" @click="ratioSelected">IN/OUT RATIO</button>
-								</div>
-								<div class="ETOButtonContainer">
-									<button class="DButton entranceButtons" :class="{entranceButtonsfocus: D_selected}" @click="DSelected">DWELL</button>
-								</div>
-								<div class="RButtonContainer">
-									<button class="RButton entranceButtons" :class="{entranceButtonsfocus: R_selected}" @click="RSelected">RADAR/LOOP</button>
-								</div>
-								<div class="SButtonContainer">
-									<button class="SButton entranceButtons" :class="{entranceButtonsfocus: S_selected}" @click="SSelected">STATES</button>
-								</div>
+								<div class="ETIButtonContainer desktop-tabs"><button class="ETIButton entranceButtons" :class="{entranceButtonsfocus: ETI_selected}" @click="ETISelected">CAMERA IN</button></div>
+								<div class="ETIButtonContainer mobile-tabs"><button class="ETIButton entranceButtons" :class="{entranceButtonsfocus: ETI_selected}" @click="ETISelected">IN</button></div>
+
+								<div class="ETOButtonContainer desktop-tabs"><button class="ETOButton entranceButtons" :class="{entranceButtonsfocus: ETO_selected}" @click="ETOSelected">CAMERA OUT</button></div>
+								<div class="ETOButtonContainer mobile-tabs"><button class="ETOButton entranceButtons" :class="{entranceButtonsfocus: ETO_selected}" @click="ETOSelected">OUT</button></div>
+
+								<div class="ETOButtonContainer desktop-tabs"><button class="ETOButton entranceButtons" :class="{entranceButtonsfocus: Ratio_selected}" @click="ratioSelected">IN/OUT RATIO</button></div>
+								<div class="ETOButtonContainer mobile-tabs"><button class="ETOButton entranceButtons" :class="{entranceButtonsfocus: Ratio_selected}" @click="ratioSelected">RATIO</button></div>
+
+								<div class="ETOButtonContainer desktop-tabs"><button class="DButton entranceButtons" :class="{entranceButtonsfocus: D_selected}" @click="DSelected">DWELL</button></div>
+								<div class="ETOButtonContainer mobile-tabs"><button class="DButton entranceButtons" :class="{entranceButtonsfocus: D_selected}" @click="DSelected">DWELL</button></div>
+
+								<div class="RButtonContainer desktop-tabs"><button class="RButton entranceButtons" :class="{entranceButtonsfocus: R_selected}" @click="RSelected">RADAR/LOOP</button></div>
+								<div class="RButtonContainer mobile-tabs"><button class="RButton entranceButtons" :class="{entranceButtonsfocus: R_selected}" @click="RSelected">LOOP</button></div>
+
+								<div class="SButtonContainer desktop-tabs"><button class="SButton entranceButtons" :class="{entranceButtonsfocus: S_selected}" @click="SSelected">STATES</button></div>
+								<div class="SButtonContainer mobile-tabs"><button class="SButton entranceButtons" :class="{entranceButtonsfocus: S_selected}" @click="SSelected">STATES</button></div>
+
 							</div>
 							<div v-if="EntrancePage=='River'" class="tabs">
 								<div class="ETIButtonContainer">

@@ -513,7 +513,18 @@ body {
     font-style: normal;
     font-weight: normal;
 }
+.mobile-tabs{
+    display: none;
+}
 @media only screen and (max-width: 719px){
+    /* for the tabs on entrance page */
+    .desktop-tabs{
+        display: none;
+    }
+    .mobile-tabs {
+        display: inline-flex;
+        width: 53px;
+    }
     #logosWrapper{
         text-align: center;
     }

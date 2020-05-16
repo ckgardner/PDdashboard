@@ -299,7 +299,7 @@ var app = new Vue({
             this.ETI_selected = false;
             this.S_selected = false;
             this.Ratio_selected = false;
-            this.D_selected = false;
+            this.D_selected = true;
         },
         MonthSelected: function(){
             this.Month_selected = true;
