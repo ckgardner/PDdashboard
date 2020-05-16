@@ -79,6 +79,17 @@ var app = new Vue({
         Entrances: ['South', 'East', 'River', 'Kolob', 'Canyon Junction'],
         serverStats: [],
 
+        southIn: "N/A",
+        southOut: "N/A",
+        eastIn: "N/A",
+        eastOut: "N/A",
+        riverIn: "N/A",
+        riverOut: "N/A",
+        kolobIn: "N/A",
+        kolobOut: "N/A",
+        canyonIn: "N/A",
+        canyonOut: "N/A",
+
         visitor_selected: true,
         overflow_selected: false,
         ETI_selected: true,
@@ -93,6 +104,7 @@ var app = new Vue({
     created: function(){
         this.loadStats();
         this.loadParking();
+        this.loadEntrances();
         this.getWeatherAPI();
     },
     methods: {
@@ -189,6 +201,7 @@ var app = new Vue({
                 vm.parkingStat *= 100;
                 vm.parkingStat = vm.parkingStat.toFixed(0);
                 this.loadParking();
+                this.loadEntrances();
 
             }).catch(error => {
                 vm = "Fetch " + error;
@@ -236,6 +249,18 @@ var app = new Vue({
 
             this.setStop("line4", 9, VC);
             this.setStop("line5", 9, OS);
+        },
+        loadEntrances: function(){
+            this.setStop("line6", 9, 0.1);
+            this.setStop("line7", 9, 0.1);
+            this.setStop("line8", 9, 0.1);
+            this.setStop("line9", 9, 0.1);
+            this.setStop("line10", 9, 0.1);
+            this.setStop("line11", 9, 0.1);
+            this.setStop("line12", 9, 0.1);
+            this.setStop("line13", 9, 0.1);
+            this.setStop("line14", 9, 0.1);
+            this.setStop("line15", 9, 0.1);
         },
         setStop: function(id, radius, stop){
             var c = document.getElementById(id);
