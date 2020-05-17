@@ -26,20 +26,20 @@ var app = new Vue({
     el: '#app',
     vuetify: new Vuetify(),
     data: {
-        nameField: "",
+        nameField: "",         // start request acces page fields
         nameEmpty: false,
         emailField: "",
         emailEmpty: false,
-        messageField: "",
+        messageField: "",      // end request access page fields
 
-        usernameField: "",
+        usernameField: "",     // start login page fields
         usernameEmpty: false,
         passField: "",
-        passEmpty: false,
+        passEmpty: false,      // start login page fields
 
-        todaysDate: "",
+        todaysDate: "",        
         yesterdaysDate: "",
-        previousDates: [
+        previousDates: [       // not currently in use
             'March 19, 2020',
             'March 18, 2020',
             'March 17, 2020',
