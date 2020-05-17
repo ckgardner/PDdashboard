@@ -74,7 +74,7 @@ var app = new Vue({
         kolobVehicles: "N/A",
         kolobPeople: "N/A",
         KolobDateUpdated: "N/A",
-        MainPage: 'Home', // Login, loggingIn, requestAccess, Home, Parking, Entrances 
+        MainPage: 'Parking', // Login, loggingIn, requestAccess, Home, Parking, Entrances 
         EntrancePage: 'South',
         Entrances: ['South', 'East', 'River', 'Kolob', 'Canyon Junction'],
         serverStats: [],

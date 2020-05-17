@@ -106,8 +106,8 @@
 					<div v-if="MainPage=='Home' ">
 						<div> <!-- App bar for main page -->
 							<v-app-bar dense>
-								<v-toolbar-title id="loginTitle" class="homeTitle d-none d-sm-flex" v-on:click="MainPage='Home'; statRefresh();"><img class="bison" src="images/blueBison.svg">Parkdata - Zion National Park</v-toolbar-title>
-								<v-toolbar-title class="d-xs-flex d-sm-none">Parkdata</v-toolbar-title>
+								<v-toolbar-title id="loginTitle" class="homeTitle d-none d-md-flex" v-on:click="MainPage='Home'; statRefresh();"><img class="bison" src="images/blueBison.svg">Parkdata - Zion National Park</v-toolbar-title>
+								<v-toolbar-title class="d-sm-flex d-md-none">Parkdata</v-toolbar-title>
 								<v-spacer></v-spacer>
 								<v-btn class="d-none d-sm-flex" text color="#507282" v-on:click="MainPage='Parking'; resetPages(); loadParking">Parking</v-btn>
 								<v-btn class="d-xs-flex d-sm-none" text color="#507282" v-on:click="MainPage='Parking'; resetPages(); loadParking">
