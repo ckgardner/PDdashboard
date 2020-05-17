@@ -102,6 +102,7 @@
 
 					</div>
 
+					<!-- START MAIN PAGE -->
 					<div v-if="MainPage=='Home' ">
 						<div> <!-- App bar for main page -->
 							<v-app-bar dense>
@@ -174,6 +175,8 @@
 								<circle id="line3" class="overlayLine" cx="100" cy="100" r="47" stroke="#507282" stroke-dasharray="0, 3000" stroke-dashoffset="251" transform="rotate(-90,100,100)" />
 							</svg>
 						</div>
+
+						<!-- BANNER STATS FOR HOME PAGE -->
 						<div class="smallShow">
 							<div class="smallStat" id="parkingStat">
 								<div class="statWrapper">
@@ -194,6 +197,8 @@
 								</div>
 							</div>
 						</div>
+
+						<!-- TABLE STATS OVERVIEW -->
 						<div id="yesterdayWrapper">
 							<div id="title" class="yesterdayTitle">Yesterday: {{yesterdaysDate}}</div>
 							<div id="titleStatus" class="yesterdayTitleStatus"></div>
@@ -243,9 +248,9 @@
 							</table>
 						</div>
 					</div>
+					<!-- END MAIN PAGE -->
 
-					<!-- PARKING PAGES -->
-
+					<!-- START PARKING PAGES -->
 					<div v-if="MainPage=='Parking' ">
 						<!-- App bar -->
 						<v-card>
@@ -291,12 +296,11 @@
 										<button class="overflowButton parkButtons" :class="{parkButtonsfocus: overflow_selected}" @click="overflowSelected">OVERFLOW LOT</button>
 									</div>
 								</div>
-							
 						</v-card> 
-
 						<!-- End App bar -->
 
-						<div v-if="visitor_selected">
+						<!-- STARTVISITOR-LOT PARKING PAGES -->
+						<div v-if="visitor_selected"> 
 							<div class="statHeader">
 								<div class="statWrapper">
 									<img class="statImage" src="icons/parking_outline.svg">
@@ -310,31 +314,14 @@
 									<circle id="line4" class="overlayLine" cx="100" cy="100" r="9" stroke="#507282" stroke-dasharray="0, 3000" stroke-dashoffset="126" transform="rotate(-90,100,100)" />
 								</svg>
 							</div>
-							
-							<!-- <div id="parkingWrapper">
-								<p class="parkingInfo" >Parking Visitor Lot</p>
-							</div>
-									
-							<table id="parkingWrapper">
-								<tr> 
-									<th>
-									<v-menu offset-y>
-									<template v-slot:activator="{ on }">
-										<v-btn class="ml-n4" color="#507282" text v-on="on">{{todaysDate}} </v-btn>
-									</template>
-									<v-list>
-										<v-list-item v-for="(previousDate, index) in previousDates" :key="index" v-on:click="date=previousDate ">
-											<v-list-item-title>{{ previousDate }}</v-list-item-title>
-										</v-list-item>
-									</v-list>
-									</v-menu>
-									</th>
-								</tr> -->
 							<iframe id="parkingApi" src="https://trailwaze.info/zion/parking_date.php#"></iframe>				
 						</div>
-						<!-- We will have to figure out a way to dynamically fill this data based off dates -->
+								<!-- We will have to figure out a way to dynamically fill this data based off dates -->
 
-						<div v-if="overflow_selected">
+						<!-- END VISITOR-LOT PARKING PAGES -->
+
+						<!--START OVERFLOW-LOT PARKING PAGES -->
+						<div v-if="overflow_selected"> 
 							<div class="statHeader">
 								<img class="statImage" src="icons/parking_outline.svg">
 								<span>Parking Overflow Lot: {{overflowStat}}% Full</span>
@@ -356,10 +343,12 @@
 								</tr>
 							</table>
 						</div>
-					</div> 
+						<!--END OVERFLOW-LOT PARKING PAGES -->
 
-					<!-- ENTRANCE PAGES -->
+					</div>
+					<!-- END PARKING PAGES -->
 
+					<!-- START ENTRANCE PAGES -->
 					<div v-if="MainPage=='Entrances' ">
 						<!-- App bar -->
 						<v-card>
@@ -442,8 +431,9 @@
 						</v-card> 
 						<!-- End App bar -->
 
-						<div v-if="ETI_selected">
-							<div v-if="EntrancePage=='South'">
+						<!-- CAMERA IN TAB FOR ALL ENTRANCES -->
+						<div v-if="ETI_selected"> 
+							<div v-if="EntrancePage=='South'"> <!-- South--Entrance--Camera in tab -->
 								<div class="statHeader2">
 									<div class="statWrapper">
 										<img class="statImage" src="icons/south_entrance_outline.svg">
@@ -463,7 +453,7 @@
 								<iframe class="radarCharts mt-8" src="https://trailwaze.info/vehicleTrafficStats.php"></iframe>
 							</div>
 
-							<div v-if="EntrancePage=='East'">
+							<div v-if="EntrancePage=='East'"> <!-- East--Entrance--Camera in tab -->
 								<div class="statHeader2">
 									<div class="statWrapper">
 										<img class="statImage" src="icons/east_entrance_outline.svg">
@@ -480,7 +470,7 @@
 								<iframe class="radarCharts  mt-5" src="https://trailwaze.info/vehicleTrafficStats.php?site=zioneastin"></iframe>
 							</div>
 
-							<div v-if="EntrancePage=='River'">
+							<div v-if="EntrancePage=='River'"> <!-- River--Entrance--Camera in tab -->
 								<div class="statHeader2">
 									<div class="statWrapper">
 										<img class="statImage" src="icons/riverside_walk.svg">
@@ -497,7 +487,7 @@
 								<h3 class="noData">No Camera Data</h3>
 							</div>
 
-							<div v-if="EntrancePage=='Kolob'">
+							<div v-if="EntrancePage=='Kolob'"> <!-- Kolob--Entrance--Camera in tab -->
 								<div class="statHeader2">
 									<div class="statWrapper">
 										<img class="statImage" src="icons/kolob_outline.svg">
@@ -514,7 +504,7 @@
 								<h3 class="noData">No Camera Data</h3>
 							</div>
 
-							<div v-if="EntrancePage=='Canyon Junction'">
+							<div v-if="EntrancePage=='Canyon Junction'"> <!-- Cannyon-Junction--Entrance--Camera in tab -->
 								<div class="statHeader2">
 									<div class="statWrapper">
 										<img class="statImage" src="icons/canyon junction icon.svg">
@@ -530,11 +520,13 @@
 								</div>
 								<h3 class="noData">No Camera Data</h3>
 							</div>
-						</div>
+						</div> 
+						<!-- END CAMERA IN TAB FOR ALL ENTRANCES -->
 
-						<div v-if="ETO_selected">
+						<!-- START 'CAMERA-OUT' TAB FOR ALL ENTRANCES -->
+						<div v-if="ETO_selected"> 
 
-							<div v-if="EntrancePage=='South'">
+							<div v-if="EntrancePage=='South'"> <!-- South--Entrance--Camera OUT tab -->
 								<div class="statHeader2">
 									<div class="statWrapper">
 										<img class="statImage" src="icons/south_entrance_outline.svg">
@@ -551,7 +543,7 @@
 								<iframe class="radarCharts mt-5" src="https://trailwaze.info/vehicleTrafficStats.php"></iframe>
 							</div>
 
-							<div v-if="EntrancePage=='East'">
+							<div v-if="EntrancePage=='East'"> <!-- East--Entrance--Camera OUT tab -->
 								<div class="statHeader2">
 									<div class="statWrapper">
 										<img class="statImage" src="icons/east_entrance_outline.svg">
@@ -568,7 +560,7 @@
 								<iframe class="radarCharts mt-5" src="https://trailwaze.info/vehicleTrafficStats.php?site=zioneastout"></iframe>
 							</div>
 
-							<div v-if="EntrancePage=='River'">
+							<div v-if="EntrancePage=='River'"> <!-- River--Entrance--Camera OUT tab -->
 								<div class="statHeader2">
 									<div class="statWrapper">
 										<img class="statImage" src="icons/riverside_walk.svg">
@@ -585,7 +577,7 @@
 								<h3 class="noData">No Camera Data</h3>
 							</div>
 
-							<div v-if="EntrancePage=='Kolob'">
+							<div v-if="EntrancePage=='Kolob'"> <!-- Kolob--Entrance--Camera OUT tab -->
 								<div class="statHeader2">
 									<div class="statWrapper">
 										<img class="statImage" src="icons/kolob_outline.svg">
@@ -602,7 +594,7 @@
 								<h3 class="noData">No Camera Data</h3>
 							</div>
 
-							<div v-if="EntrancePage=='Canyon Junction'">
+							<div v-if="EntrancePage=='Canyon Junction'"> <!-- Canyon-Junction--Entrance--Camera OUT tab -->
 								<div class="statHeader2">
 									<div class="statWrapper">
 										<img class="statImage" src="icons/canyon junction icon.svg">
@@ -618,9 +610,10 @@
 								</div>
 								<h3 class="noData">No Camera Data</h3>
 							</div>
-						</div>
+						</div> 
+						<!-- END CAMERA OUT TAB FOR ALL ENTRANCES -->
 
-						<div v-if="Ratio_selected">
+						<div v-if="Ratio_selected"> <!-- EAST--Entrance--IN/OUT RATIO tab -->
 							<div v-if="EntrancePage=='East'">
 								<div class="statHeader2">
 									<div class="statWrapper">
@@ -631,7 +624,7 @@
 							</div>
 						</div>
 
-						<div v-if="D_selected">
+						<div v-if="D_selected">  <!-- EAST--Entrance--DWELL tab -->
 							<div v-if="EntrancePage=='East'">
 								<div class="statHeader2">
 									<div class="statWrapper">
@@ -642,8 +635,9 @@
 							</div>
 						</div>
 						
-						<div v-if="R_selected" class="mb-9 iframeContainer">
-							<div v-if="EntrancePage=='South'">
+						<!-- START RADAR TAB FOR ALL ENTRANCES -->
+						<div v-if="R_selected" class="mb-9 iframeContainer"> 
+							<div v-if="EntrancePage=='South'">  <!-- SOUTH--Entrance--RADAR tab -->
 								<div class="statHeader2">
 									<div class="statWrapper">
 										<span>South Entrance Radar Report</span>
@@ -651,7 +645,7 @@
 								</div>
 								<iframe class="radarCharts mt-6" src="https://trailwaze.info/zion/radar_monthly.php"></iframe>
 							</div>
-							<div v-if="EntrancePage=='East'">
+							<div v-if="EntrancePage=='East'"> <!-- EAST--Entrance--RADAR tab -->
 								<div class="statHeader2">
 									<div class="statWrapper">
 										<span>East Entrance Radar Report</span>
@@ -659,7 +653,7 @@
 								</div>
 								<h3 class="noData">No Radar Data</h3>
 							</div>
-							<div v-if="EntrancePage=='River'">
+							<div v-if="EntrancePage=='River'"> <!-- RIVER--Entrance--RADAR tab -->
 								<div class="statHeader2">
 									<div class="statWrapper">
 										<span>River Entrance Radar Report</span>
@@ -667,7 +661,7 @@
 								</div>
 								<h3 class="noData">No Radar Data</h3>
 							</div>
-							<div v-if="EntrancePage=='Kolob'">
+							<div v-if="EntrancePage=='Kolob'">  <!-- KOLOB--Entrance--RADAR tab -->
 								<div class="statHeader2">
 									<div class="statWrapper">
 										<span>Kolob Entrance Radar Report</span>
@@ -675,7 +669,7 @@
 								</div>
 								<iframe class="radarCharts mt-7" src="https://trailwaze.info/kolob/daily.php"></iframe>
 							</div>
-							<div v-if="EntrancePage=='Canyon Junction'">
+							<div v-if="EntrancePage=='Canyon Junction'">  <!-- CANYON-JUNCTION--RADAR--RADAR tab -->
 								<div class="statHeader2">
 									<div class="statWrapper">
 										<span>Canyon Junction Radar Report</span>
@@ -684,9 +678,11 @@
 								<h3 class="noData">No Radar Data</h3>
 							</div>
 						</div>
+						<!-- END RADAR TAB FOR ALL ENTRANCES -->
 
+						<!-- START STATE TAB FOR ALL ENTRANCES -->
 						<div v-if="S_selected">
-							<div v-if="EntrancePage=='South'">
+							<div v-if="EntrancePage=='South'">  <!-- SOUTH--Entrance--STATE tab -->
 								<div class="statHeader2">
 									<div class="statWrapper">
 										<span>South Entrance States Report</span>
@@ -694,7 +690,7 @@
 								</div>
 								<iframe class="radarCharts mt-5" src="https://trailwaze.info/zion/vehicleTrafficByState.php"></iframe>
 							</div>
-							<div v-if="EntrancePage=='East'">
+							<div v-if="EntrancePage=='East'"> <!-- EAST--Entrance--STATE tab -->
 								<div class="statHeader2">
 									<div class="statWrapper">
 										<span>East Entrance States Report</span>
@@ -702,7 +698,7 @@
 								</div>
 								<iframe class="radarCharts mt-5" src="https://trailwaze.info/vehicleTrafficByState.php?site=zioneastin&interval=yesterday"></iframe>
 							</div>
-							<div v-if="EntrancePage=='River'">
+							<div v-if="EntrancePage=='River'">  <!-- RIVER--Entrance--STATE tab -->
 								<div class="statHeader2">
 									<div class="statWrapper">
 										<span>River Entrance States Report</span>
@@ -710,7 +706,7 @@
 								</div>
 								<h3 class="noData">No State Data</h3>
 							</div>
-							<div v-if="EntrancePage=='Kolob'">
+							<div v-if="EntrancePage=='Kolob'">  <!-- KOLOB--Entrance--STATE tab -->
 								<div class="statHeader2">
 									<div class="statWrapper">
 										<span>Kolob Entrance States Report</span>
@@ -718,7 +714,7 @@
 								</div>
 								<h3 class="noData">No State Data</h3>
 							</div>
-							<div v-if="EntrancePage=='Canyon Junction'">
+							<div v-if="EntrancePage=='Canyon Junction'"> <!-- CANYON-JUNCTION--Entrance--STATE tab -->
 								<div class="statHeader2">
 									<div class="statWrapper">
 										<span>Canyon Junction States Report</span>
@@ -727,10 +723,11 @@
 								<iframe class="radarCharts mt-7" src="https://trailwaze.info/vehicleTrafficByState.php?site=canyonjct&interval=1days"></iframe>
 							</div>
 						</div>
-					
-						
+						<!-- END STATE TAB FOR ALL ENTRANCES -->
 						
 					</div>
+					<!-- END ENTRANCE PAGES -->
+
 				</div>
 				</v-content>
 			</v-app>
