@@ -74,9 +74,15 @@ var app = new Vue({
         kolobVehicles: "N/A",
         kolobPeople: "N/A",
         KolobDateUpdated: "N/A",
-        MainPage: 'Parking', // Login, loggingIn, requestAccess, Home, Parking, Entrances 
+        MainPage: 'Entrances', // Login, loggingIn, requestAccess, Home, Parking, Entrances 
         EntrancePage: 'South',
         Entrances: ['South', 'East', 'River', 'Kolob', 'Canyon Junction'],
+        statesTimes: ['ByHour', 'Yesterday', '24Hour', '7Day', '30Day'],
+        stateTimePage : 'By Hour',
+        southStateURL: 'https://trailwaze.info/zion/vehicleTrafficByState.php',
+        eastStateURL: '',
+        kolobStateURL: '',
+        canyon_junctionStateURL: '',
         serverStats: [],
 
         southIn: "N/A",
@@ -92,10 +98,10 @@ var app = new Vue({
 
         visitor_selected: true,
         overflow_selected: false,
-        ETI_selected: true,
+        ETI_selected: false, //true
         ETO_selected: false,
         R_selected: false,
-        S_selected: false,
+        S_selected: true,  //false
         D_selected: false,
         Ratio_selected: false,
         Month_selected: true,
@@ -417,8 +423,22 @@ var app = new Vue({
                 this.weatherImage = "./icons/weather/sct.svg";
             }
 
+        },
+        setSouthStateData: function(){
+            
+            switch(this.stateTimePage){
+                case 'ByHour': this.southStateURL = 'by hour'; break;
+                case 'Yesterday': this.southStateURL = 'https://trailwaze.info/vehicleTrafficAvgPerHour.php?site=south'; break;
+                case '24Hour': this.southStateURL = '24 hr'; break;
+                case '7Day': this.southStateURL = '7 day'; break;
+                case '30Day': this.southStateURL = '30ddd day'; break;
+            }
+            console.log('state url', this.southStateURL,);
+            // statesTimes: ['ByHour', 'Yesterday', '24Hour', '7Day', '30Day'],
+            // stateTimePage : 'By Hour',
+            // southStateURL:
         }
-    },
+            },
     mounted() {
         this.getTodaysDate();
     }

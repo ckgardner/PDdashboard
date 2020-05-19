@@ -299,7 +299,7 @@
 						</v-card> 
 						<!-- End App bar -->
 
-						<!-- STARTVISITOR-LOT PARKING PAGES -->
+						<!-- START VISITOR-LOT PARKING PAGES -->
 						<div v-if="visitor_selected"> 
 							<div class="statHeader">
 								<div class="statWrapper">
@@ -688,7 +688,20 @@
 										<span>South Entrance States Report</span>
 									</div>
 								</div>
-								<iframe class="radarCharts mt-5" src="https://trailwaze.info/zion/vehicleTrafficByState.php"></iframe>
+								<!-- drop down for times -->
+								<v-menu offset-y>
+									<template v-slot:activator="{ on }">
+									  <v-btn class="mt-2 ml-2 mb-3" color="#fff"  v-on="on">{{stateTimePage}}</v-btn>
+									</template>
+									<v-list>
+									  <v-list-item
+										v-for="(time, index) in statesTimes" :key="index" v-on:click="stateTimePage=time; setSouthStateData()">
+										<v-list-item-title>{{ time }}</v-list-item-title>
+									  </v-list-item>
+									</v-list>
+								</v-menu>
+
+								<iframe class="radarCharts mt-5" :src="southStateURL"></iframe>
 							</div>
 							<div v-if="EntrancePage=='East'"> <!-- EAST--Entrance--STATE tab -->
 								<div class="statHeader2">
