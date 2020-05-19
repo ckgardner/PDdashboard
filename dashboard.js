@@ -425,7 +425,7 @@ var app = new Vue({
 
         },
         resetStateTabs: function() {
-            this.stateTimePage = 'By Hour'
+            this.stateTimePage = 'By Hour';
             this.southStateURL= 'https://trailwaze.info/vehicleTrafficAvgPerHour.php?site=south';
             this.eastStateURL = 'https://trailwaze.info/vehicleTrafficAvgPerHour.php?site=east';
             this.kolobStateURL = 'https://trailwaze.info/vehicleTrafficAvgPerHour.php?site=south';
