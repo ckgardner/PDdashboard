@@ -123,7 +123,7 @@
 									</template>
 									<v-list>
 									  <v-list-item
-										v-for="(enterance, index) in Entrances" :key="index" v-on:click="MainPage='Entrances'; EntrancePage=enterance ">
+										v-for="(enterance, index) in Entrances" :key="index" v-on:click="MainPage='Entrances'; resetStateTabs(); EntrancePage=enterance ">
 										<v-list-item-title>{{ enterance }}</v-list-item-title>
 									  </v-list-item>
 									</v-list>
@@ -281,7 +281,7 @@
 											</v-btn>
 										</template>
 										<v-list>
-											<v-list-item v-for="(enterance, index) in Entrances" :key="index" v-on:click="MainPage='Entrances'; EntrancePage=enterance ">
+											<v-list-item v-for="(enterance, index) in Entrances" :key="index" v-on:click="MainPage='Entrances'; resetStateTabs(); EntrancePage=enterance;">
 												<v-list-item-title>{{ enterance }}</v-list-item-title>
 											</v-list-item>
 										</v-list>
@@ -379,7 +379,7 @@
 											</v-btn>
 										</template>
 										<v-list>
-											<v-list-item v-for="(enterance, index) in Entrances" :key="index" v-on:click="MainPage='Entrances'; EntrancePage=enterance ">
+											<v-list-item v-for="(enterance, index) in Entrances" :key="index" v-on:click="MainPage='Entrances'; resetStateTabs(); EntrancePage=enterance ">
 												<v-list-item-title>{{ enterance }}</v-list-item-title>
 											</v-list-item>
 										</v-list>
@@ -691,7 +691,7 @@
 								<!-- drop down for times -->
 								<v-menu offset-y>
 									<template v-slot:activator="{ on }">
-									  <v-btn class="mt-2 ml-2 mb-3" color="#fff"  v-on="on">{{stateTimePage}}</v-btn>
+									  <v-btn class="mt-2 ml-2" color="#fff"  v-on="on">{{stateTimePage}}</v-btn>
 									</template>
 									<v-list>
 									  <v-list-item
@@ -700,17 +700,30 @@
 									  </v-list-item>
 									</v-list>
 								</v-menu>
-
 								<iframe class="radarCharts mt-5" :src="southStateURL"></iframe>
 							</div>
+
 							<div v-if="EntrancePage=='East'"> <!-- EAST--Entrance--STATE tab -->
 								<div class="statHeader2">
 									<div class="statWrapper">
 										<span>East Entrance States Report</span>
 									</div>
 								</div>
-								<iframe class="radarCharts mt-5" src="https://trailwaze.info/vehicleTrafficByState.php?site=zioneastin&interval=yesterday"></iframe>
+								<!-- drop down for times -->
+								<v-menu offset-y>
+									<template v-slot:activator="{ on }">
+									  <v-btn class="mt-2 ml-2" color="#fff"  v-on="on">{{stateTimePage}}</v-btn>
+									</template>
+									<v-list>
+									  <v-list-item
+										v-for="(time, index) in statesTimes" :key="index" v-on:click="stateTimePage=time; setEastStateData()">
+										<v-list-item-title>{{ time }}</v-list-item-title>
+									  </v-list-item>
+									</v-list>
+								</v-menu>
+								<iframe class="radarCharts mt-5" :src="eastStateURL"></iframe>
 							</div>
+
 							<div v-if="EntrancePage=='River'">  <!-- RIVER--Entrance--STATE tab -->
 								<div class="statHeader2">
 									<div class="statWrapper">
@@ -719,21 +732,47 @@
 								</div>
 								<h3 class="noData">No State Data</h3>
 							</div>
+
 							<div v-if="EntrancePage=='Kolob'">  <!-- KOLOB--Entrance--STATE tab -->
 								<div class="statHeader2">
 									<div class="statWrapper">
 										<span>Kolob Entrance States Report</span>
 									</div>
 								</div>
-								<h3 class="noData">No State Data</h3>
+								<!-- drop down for times -->
+								<v-menu offset-y>
+									<template v-slot:activator="{ on }">
+									  <v-btn class="mt-2 ml-2" color="#fff"  v-on="on">{{stateTimePage}}</v-btn>
+									</template>
+									<v-list>
+									  <v-list-item
+										v-for="(time, index) in statesTimes" :key="index" v-on:click="stateTimePage=time; setKolobStateData()">
+										<v-list-item-title>{{ time }}</v-list-item-title>
+									  </v-list-item>
+									</v-list>
+								</v-menu>
+								<!-- will need to add the iframe if it has the state stats -->
 							</div>
+
 							<div v-if="EntrancePage=='Canyon Junction'"> <!-- CANYON-JUNCTION--Entrance--STATE tab -->
 								<div class="statHeader2">
 									<div class="statWrapper">
 										<span>Canyon Junction States Report</span>
 									</div>
 								</div>
-								<iframe class="radarCharts mt-7" src="https://trailwaze.info/vehicleTrafficByState.php?site=canyonjct&interval=1days"></iframe>
+								<!-- drop down for times -->
+								<v-menu offset-y>
+									<template v-slot:activator="{ on }">
+									  <v-btn class="mt-2 ml-2" color="#fff"  v-on="on">{{stateTimePage}}</v-btn>
+									</template>
+									<v-list>
+									  <v-list-item
+										v-for="(time, index) in statesTimes" :key="index" v-on:click="stateTimePage=time; setCanyonStateData()">
+										<v-list-item-title>{{ time }}</v-list-item-title>
+									  </v-list-item>
+									</v-list>
+								</v-menu>
+								<iframe class="radarCharts mt-7" :src="canyon_junctionStateURL"></iframe>
 							</div>
 						</div>
 						<!-- END STATE TAB FOR ALL ENTRANCES -->

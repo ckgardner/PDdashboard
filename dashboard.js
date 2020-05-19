@@ -77,12 +77,12 @@ var app = new Vue({
         MainPage: 'Entrances', // Login, loggingIn, requestAccess, Home, Parking, Entrances 
         EntrancePage: 'South',
         Entrances: ['South', 'East', 'River', 'Kolob', 'Canyon Junction'],
-        statesTimes: ['ByHour', 'Yesterday', '24Hour', '7Day', '30Day'],
+        statesTimes: ['By Hour', 'Yesterday', '24 Hour', '7 Day', '30 Day'],
         stateTimePage : 'By Hour',
-        southStateURL: 'https://trailwaze.info/zion/vehicleTrafficByState.php',
-        eastStateURL: '',
-        kolobStateURL: '',
-        canyon_junctionStateURL: '',
+        southStateURL: 'https://trailwaze.info/vehicleTrafficAvgPerHour.php?site=south',
+        eastStateURL: 'https://trailwaze.info/vehicleTrafficAvgPerHour.php?site=east', // doesnt work
+        kolobStateURL: 'https://trailwaze.info/vehicleTrafficAvgPerHour.php?site=south', // doesnt work
+        canyon_junctionStateURL: 'https://trailwaze.info/vehicleTrafficAvgPerHour.php?site=canyonjct',
         serverStats: [],
 
         southIn: "N/A",
@@ -424,21 +424,55 @@ var app = new Vue({
             }
 
         },
+        resetStateTabs: function() {
+            this.stateTimePage = 'By Hour'
+            this.southStateURL= 'https://trailwaze.info/vehicleTrafficAvgPerHour.php?site=south';
+            this.eastStateURL = 'https://trailwaze.info/vehicleTrafficAvgPerHour.php?site=east';
+            this.kolobStateURL = 'https://trailwaze.info/vehicleTrafficAvgPerHour.php?site=south';
+            this.canyon_junctionStateURL = 'https://trailwaze.info/vehicleTrafficAvgPerHour.php?site=canyonjct';
+        },
         setSouthStateData: function(){
-            
             switch(this.stateTimePage){
-                case 'ByHour': this.southStateURL = 'by hour'; break;
-                case 'Yesterday': this.southStateURL = 'https://trailwaze.info/vehicleTrafficAvgPerHour.php?site=south'; break;
-                case '24Hour': this.southStateURL = '24 hr'; break;
-                case '7Day': this.southStateURL = '7 day'; break;
-                case '30Day': this.southStateURL = '30ddd day'; break;
+                case 'By Hour': this.southStateURL = 'https://trailwaze.info/vehicleTrafficAvgPerHour.php?site=south'; break;
+                case 'Yesterday': this.southStateURL = ''; break;
+                case '24 Hour': this.southStateURL = 'https://trailwaze.info/zion/vehicleTrafficByState.php'; break;
+                case '7 Day': this.southStateURL = ''; break;
+                case '30 Day': this.southStateURL = ''; break;
             }
-            console.log('state url', this.southStateURL,);
-            // statesTimes: ['ByHour', 'Yesterday', '24Hour', '7Day', '30Day'],
-            // stateTimePage : 'By Hour',
-            // southStateURL:
+        },
+        setEastStateData: function() {
+            switch(this.stateTimePage) {
+                case 'By Hour': this.eastStateURL = ''; break;
+                case 'Yesterday': this.eastStateURL = 'https://trailwaze.info/vehicleTrafficByState.php?site=zioneastin&interval=yesterday'; break;
+                case '24 Hour': this.eastStateURL = ''; break;
+                case '7 Day': this.eastStateURL = ''; break;
+                case '30 Day': this.eastStateURL = ''; break;
+            }
+        },
+        setKolobStateData: function() {
+            switch(this.stateTimePage) {
+                case 'By Hour': this.kolobStateURL = ''; break;
+                case 'Yesterday': this.kolobStateURL = ''; break;
+                case '24 Hour': this.kolobStateURL = ''; break;
+                case '7 Day': this.kolobStateURL = ''; break;
+                case '30 Day': this.kolobStateURL = ''; break;
+            }
+        },
+        setCanyonStateData: function() {
+            switch(this.stateTimePage) {
+                case 'By Hour': this.canyon_junctionStateURL = 'https://trailwaze.info/vehicleTrafficAvgPerHour.php?site=canyonjct'; break;
+                case 'Yesterday': this.canyon_junctionStateURL = ''; break;
+                case '24 Hour': this.canyon_junctionStateURL = 'https://trailwaze.info/vehicleTrafficByState.php?site=canyonjct&interval=1days'; break;
+                case '7 Day': this.canyon_junctionStateURL = ''; break;
+                case '30 Day': this.canyon_junctionStateURL = ''; break;
+            }
         }
-            },
+
+        // console.log('state url', this.southStateURL,);
+        // statesTimes: ['ByHour', 'Yesterday', '24Hour', '7Day', '30Day'],
+        // stateTimePage : 'By Hour',
+        // southStateURL:
+    },
     mounted() {
         this.getTodaysDate();
     }
