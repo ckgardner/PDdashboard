@@ -680,6 +680,7 @@
 						</div>
 						<!-- END RADAR TAB FOR ALL ENTRANCES -->
 
+						<!-- <v-toolbar-title id="loginTitle" v-on:click="MainPage='Login' "><img class="bison" src="images/blueBison.svg">Parkdata</v-toolbar-title> -->
 						<!-- START STATE TAB FOR ALL ENTRANCES -->
 						<div v-if="S_selected">
 							<div v-if="EntrancePage=='South'">  <!-- SOUTH--Entrance--STATE tab -->
@@ -691,11 +692,11 @@
 								<!-- drop down for times -->
 								<v-menu offset-y>
 									<template v-slot:activator="{ on }">
-									  <v-btn class="mt-2 ml-2" color="#fff"  v-on="on">{{stateTimePage}}</v-btn>
+									  <v-btn class="mt-2 ml-2" color="#fff" @click="switchArrow()" v-on="on">{{stateTimePage}}<img class="pl-3" :src="stateArrowImage" alt="arrow"></v-btn>
 									</template>
 									<v-list>
 									  <v-list-item
-										v-for="(time, index) in statesTimes" :key="index" v-on:click="stateTimePage=time; setSouthStateData()">
+										v-for="(time, index) in statesTimes" :key="index" v-on:click="stateTimePage=time; setSouthStateData(); resetArrow();">
 										<v-list-item-title>{{ time }}</v-list-item-title>
 									  </v-list-item>
 									</v-list>
@@ -712,11 +713,11 @@
 								<!-- drop down for times -->
 								<v-menu offset-y>
 									<template v-slot:activator="{ on }">
-									  <v-btn class="mt-2 ml-2" color="#fff"  v-on="on">{{stateTimePage}}</v-btn>
+									  <v-btn class="mt-2 ml-2" color="#fff" @click="switchArrow()" v-on="on">{{stateTimePage}}<img class="pl-3"  :src="stateArrowImage" alt="arrow"></v-btn>
 									</template>
 									<v-list>
 									  <v-list-item
-										v-for="(time, index) in statesTimes" :key="index" v-on:click="stateTimePage=time; setEastStateData()">
+										v-for="(time, index) in statesTimes" :key="index" v-on:click="stateTimePage=time; setEastStateData(); resetArrow();">
 										<v-list-item-title>{{ time }}</v-list-item-title>
 									  </v-list-item>
 									</v-list>
@@ -742,11 +743,11 @@
 								<!-- drop down for times -->
 								<v-menu offset-y>
 									<template v-slot:activator="{ on }">
-									  <v-btn class="mt-2 ml-2" color="#fff"  v-on="on">{{stateTimePage}}</v-btn>
+									  <v-btn class="mt-2 ml-2" color="#fff" @click="switchArrow()" v-on="on">{{stateTimePage}}<img class="pl-3"  :src="stateArrowImage" alt="arrow"></v-btn>
 									</template>
 									<v-list>
 									  <v-list-item
-										v-for="(time, index) in statesTimes" :key="index" v-on:click="stateTimePage=time; setKolobStateData()">
+										v-for="(time, index) in statesTimes" :key="index" v-on:click="stateTimePage=time; setKolobStateData(); resetArrow();">
 										<v-list-item-title>{{ time }}</v-list-item-title>
 									  </v-list-item>
 									</v-list>
@@ -763,11 +764,11 @@
 								<!-- drop down for times -->
 								<v-menu offset-y>
 									<template v-slot:activator="{ on }">
-									  <v-btn class="mt-2 ml-2" color="#fff"  v-on="on">{{stateTimePage}}</v-btn>
+									  <v-btn class="mt-2 ml-2" color="#fff" @click="switchArrow()" v-on="on">{{stateTimePage}}<img class="pl-3" :src="stateArrowImage" alt="arrow"></v-btn>
 									</template>
 									<v-list>
 									  <v-list-item
-										v-for="(time, index) in statesTimes" :key="index" v-on:click="stateTimePage=time; setCanyonStateData()">
+										v-for="(time, index) in statesTimes" :key="index" v-on:click="stateTimePage=time; setCanyonStateData(); resetArrow();">
 										<v-list-item-title>{{ time }}</v-list-item-title>
 									  </v-list-item>
 									</v-list>

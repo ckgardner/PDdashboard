@@ -78,6 +78,7 @@ var app = new Vue({
         EntrancePage: 'South',
         Entrances: ['South', 'East', 'River', 'Kolob', 'Canyon Junction'],
         statesTimes: ['By Hour', 'Yesterday', '24 Hour', '7 Day', '30 Day'],
+        stateArrowImage: 'icons/downArrow.png',
         stateTimePage : 'By Hour',
         southStateURL: 'https://trailwaze.info/vehicleTrafficAvgPerHour.php?site=south',
         eastStateURL: 'https://trailwaze.info/vehicleTrafficAvgPerHour.php?site=east', // doesnt work
@@ -466,6 +467,16 @@ var app = new Vue({
                 case '7 Day': this.canyon_junctionStateURL = ''; break;
                 case '30 Day': this.canyon_junctionStateURL = ''; break;
             }
+        },
+        switchArrow: function() {
+            if(this.stateArrowImage == 'icons/downArrow.png'){
+                this.stateArrowImage = 'icons/upArrow.png';
+            } else{
+                this.stateArrowImage = 'icons/downArrow.png'
+            }
+        },
+        resetArrow: function() {
+            this.stateArrowImage = 'icons/downArrow.png';
         }
 
         // console.log('state url', this.southStateURL,);
