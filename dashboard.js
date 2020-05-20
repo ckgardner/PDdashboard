@@ -82,7 +82,7 @@ var app = new Vue({
         stateTimePage : 'By Hour',
         southStateURL: 'https://trailwaze.info/vehicleTrafficAvgPerHour.php?site=south',
         eastStateURL: 'https://trailwaze.info/vehicleTrafficAvgPerHour.php?site=east', // doesnt work
-        kolobStateURL: 'https://trailwaze.info/vehicleTrafficAvgPerHour.php?site=south', // doesnt work
+        kolobStateURL: 'https://trailwaze.info/vehicleTrafficAvgPerHour.php?site=kolob', // doesnt work
         canyon_junctionStateURL: 'https://trailwaze.info/vehicleTrafficAvgPerHour.php?site=canyonjct',
         serverStats: [],
 

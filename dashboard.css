@@ -357,7 +357,7 @@ th{
     left: 0; 
     bottom: 0; 
     right: 0;  
-    margin: 0; 
+    margin: 10; 
     padding: 0; 
     overflow: hidden; 
 }
@@ -562,5 +562,16 @@ body {
         margin-top: 10px;
         margin-left: 5px;
         margin-right: 5px;
+    }
+}
+@media only screen and (min-width: 960px){
+    .radarCharts {
+        margin-top: 30px;
+    }
+}
+
+@media only screen and (max-width: 365px){
+    .eastCharts {
+        margin-top: 30px;
     }
 }
