@@ -106,11 +106,11 @@
 					<div v-if="MainPage=='Home' ">
 						<div> <!-- App bar for main page -->
 							<v-app-bar dense>
-								<v-toolbar-title id="loginTitle" class="homeTitle d-none d-md-flex" v-on:click="MainPage='Home'; statRefresh();"><img class="bison" src="images/blueBison.svg">Parkdata - Zion National Park</v-toolbar-title>
-								<v-toolbar-title class="d-sm-flex d-md-none">Parkdata</v-toolbar-title>
+								<v-toolbar-title id="loginTitle" class="homeTitle d-none d-sm-flex" v-on:click="MainPage='Home'; statRefresh();"><img class="bison" src="images/blueBison.svg">Parkdata - Zion National Park</v-toolbar-title>
+								<v-toolbar-title class="d-xs-flex d-sm-none">Parkdata</v-toolbar-title>
 								<v-spacer></v-spacer>
-								<v-btn class="d-none d-sm-flex" text color="#507282" v-on:click="MainPage='Parking'; resetPages(); loadParking">Parking</v-btn>
-								<v-btn class="d-xs-flex d-sm-none" text color="#507282" v-on:click="MainPage='Parking'; resetPages(); loadParking">
+								<v-btn class="d-none d-sm-flex" text color="#507282" v-on:click="MainPage='Parking'; resetPages()">Parking</v-btn>
+								<v-btn class="d-xs-flex d-sm-none" text color="#507282" v-on:click="MainPage='Parking'; resetPages()">
 									<img src="icons/parking_outline_blue.svg" alt="">
 								</v-btn>
 								<!-- drop down for Entrances -->
@@ -123,7 +123,7 @@
 									</template>
 									<v-list>
 									  <v-list-item
-										v-for="(enterance, index) in Entrances" :key="index" v-on:click="MainPage='Entrances'; resetStateTabs(); EntrancePage=enterance ">
+										v-for="(enterance, index) in Entrances" :key="index" v-on:click="MainPage='Entrances'; EntrancePage=enterance ">
 										<v-list-item-title>{{ enterance }}</v-list-item-title>
 									  </v-list-item>
 									</v-list>
@@ -146,19 +146,19 @@
 						<div class="stat" id="eastEntranceStat">
 							<div class="statWrapper">
 								<img class="statImage" src="icons/east_entrance_outline.svg">
-								<span>East Entrance: {{eastEntranceStat}}</span>
+								<span style="display:inline-block;"><b>East Entrance:</b><br> {{eastEntranceStat}}</span>
 							</div>
 						</div>
 						<div class="stat" id="southEntranceStat">
 							<div class="statWrapper">
 								<img class="statImage" src="icons/south_entrance_outline.svg">
-								<span>South Entrance: {{southEntranceStat}}</span>
+								<span><b>South Entrance:</b><br> {{southEntranceStat}}</span>
 							</div>
 						</div>
 						<div class="stat" id="canyonStat">
 							<div class="statWrapper">
 								<img class="statImage" src="icons/canyon junction icon.svg">
-								<span>Canyon Junction: {{canyonStat}}</span>
+								<span><b>Canyon Junction:</b><br> {{canyonStat}}</span>
 							</div>
 						</div>
 						<div id="svgContainer">
@@ -175,8 +175,6 @@
 								<circle id="line3" class="overlayLine" cx="100" cy="100" r="47" stroke="#507282" stroke-dasharray="0, 3000" stroke-dashoffset="251" transform="rotate(-90,100,100)" />
 							</svg>
 						</div>
-
-						<!-- BANNER STATS FOR HOME PAGE -->
 						<div class="smallShow">
 							<div class="smallStat" id="parkingStat">
 								<div class="statWrapper">
@@ -187,21 +185,25 @@
 							<div class="smallStat" id="eastEntranceStat">
 								<div class="statWrapper">
 									<img class="statImage" src="icons/east_entrance_outline.svg">
-									<span>East Entrance: {{eastEntranceStat}}</span>
+									<span><b>East Entrance:</b><br> {{eastEntranceStat}}</span>
 								</div>
 							</div>
 							<div class="smallStat" id="southEntranceStat">
 								<div class="statWrapper">
 									<img class="statImage" src="icons/south_entrance_outline.svg">
-									<span>South Entrance: {{southEntranceStat}}</span>
+									<span><b>South Entrance:</b><br> {{southEntranceStat}}</span>
+								</div>
+							</div>
+							<div class="smallStat" id="canyonStat">
+								<div class="statWrapper">
+									<img class="statImage" src="icons/canyon junction icon.svg">
+									<span><b>Canyon Junction:</b><br> {{canyonStat}}</span>
 								</div>
 							</div>
 						</div>
-
-						<!-- TABLE STATS OVERVIEW -->
 						<div id="yesterdayWrapper">
 							<div id="title" class="yesterdayTitle">Yesterday: {{yesterdaysDate}}</div>
-							<div id="titleStatus" class="yesterdayTitleStatus"></div>
+							<!-- <br><div class="yesterdayTitleStatus">{{yesterdayTitleStatus}}</div> -->
 							<table id="yesterdaysEntrances">
 								<tr>
 								<th>Entrance</th>
@@ -223,7 +225,7 @@
 								</tr>
 								<tr>
 								<td>River</td>
-								<td class="right">{{riverVehicles}}</td>
+								<td class="right"></td>
 								<td class="right">{{riverPeople}}</td>
 								<td class="right smallHide">{{RiverDateUpdated}}</td>
 								</tr>
@@ -304,15 +306,13 @@
 							<div class="statHeader">
 								<div class="statWrapper">
 									<img class="statImage" src="icons/parking_outline.svg">
-									<span class="smallHide">Parking Visitor Lot: </span><span>{{vcStat}}% Full</span>
+									<span class="smallHide">Parking Visitor Lot:&nbsp;</span><span> {{vcStat}}% Full</span>
+									<svg class="svg2" viewBox="86 86 30 30" height="50px" width="50px">
+										<circle cx="100" cy="100" r="13" style="stroke: white; fill: white;"/> 
+										<circle class="background" cx="100" cy="100" r="9" stroke="#DCE3E6" />
+										<circle id="line4" class="overlayLine" cx="100" cy="100" r="9" stroke="#507282" stroke-dasharray="0, 3000" stroke-dashoffset="126" transform="rotate(-90,100,100)" />
+									</svg>
 								</div>
-							</div>
-							<div id="svgContainer">
-								<svg id="svg2" viewBox="86 86 30 30" height="50px" width="50px">
-									<circle cx="100" cy="100" r="13" style="stroke: white; fill: white;"/> 
-									<circle class="background" cx="100" cy="100" r="9" stroke="#DCE3E6" />
-									<circle id="line4" class="overlayLine" cx="100" cy="100" r="9" stroke="#507282" stroke-dasharray="0, 3000" stroke-dashoffset="126" transform="rotate(-90,100,100)" />
-								</svg>
 							</div>
 							<iframe id="parkingApi" src="https://trailwaze.info/zion/parking_date.php#"></iframe>				
 						</div>
@@ -324,10 +324,8 @@
 						<div v-if="overflow_selected"> 
 							<div class="statHeader">
 								<img class="statImage" src="icons/parking_outline.svg">
-								<span>Parking Overflow Lot: {{overflowStat}}% Full</span>
-							</div>
-							<div id="svgContainer">
-								<svg id="svg3" viewBox="86 86 30 30" height="50px" width="50px">
+								<span>Parking Overflow Lot:&nbsp;{{overflowStat}}% Full</span>
+								<svg class="svg2" viewBox="86 86 30 30" height="50px" width="50px">
 									<circle cx="100" cy="100" r="13" style="stroke: white; fill: white;"/> 
 									<circle class="background" cx="100" cy="100" r="9" stroke="#DCE3E6" />
 									<circle id="line5" class="overlayLine" cx="100" cy="100" r="9" stroke="#507282" stroke-dasharray="0, 3000" stroke-dashoffset="126" transform="rotate(-90,100,100)" />
@@ -438,17 +436,15 @@
 									<div class="statWrapper">
 										<img class="statImage" src="icons/south_entrance_outline.svg">
 										<div class="textWrapper">
-											<span class="smallHide">South Entrance: </span>
-											<span>{{southEntranceStat}} vehicles</span>
+											<span class="smallHide"><b>South Entrance:</b></span>
+											<span>{{southEntranceStat}}</span>
+											<svg class="svg2" viewBox="86 86 30 30" height="50px" width="50px">
+												<circle cx="100" cy="100" r="13" style="stroke: white; fill: white;"/> 
+												<circle class="background" cx="100" cy="100" r="9" stroke="#f7f6f4" />
+												<circle id="line6" class="overlayLine" cx="100" cy="100" r="9" stroke="#C9AC68" stroke-dasharray="0, 3000" stroke-dashoffset="126" transform="rotate(-90,100,100)" />
+											</svg>
 										</div>
 									</div>
-								</div>
-								<div id="svgContainer">
-									<svg class="svg4" viewBox="86 86 30 30" height="50px" width="50px">
-										<circle cx="100" cy="100" r="13" style="stroke: white; fill: white;"/> 
-										<circle class="background" cx="100" cy="100" r="9" stroke="#f7f6f4" />
-										<circle id="line6" class="overlayLine" cx="100" cy="100" r="9" stroke="#C9AC68" stroke-dasharray="0, 3000" stroke-dashoffset="126" transform="rotate(-90,100,100)" />
-									</svg>
 								</div>
 								<iframe class="radarCharts mt-8" src="https://trailwaze.info/vehicleTrafficStats.php"></iframe>
 							</div>
@@ -457,15 +453,14 @@
 								<div class="statHeader2">
 									<div class="statWrapper">
 										<img class="statImage" src="icons/east_entrance_outline.svg">
-										<span class="smallHide">East Entrance: </span><span>{{eastEntranceStat}} vehicles</span>
+										<span class="smallHide"><b>East Entrance:</b></span>
+										<span>{{eastEntranceStat}}</span>
+										<svg class="svg2" viewBox="86 86 30 30" height="50px" width="50px">
+											<circle cx="100" cy="100" r="13" style="stroke: white; fill: white;"/> 
+											<circle class="background" cx="100" cy="100" r="9" stroke="#f7f6f4" />
+											<circle id="line7" class="overlayLine" cx="100" cy="100" r="9" stroke="#C9AC68" stroke-dasharray="0, 3000" stroke-dashoffset="126" transform="rotate(-90,100,100)" />
+										</svg>
 									</div>
-								</div>
-								<div id="svgContainer" class="breakDown">
-									<svg class="svg4" viewBox="86 86 30 30" height="50px" width="50px">
-										<circle cx="100" cy="100" r="13" style="stroke: white; fill: white;"/> 
-										<circle class="background" cx="100" cy="100" r="9" stroke="#f7f6f4" />
-										<circle id="line7" class="overlayLine" cx="100" cy="100" r="9" stroke="#C9AC68" stroke-dasharray="0, 3000" stroke-dashoffset="126" transform="rotate(-90,100,100)" />
-									</svg>
 								</div>
 								<iframe class="radarCharts  mt-5" src="https://trailwaze.info/vehicleTrafficStats.php?site=zioneastin"></iframe>
 							</div>
@@ -474,15 +469,14 @@
 								<div class="statHeader2">
 									<div class="statWrapper">
 										<img class="statImage" src="icons/riverside_walk.svg">
-										<span class="smallHide">River Exit: </span><span>{{riverVehicles}} vehicles</span>
+										<span class="smallHide"><b>River Entrance:</b></span>
+										<span>{{riverPeople}} People</span>
+										<svg class="svg2" viewBox="86 86 30 30" height="50px" width="50px">
+											<circle cx="100" cy="100" r="13" style="stroke: white; fill: white;"/> 
+											<circle class="background" cx="100" cy="100" r="9" stroke="#f7f6f4" />
+											<circle id="line8" class="overlayLine" cx="100" cy="100" r="9" stroke="#C9AC68" stroke-dasharray="0, 3000" stroke-dashoffset="126" transform="rotate(-90,100,100)" />
+										</svg>
 									</div>
-								</div>
-								<div id="svgContainer">
-									<svg class="svg4" viewBox="86 86 30 30" height="50px" width="50px">
-										<circle cx="100" cy="100" r="13" style="stroke: white; fill: white;"/> 
-										<circle class="background" cx="100" cy="100" r="9" stroke="#f7f6f4" />
-										<circle id="line8" class="overlayLine" cx="100" cy="100" r="9" stroke="#C9AC68" stroke-dasharray="0, 3000" stroke-dashoffset="126" transform="rotate(-90,100,100)" />
-									</svg>
 								</div>
 								<h3 class="noData">No Camera Data</h3>
 							</div>
@@ -491,15 +485,14 @@
 								<div class="statHeader2">
 									<div class="statWrapper">
 										<img class="statImage" src="icons/kolob_outline.svg">
-										<span class="smallHide">Kolob Entrance: </span><span>{{kolobVehicles}} vehicles</span>
+										<span class="smallHide"><b>Kolob Entrance:</b></span>
+										<span>{{kolobVehicles}}</span>
+										<svg class="svg2" viewBox="86 86 30 30" height="50px" width="50px">
+											<circle cx="100" cy="100" r="13" style="stroke: white; fill: white;"/> 
+											<circle class="background" cx="100" cy="100" r="9" stroke="#f7f6f4" />
+											<circle id="line9" class="overlayLine" cx="100" cy="100" r="9" stroke="#C9AC68" stroke-dasharray="0, 3000" stroke-dashoffset="126" transform="rotate(-90,100,100)" />
+										</svg>
 									</div>
-								</div>
-								<div id="svgContainer">
-									<svg class="svg4" viewBox="86 86 30 30" height="50px" width="50px">
-										<circle cx="100" cy="100" r="13" style="stroke: white; fill: white;"/> 
-										<circle class="background" cx="100" cy="100" r="9" stroke="#f7f6f4" />
-										<circle id="line9" class="overlayLine" cx="100" cy="100" r="9" stroke="#C9AC68" stroke-dasharray="0, 3000" stroke-dashoffset="126" transform="rotate(-90,100,100)" />
-									</svg>
 								</div>
 								<h3 class="noData">No Camera Data</h3>
 							</div>
@@ -508,15 +501,14 @@
 								<div class="statHeader2">
 									<div class="statWrapper">
 										<img class="statImage" src="icons/canyon junction icon.svg">
-										<span class="smallHide">Canyon Junction: </span><span>{{canyonStat}} vehicles</span>
+										<span class="smallHide"><b>Canyon Junction:</b></span>
+										<span>{{canyonStat}}</span>
+										<svg class="svg2" viewBox="86 86 30 30" height="50px" width="50px">
+											<circle cx="100" cy="100" r="13" style="stroke: white; fill: white;"/> 
+											<circle class="background" cx="100" cy="100" r="9" stroke="#f7f6f4" />
+											<circle id="line10" class="overlayLine" cx="100" cy="100" r="9" stroke="#C9AC68" stroke-dasharray="0, 3000" stroke-dashoffset="126" transform="rotate(-90,100,100)" />
+										</svg>
 									</div>
-								</div>
-								<div id="svgContainer">
-									<svg class="svg4" viewBox="86 86 30 30" height="50px" width="50px">
-										<circle cx="100" cy="100" r="13" style="stroke: white; fill: white;"/> 
-										<circle class="background" cx="100" cy="100" r="9" stroke="#f7f6f4" />
-										<circle id="line10" class="overlayLine" cx="100" cy="100" r="9" stroke="#C9AC68" stroke-dasharray="0, 3000" stroke-dashoffset="126" transform="rotate(-90,100,100)" />
-									</svg>
 								</div>
 								<h3 class="noData">No Camera Data</h3>
 							</div>
@@ -530,15 +522,14 @@
 								<div class="statHeader2">
 									<div class="statWrapper">
 										<img class="statImage" src="icons/south_entrance_outline.svg">
-										<span class="smallHide">South Entrance: </span><span>{{southEntranceStat}} vehicles</span>
+										<span class="smallHide"><b>South Exit:</b></span>
+										<span>{{southExitStat}}</span>
+										<svg class="svg2" viewBox="86 86 30 30" height="50px" width="50px">
+											<circle cx="100" cy="100" r="13" style="stroke: white; fill: white;"/> 
+											<circle class="background" cx="100" cy="100" r="9" stroke="#f7f6f4" />
+											<circle id="line11" class="overlayLine" cx="100" cy="100" r="9" stroke="#C9AC68" stroke-dasharray="0, 3000" stroke-dashoffset="126" transform="rotate(-90,100,100)" />
+										</svg>
 									</div>
-								</div>
-								<div id="svgContainer">
-									<svg class="svg4" viewBox="86 86 30 30" height="50px" width="50px">
-										<circle cx="100" cy="100" r="13" style="stroke: white; fill: white;"/> 
-										<circle class="background" cx="100" cy="100" r="9" stroke="#f7f6f4" />
-										<circle id="line11" class="overlayLine" cx="100" cy="100" r="9" stroke="#C9AC68" stroke-dasharray="0, 3000" stroke-dashoffset="126" transform="rotate(-90,100,100)" />
-									</svg>
 								</div>
 								<iframe class="radarCharts mt-5" src="https://trailwaze.info/vehicleTrafficStats.php"></iframe>
 							</div>
@@ -547,15 +538,14 @@
 								<div class="statHeader2">
 									<div class="statWrapper">
 										<img class="statImage" src="icons/east_entrance_outline.svg">
-										<span class="smallHide">East Exit: </span><span>{{eastEntranceStat}} vehicles</span>
+										<span class="smallHide"><b>East Exit:</b></span>
+										<span>{{eastExitStat}}</span>
+										<svg class="svg2" viewBox="86 86 30 30" height="50px" width="50px">
+											<circle cx="100" cy="100" r="13" style="stroke: white; fill: white;"/> 
+											<circle class="background" cx="100" cy="100" r="9" stroke="#f7f6f4" />
+											<circle id="line12" class="overlayLine" cx="100" cy="100" r="9" stroke="#C9AC68" stroke-dasharray="0, 3000" stroke-dashoffset="126" transform="rotate(-90,100,100)" />
+										</svg>
 									</div>
-								</div>
-								<div id="svgContainer" class="breakDown">
-									<svg class="svg4" viewBox="86 86 30 30" height="50px" width="50px">
-										<circle cx="100" cy="100" r="13" style="stroke: white; fill: white;"/> 
-										<circle class="background" cx="100" cy="100" r="9" stroke="#f7f6f4" />
-										<circle id="line12" class="overlayLine" cx="100" cy="100" r="9" stroke="#C9AC68" stroke-dasharray="0, 3000" stroke-dashoffset="126" transform="rotate(-90,100,100)" />
-									</svg>
 								</div>
 								<iframe class="radarCharts mt-5" src="https://trailwaze.info/vehicleTrafficStats.php?site=zioneastout"></iframe>
 							</div>
@@ -564,15 +554,14 @@
 								<div class="statHeader2">
 									<div class="statWrapper">
 										<img class="statImage" src="icons/riverside_walk.svg">
-										<span class="smallHide">River Exit: </span><span>{{riverVehicles}} vehicles</span>
+										<span class="smallHide"><b>River Exit:</b></span>
+										<span>{{riverExit}}</span>
+										<svg class="svg2" viewBox="86 86 30 30" height="50px" width="50px">
+											<circle cx="100" cy="100" r="13" style="stroke: white; fill: white;"/> 
+											<circle class="background" cx="100" cy="100" r="9" stroke="#f7f6f4" />
+											<circle id="line13" class="overlayLine" cx="100" cy="100" r="9" stroke="#C9AC68" stroke-dasharray="0, 3000" stroke-dashoffset="126" transform="rotate(-90,100,100)" />
+										</svg>
 									</div>
-								</div>
-								<div id="svgContainer">
-									<svg class="svg4" viewBox="86 86 30 30" height="50px" width="50px">
-										<circle cx="100" cy="100" r="13" style="stroke: white; fill: white;"/> 
-										<circle class="background" cx="100" cy="100" r="9" stroke="#f7f6f4" />
-										<circle id="line13" class="overlayLine" cx="100" cy="100" r="9" stroke="#C9AC68" stroke-dasharray="0, 3000" stroke-dashoffset="126" transform="rotate(-90,100,100)" />
-									</svg>
 								</div>
 								<h3 class="noData">No Camera Data</h3>
 							</div>
@@ -581,15 +570,14 @@
 								<div class="statHeader2">
 									<div class="statWrapper">
 										<img class="statImage" src="icons/kolob_outline.svg">
-										<span class="smallHide">Kolob Exit: </span><span>{{kolobVehicles}} vehicles</span>
+										<span class="smallHide"><b>Kolob Exit:</b></span>
+										<span>{{kolobExit}}</span>
+										<svg class="svg2" viewBox="86 86 30 30" height="50px" width="50px">
+											<circle cx="100" cy="100" r="13" style="stroke: white; fill: white;"/> 
+											<circle class="background" cx="100" cy="100" r="9" stroke="#f7f6f4" />
+											<circle id="line14" class="overlayLine" cx="100" cy="100" r="9" stroke="#C9AC68" stroke-dasharray="0, 3000" stroke-dashoffset="126" transform="rotate(-90,100,100)" />
+										</svg>
 									</div>
-								</div>
-								<div id="svgContainer">
-									<svg class="svg4" viewBox="86 86 30 30" height="50px" width="50px">
-										<circle cx="100" cy="100" r="13" style="stroke: white; fill: white;"/> 
-										<circle class="background" cx="100" cy="100" r="9" stroke="#f7f6f4" />
-										<circle id="line14" class="overlayLine" cx="100" cy="100" r="9" stroke="#C9AC68" stroke-dasharray="0, 3000" stroke-dashoffset="126" transform="rotate(-90,100,100)" />
-									</svg>
 								</div>
 								<h3 class="noData">No Camera Data</h3>
 							</div>
@@ -598,15 +586,14 @@
 								<div class="statHeader2">
 									<div class="statWrapper">
 										<img class="statImage" src="icons/canyon junction icon.svg">
-										<span class="smallHide">Canyon Junction: </span><span>{{canyonStat}} vehicles</span>
+										<span class="smallHide"><b>Canyon Junction:</b></span>
+										<span>{{canyonExit}}</span>
+										<svg class="svg2" viewBox="86 86 30 30" height="50px" width="50px">
+											<circle cx="100" cy="100" r="13" style="stroke: white; fill: white;"/> 
+											<circle class="background" cx="100" cy="100" r="9" stroke="#f7f6f4" />
+											<circle id="line15" class="overlayLine" cx="100" cy="100" r="9" stroke="#C9AC68" stroke-dasharray="0, 3000" stroke-dashoffset="126" transform="rotate(-90,100,100)" />
+										</svg>
 									</div>
-								</div>
-								<div id="svgContainer">
-									<svg class="svg4" viewBox="86 86 30 30" height="50px" width="50px">
-										<circle cx="100" cy="100" r="13" style="stroke: white; fill: white;"/> 
-										<circle class="background" cx="100" cy="100" r="9" stroke="#f7f6f4" />
-										<circle id="line15" class="overlayLine" cx="100" cy="100" r="9" stroke="#C9AC68" stroke-dasharray="0, 3000" stroke-dashoffset="126" transform="rotate(-90,100,100)" />
-									</svg>
 								</div>
 								<h3 class="noData">No Camera Data</h3>
 							</div>

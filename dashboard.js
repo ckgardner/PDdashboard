@@ -39,41 +39,41 @@ var app = new Vue({
 
         todaysDate: "",        
         yesterdaysDate: "",
-        previousDates: [       // not currently in use
-            'March 19, 2020',
-            'March 18, 2020',
-            'March 17, 2020',
-            'March 16, 2020',
-            'March 15, 2020',
-            'March 14, 2020',
-        ],
         currentTemp: "",
         currentCond: "",
         weatherImage: "",
 
         titleStatus: "Busy",
-        totalVisitors: "9,000",
-        parkingStat: "",
-        overflowStat: "10",
-        vcStat: "10",
-        eastEntranceStat: "N/A",
-        southEntranceStat: "N/A",
-        canyonStat: "N/A",
+        totalVisitors: "N/A",
         yesterdayTitleStatus: "Busy",
         yesterdayZionTotal: "N/A",
         yesterdayCanyonTotal: "N/A",
+
+        parkingStat: "",
+        overflowStat: "10",
+        vcStat: "10",        
+        eastEntranceStat: "N/A",
+        eastExitStat: "N/A",
+        southEntranceStat: "N/A",
+        southExitStat: "N/A",
+        canyonStat: "N/A",
+        canyonExit: "N/A",
+        kolobStat: "N/A",
+        kolobExit: "N/A",
+        riverPeople: "N/A",
+        riverExit: "N/A",
+
         SVehicles: "N/A",
         SPeople: "N/A",
         SDateUpdated: "N/A",
         EVehicles: "N/A",
         EPeople: "N/A",
         EastDateUpdated: "N/A",
-        riverVehicles: "",
-        riverPeople: "N/A",
         RiverDateUpdated: "N/A",
         kolobVehicles: "N/A",
         kolobPeople: "N/A",
         KolobDateUpdated: "N/A",
+        
         MainPage: 'Entrances', // Login, loggingIn, requestAccess, Home, Parking, Entrances 
         EntrancePage: 'South',
         Entrances: ['South', 'East', 'River', 'Kolob', 'Canyon Junction'],
@@ -99,10 +99,10 @@ var app = new Vue({
 
         visitor_selected: true,
         overflow_selected: false,
-        ETI_selected: false, //true
+        ETI_selected: true, //true
         ETO_selected: false,
         R_selected: false,
-        S_selected: true,  //false
+        S_selected: false,  //false
         D_selected: false,
         Ratio_selected: false,
         Month_selected: true,
@@ -110,11 +110,35 @@ var app = new Vue({
     },
     created: function(){
         this.loadStats();
+        this.getWeatherAPI();
         this.loadParking();
         this.loadEntrances();
-        this.getWeatherAPI();
     },
     methods: {
+        getAPIData_safe: function (data, fields, def){
+			//data = json object api return data
+			//fields = array of data fields tree
+			//def = default return value if nothing is found
+			var ret = def;
+			var multiEntrance = false;
+			try{
+				if(i == 0 && tdata.hasOwnProperty(f + "1")){multiEntrance = true;}
+				var tdata = data;
+				for(var i = 0; i < fields.length; i++){
+					var f = fields[i];
+					if(tdata.hasOwnProperty(f)){
+						if(i == fields.length - 1){
+							ret = tdata[f];
+						}else{
+							tdata = tdata[f];
+						}
+					}
+				}
+			}catch(err){
+				console.log(err);
+			}
+			return ret;
+		},
         getTodaysDate: function () {
             var date = new Date();
             var yesterday = new Date(date);
@@ -130,73 +154,77 @@ var app = new Vue({
         loadStats: function() {
             var vm = this;
             axios.get("https://trailwaze.info/zion/request.php").then(response => {
-                if(response.data.hasOwnProperty("ZionSouthEntrance")){
-                    if(response.data.ZionSouthEntrance.hasOwnProperty("Yesterday")){
-                        vm.SVehicles = response.data.ZionSouthEntrance.Yesterday.count;
-                        vm.SDateUpdated = response.data.ZionSouthEntrance.Yesterday.date;
-                    }if(response.data.ZionSouthEntrance.hasOwnProperty("Today")){
-                        vm.southEntranceStat = response.data.ZionSouthEntrance.Today.count;
-                    }
-                }
+                //South Entrance: Today
+				vm.southEntranceVehicles = this.getAPIData_safe(response.data, ["ZionSouthEntrance1", "Today", "count"], 0);
+				vm.southEntranceVehicles += this.getAPIData_safe(response.data, ["ZionSouthEntrance2", "Today", "count"], 0);
+				//South Entrance: Yesterday
+				var southMultiplier = this.getAPIData_safe(response.data, ["ZionSouthEntrance", "Yesterday", "multiplier"], 1);
+				vm.SVehicles = this.getAPIData_safe(response.data, ["ZionSouthEntrance", "Yesterday", "count"], "N/A");
+				vm.SDateUpdated = this.getAPIData_safe(response.data, ["ZionSouthEntrance", "Yesterday", "date"], "N/A");
+				//South Entrance: Today
+				if(vm.southEntranceVehicles > 0){vm.southEntranceStat = vm.southEntranceVehicles + " vehicles | " + Math.round(vm.southEntranceVehicles * southMultiplier) + " visitors";}
 
-                if(response.data.hasOwnProperty("ZionEastEntrance1")){
-                    if(response.data.ZionEastEntrance1.hasOwnProperty("Yesterday")){
-                        vm.EVehicles = response.data.ZionEastEntrance1.Yesterday.count;
-                        vm.EastDateUpdated = response.data.ZionEastEntrance1.Yesterday.date;
-                    }if(response.data.ZionEastEntrance1.hasOwnProperty("Today")){
-                        vm.eastEntranceStat = response.data.ZionEastEntrance1.Today.count;
-                    }
-                }
+				//special case, we are using the ZionEastEntrance1 for todays counts
+				//and the ZionEastEntrance2 for Yesterdays counts
+				//East Entrance: Today
+				vm.eastEntranceVehicles = this.getAPIData_safe(response.data, ["ZionEastEntrance1", "Today", "count"], 0);
+				//East Entrance: Yesterday
+				var eastMultiplier = this.getAPIData_safe(response.data, ["ZionEastEntrance2", "Yesterday", "multiplier"], 1);
+				var eastCount_yesterday = this.getAPIData_safe(response.data, ["ZionEastEntrance2", "Yesterday", "count"], 0);
+                vm.EastDateUpdated = this.getAPIData_safe(response.data, ["ZionEastEntrance2", "Yesterday", "date"], "N/A");
+				if(vm.eastEntranceVehicles > 0){vm.eastEntranceStat = vm.eastEntranceVehicles + " vehicles | " + Math.round(vm.eastEntranceVehicles * eastMultiplier) + " visitors";}
+				if(eastCount_yesterday > 0){vm.EVehicles = eastCount_yesterday;}
                     
-                if(response.data.hasOwnProperty("ZionRiverEntrance")){
-                    if(response.data.ZionRiverEntrance.hasOwnProperty("Yesterday")){
-                        vm.riverPeople = response.data.ZionRiverEntrance.Yesterday.count;
-                        vm.RiverDateUpdated = response.data.ZionRiverEntrance.Yesterday.date;
-                    }
-                }
+				//River Entrance: Yesterday
+				vm.riverPeople = this.getAPIData_safe(response.data, ["ZionRiverEntrance", "Yesterday", "count"], "N/A");
+				vm.RiverDateUpdated = this.getAPIData_safe(response.data, ["ZionRiverEntrance", "Yesterday", "date"], "N/A");
 
-                if(response.data.hasOwnProperty("ParkingVisitorCenter") || response.data.hasOwnProperty("ParkingOverflow")){
-                    var parkingStatSum = 0;
-                    if(response.data.hasOwnProperty("ParkingVisitorCenter") && response.data.ParkingVisitorCenter.hasOwnProperty("Today")){
-                        vm.vcStat = response.data.ParkingVisitorCenter.Today.count;
-                        parkingStatSum += vm.vcStat;
-                    }
-                    if(response.data.hasOwnProperty("ParkingOverflow") && response.data.ParkingOverflow.hasOwnProperty("Today")){
-                        vm.overflowStat = response.data.ParkingOverflow.Today.count;
-                        parkingStatSum += vm.overflowStat;
-                    }
-                    vm.parkingStat = parkingStatSum;
-                    console.log(vm.parkingStat, "Pre");
-                    vm.parkingStat /= 550;
-                }
+				var parkingStatSum = 0;
+				//Parking: Visitor Center
+				parkingStatSum += this.getAPIData_safe(response.data, ["ParkingVisitorCenter", "Today", "count"], 0);
+				//Parking: Overflow
+				parkingStatSum += this.getAPIData_safe(response.data, ["ParkingOverflow", "Today", "count"], 0);
+				//Parking: total
+                vm.parkingStat = parkingStatSum / 2;
+				//vm.parkingStat/=500;
+
+				//multiply vehicles by multiplier and set south and east people
+				if(vm.SVehicles != "N/A"){vm.SPeople = Math.round(vm.SVehicles * southMultiplier);}
+				if(vm.EVehicles != "N/A"){vm.EPeople = Math.round(vm.EVehicles * eastMultiplier);}
 
                 vm.yesterdayCanyonTotal = 0;
-                if(vm.SVehicles != "N/A"){vm.yesterdayCanyonTotal += vm.SVehicles;}
-                if(vm.EVehicles != "N/A"){vm.yesterdayCanyonTotal += vm.EVehicles;}
-                if(vm.riverPeople != "N/A"){vm.yesterdayCanyonTotal += vm.riverPeople;}
+				if(vm.SPeople != "N/A"){vm.yesterdayCanyonTotal += vm.SPeople;}
+				if(vm.EPeople != "N/A"){vm.yesterdayCanyonTotal += vm.EPeople;}
+				if(vm.riverPeople != "N/A"){vm.yesterdayCanyonTotal += vm.riverPeople;}
                 vm.yesterdayZionTotal = vm.yesterdayCanyonTotal;
-                
-                if(response.data.hasOwnProperty("LastYearVisitation")){
-                    vm.totalVisitors = response.data.LastYearVisitation.count;
-                }
+				
+				//Entrance: Kolob
+				vm.kolobVehicles = this.getAPIData_safe(response.data, ["KolobRadar", "Yesterday", "count"], "N/A");
+				var kolobMultiplier = this.getAPIData_safe(response.data, ["KolobRadar", "Yesterday", "multiplier"], 1);
+				if(vm.kolobVehicles != "N/A"){vm.kolobPeople = vm.kolobVehicles * kolobMultiplier;}
+				//add Kolob count to Zion Total Count
+				if(vm.kolobPeople != "N/A"){vm.yesterdayZionTotal += kolobPeople;}
 
-                var PS = vm.parkingStat;
+				//Last Year Visitation
+				vm.totalVisitors = this.getAPIData_safe(response.data, ['LastYearVisitation', 'count'], 'N/A');
+
+                var PS = vm.parkingStat / 100;
                 if (PS < 0.1){
                     PS = 0.1;
-                    vm.parkingStat = 0.1;
+                    vm.parkingStat = 10;
                 }
 
-                var ES = vm.eastEntranceStat / 2500;
+                var ES = vm.eastEntranceStat.substr(0,vm.eastEntranceStat.indexOf(' ')) / 2500;
                 if (ES < 0.1){
                     ES = 0.1;
                 }
 
-                var SES = vm.southEntranceStat / 2500;
+                var SES = vm.southEntranceStat.substr(0,vm.southEntranceStat.indexOf(' ')) / 2500;
                 if (SES < 0.1 || vm.southEntranceStat == "N/A"){
                     SES = 0.1;
                 }
 
-                var CJ = vm.canyonStat / 2500;
+                var CJ = vm.canyonStat.substr(0,vm.canyonStat.indexOf(' ')) / 2500;
                 if (CJ < 0.1 || vm.canyonStat == "N/A"){
                     CJ = 0.1;
                 }
@@ -205,7 +233,7 @@ var app = new Vue({
                 this.setStop("line1", 31, SES);
                 this.setStop("line2", 39, ES);
                 this.setStop("line3", 47, PS);
-                vm.parkingStat *= 100;
+                //vm.parkingStat *= 100;
                 vm.parkingStat = vm.parkingStat.toFixed(0);
                 this.loadParking();
                 this.loadEntrances();
@@ -220,18 +248,11 @@ var app = new Vue({
 				let parser = new DOMParser();
 				let doc = parser.parseFromString(response.data, "text/xml");
 				var currentWeather = doc.getElementsByTagName("data")[1];
-
 				var temp = currentWeather.getElementsByTagName("temperature")[0];
-                var tempVal = temp.getElementsByTagName("value")[0].childNodes[0].nodeValue;
-
-                var cond = currentWeather.getElementsByTagName("weather")[0];
-                var cond1 = cond.getElementsByTagName("weather-conditions")[0];
-                var condVal = cond1.getAttribute("weather-summary");
-                console.log(tempVal, condVal);
-
+				var tempVal = temp.getElementsByTagName("value")[0].childNodes[0].nodeValue;
+				var icon = currentWeather.getElementsByTagName("icon-link")[0].childNodes[0].nodeValue;
                 vm.currentTemp = tempVal;
-                vm.currentCond = condVal;
-                this.checkWeatherImage(vm.currentCond);
+				this.checkWeatherImage(icon);								 
 			}).catch(error => {
                 vm = "Fetch " + error;
             });
@@ -401,32 +422,19 @@ var app = new Vue({
         statRefresh: function(){
             console.log("stats refreshing");
             this.loadStats();
+            this.getWeatherAPI();
         },
-        checkWeatherImage: function(c){
-            var d = new Date();
-            var n = d.getHours();
-            if (c == "Clear" || c == "Sunny"){
-                if (n < 7 || n > 20){
-                    this.weatherImage = "./icons/weatherNight/skc.svg";
-                }
-                this.weatherImage = "./icons/weather/skc.svg";
+        checkWeatherImage: function(icon){
+            const hours = new Date().getUTCHours();
+			var timeOfDay = "weatherNight";
+			if(hours <= 2 || (hours > 12 && hours < 24  )){
+                timeOfDay = "weather";
             }
-            if (c == "Mostly Clear" || c == "Mostly Sunny" || c == "Partly Cloudy"){
-                if (n < 7 || n > 20){
-                    this.weatherImage = "./icons/weatherNight/few.svg";
-                }
-                this.weatherImage = "./icons/weather/few.svg";
-            }
-            if (c == "Mostly Cloudy"){
-                if (n < 7 || n > 20){
-                    this.weatherImage = "./icons/weatherNight/sct.svg";
-                }
-                this.weatherImage = "./icons/weather/sct.svg";
-            }
-
+            icon = "./icons/"+ timeOfDay + icon.substr(icon.lastIndexOf("/")).replace(".png",".svg");
+            this.weatherImage = icon;
         },
         resetStateTabs: function() {
-            this.stateTimePage = 'By Hour'
+            this.stateTimePage = 'By Hour';
             this.southStateURL= 'https://trailwaze.info/vehicleTrafficAvgPerHour.php?site=south';
             this.eastStateURL = 'https://trailwaze.info/vehicleTrafficAvgPerHour.php?site=east';
             this.kolobStateURL = 'https://trailwaze.info/vehicleTrafficAvgPerHour.php?site=south';
@@ -478,14 +486,17 @@ var app = new Vue({
         resetArrow: function() {
             this.stateArrowImage = 'icons/downArrow.png';
         }
-
-        // console.log('state url', this.southStateURL,);
-        // statesTimes: ['ByHour', 'Yesterday', '24Hour', '7Day', '30Day'],
-        // stateTimePage : 'By Hour',
-        // southStateURL:
     },
     mounted() {
         this.getTodaysDate();
     }
 });
 
+function loadEastInOutDate(date1,countIn,countOut){
+	var addr = 'https://trailwaze.info/zion/inOut_east_date.php?date='+date1+'&countin='+countIn+'&countout='+countOut;
+	var alerts = axios.get(addr).then(function( data ) {
+		var iframe = document.getElementById("ratioFrame");
+		var innerDoc = (iframe.contentDocument) ? iframe.contentDocument : iframe.contentWindow.document;
+		innerDoc.getElementById( "inOutSub" ).innerHTML = data.data;
+	});
+}
