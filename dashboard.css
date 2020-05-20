@@ -250,6 +250,10 @@ v-app-bar{
     width: 65%;
     margin: 0 auto;
 }
+.statWrapper span{
+	vertical-align:middle;
+	display:inline-block;
+}
 .statWrapper2{
     width: 98%;
     margin: 0 auto;

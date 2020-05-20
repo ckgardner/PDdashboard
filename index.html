@@ -106,11 +106,11 @@
 					<div v-if="MainPage=='Home' ">
 						<div> <!-- App bar for main page -->
 							<v-app-bar dense>
-								<v-toolbar-title id="loginTitle" class="homeTitle d-none d-md-flex" v-on:click="MainPage='Home'; statRefresh();"><img class="bison" src="images/blueBison.svg">Parkdata - Zion National Park</v-toolbar-title>
-								<v-toolbar-title class="d-sm-flex d-md-none">Parkdata</v-toolbar-title>
+								<v-toolbar-title id="loginTitle" class="homeTitle d-none d-sm-flex" v-on:click="MainPage='Home'; statRefresh();"><img class="bison" src="images/blueBison.svg">Parkdata - Zion National Park</v-toolbar-title>
+								<v-toolbar-title class="d-xs-flex d-sm-none">Parkdata</v-toolbar-title>
 								<v-spacer></v-spacer>
-								<v-btn class="d-none d-sm-flex" text color="#507282" v-on:click="MainPage='Parking'; resetPages(); loadParking">Parking</v-btn>
-								<v-btn class="d-xs-flex d-sm-none" text color="#507282" v-on:click="MainPage='Parking'; resetPages(); loadParking">
+								<v-btn class="d-none d-sm-flex" text color="#507282" v-on:click="MainPage='Parking'; resetPages()">Parking</v-btn>
+								<v-btn class="d-xs-flex d-sm-none" text color="#507282" v-on:click="MainPage='Parking'; resetPages()">
 									<img src="icons/parking_outline_blue.svg" alt="">
 								</v-btn>
 								<!-- drop down for Entrances -->
@@ -123,7 +123,7 @@
 									</template>
 									<v-list>
 									  <v-list-item
-										v-for="(enterance, index) in Entrances" :key="index" v-on:click="MainPage='Entrances'; resetStateTabs(); EntrancePage=enterance ">
+										v-for="(enterance, index) in Entrances" :key="index" v-on:click="MainPage='Entrances'; EntrancePage=enterance ">
 										<v-list-item-title>{{ enterance }}</v-list-item-title>
 									  </v-list-item>
 									</v-list>
@@ -146,13 +146,13 @@
 						<div class="stat" id="eastEntranceStat">
 							<div class="statWrapper">
 								<img class="statImage" src="icons/east_entrance_outline.svg">
-								<span>East Entrance: {{eastEntranceStat}}</span>
+								<span style="display:inline-block;"><b>East Entrance:</b><br> {{eastEntranceStat}}</span>
 							</div>
 						</div>
 						<div class="stat" id="southEntranceStat">
 							<div class="statWrapper">
 								<img class="statImage" src="icons/south_entrance_outline.svg">
-								<span>South Entrance: {{southEntranceStat}}</span>
+								<span><b>South Entrance:</b><br> {{southEntranceStat}}</span>
 							</div>
 						</div>
 						<div class="stat" id="canyonStat">
@@ -175,8 +175,6 @@
 								<circle id="line3" class="overlayLine" cx="100" cy="100" r="47" stroke="#507282" stroke-dasharray="0, 3000" stroke-dashoffset="251" transform="rotate(-90,100,100)" />
 							</svg>
 						</div>
-
-						<!-- BANNER STATS FOR HOME PAGE -->
 						<div class="smallShow">
 							<div class="smallStat" id="parkingStat">
 								<div class="statWrapper">
@@ -187,7 +185,7 @@
 							<div class="smallStat" id="eastEntranceStat">
 								<div class="statWrapper">
 									<img class="statImage" src="icons/east_entrance_outline.svg">
-									<span>East Entrance: {{eastEntranceStat}}</span>
+									<span style="display:block;">East Entrance:<br> {{eastEntranceStat}}</span>
 								</div>
 							</div>
 							<div class="smallStat" id="southEntranceStat">
@@ -197,11 +195,9 @@
 								</div>
 							</div>
 						</div>
-
-						<!-- TABLE STATS OVERVIEW -->
 						<div id="yesterdayWrapper">
 							<div id="title" class="yesterdayTitle">Yesterday: {{yesterdaysDate}}</div>
-							<div id="titleStatus" class="yesterdayTitleStatus"></div>
+							<div id="yesterdayTitleStatus" class="yesterdayTitleStatus">{{yesterdayTitleStatus}}</div>
 							<table id="yesterdaysEntrances">
 								<tr>
 								<th>Entrance</th>
