@@ -254,6 +254,11 @@ v-app-bar{
 	vertical-align:middle;
 	display:inline-block;
 }
+.svg2{
+    vertical-align:middle;
+    display: inline-block;
+    margin-left: 20px;
+}
 .statWrapper2{
     width: 98%;
     margin: 0 auto;
@@ -328,47 +333,9 @@ th{
     width: 350px;
     height: 350px;
 }
-#svg2{
-    position: absolute;
-    top: 16.3%;
-    right: 25%;
-}
-#svg3{
-    position: absolute;
-    top: 21%;
-    right: 15%;
-}
-.svg4{
-    position: absolute;
-    top: 21.7%;
-    right: 25%;
-}
 @media only screen and (min-width: 720px){
     #svg{
         left: 56%;
-    }
-}
-@media only screen and (max-width: 960px){
-    #svg2{
-        top: 12.5%;
-        right: 15%;
-    }
-    #svg3{
-        position: absolute;
-        top: 16%;
-        right: 10%;
-    }
-    .svg4{
-        top: 16.8%;
-        right: 23%;
-    }
-}
-@media only screen and (max-width: 690px){
-    #svg2{
-        display: none;
-    }
-    #svg3{
-        display: none;
     }
 }
 @media only screen and (max-width: 690px){
