@@ -254,6 +254,9 @@ v-app-bar{
 	vertical-align:middle;
 	display:inline-block;
 }
+.textWrap{
+    display: inline;
+}
 .svg2{
     vertical-align:middle;
     display: inline-block;
