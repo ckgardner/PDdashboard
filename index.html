@@ -203,7 +203,7 @@
 						</div>
 						<div id="yesterdayWrapper">
 							<div id="title" class="yesterdayTitle">Yesterday: {{yesterdaysDate}}</div>
-							<div id="yesterdayTitleStatus" class="yesterdayTitleStatus">{{yesterdayTitleStatus}}</div>
+							<!-- <br><div class="yesterdayTitleStatus">{{yesterdayTitleStatus}}</div> -->
 							<table id="yesterdaysEntrances">
 								<tr>
 								<th>Entrance</th>
@@ -324,7 +324,7 @@
 						<div v-if="overflow_selected"> 
 							<div class="statHeader">
 								<img class="statImage" src="icons/parking_outline.svg">
-								<span>Parking Overflow Lot: {{overflowStat}}% Full</span>
+								<span>Parking Overflow Lot:&nbsp;{{overflowStat}}% Full</span>
 								<svg class="svg2" viewBox="86 86 30 30" height="50px" width="50px">
 									<circle cx="100" cy="100" r="13" style="stroke: white; fill: white;"/> 
 									<circle class="background" cx="100" cy="100" r="9" stroke="#DCE3E6" />
@@ -436,7 +436,7 @@
 									<div class="statWrapper">
 										<img class="statImage" src="icons/south_entrance_outline.svg">
 										<div class="textWrapper">
-											<span class="smallHide">South Entrance: </span>
+											<span class="smallHide"><b>South Entrance:</b></span>
 											<span>{{southEntranceStat}} vehicles</span>
 											<svg class="svg2" viewBox="86 86 30 30" height="50px" width="50px">
 												<circle cx="100" cy="100" r="13" style="stroke: white; fill: white;"/> 

@@ -338,11 +338,6 @@ th{
         left: 56%;
     }
 }
-@media only screen and (max-width: 690px){
-    .smallHide{
-        display: none;
-    }
-}
 #svgContainer{
     width: 100%;
 }

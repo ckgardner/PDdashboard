@@ -74,7 +74,7 @@ var app = new Vue({
         kolobVehicles: "N/A",
         kolobPeople: "N/A",
         KolobDateUpdated: "N/A",
-        MainPage: 'Parking', // Login, loggingIn, requestAccess, Home, Parking, Entrances 
+        MainPage: 'Entrances', // Login, loggingIn, requestAccess, Home, Parking, Entrances 
         EntrancePage: 'South',
         Entrances: ['South', 'East', 'River', 'Kolob', 'Canyon Junction'],
         statesTimes: ['By Hour', 'Yesterday', '24 Hour', '7 Day', '30 Day'],
@@ -98,10 +98,10 @@ var app = new Vue({
 
         visitor_selected: true,
         overflow_selected: false,
-        ETI_selected: false, //true
+        ETI_selected: true, //true
         ETO_selected: false,
         R_selected: false,
-        S_selected: true,  //false
+        S_selected: false,  //false
         D_selected: false,
         Ratio_selected: false,
         Month_selected: true,
@@ -109,9 +109,9 @@ var app = new Vue({
     },
     created: function(){
         this.loadStats();
+        this.getWeatherAPI();
         this.loadParking();
         this.loadEntrances();
-        this.getWeatherAPI();
     },
     methods: {
         getAPIData_safe: function (data, fields, def){
@@ -162,7 +162,6 @@ var app = new Vue({
 				vm.SDateUpdated = this.getAPIData_safe(response.data, ["ZionSouthEntrance", "Yesterday", "date"], "N/A");
 				//South Entrance: Today
 				if(vm.southEntranceVehicles > 0){vm.southEntranceStat = vm.southEntranceVehicles + " vehicles | " + Math.round(vm.southEntranceVehicles * southMultiplier) + " visitors";}
-                console.log(vm.southEntranceStat);
 
 				//special case, we are using the ZionEastEntrance1 for todays counts
 				//and the ZionEastEntrance2 for Yesterdays counts
@@ -251,7 +250,7 @@ var app = new Vue({
 				var temp = currentWeather.getElementsByTagName("temperature")[0];
 				var tempVal = temp.getElementsByTagName("value")[0].childNodes[0].nodeValue;
 				var icon = currentWeather.getElementsByTagName("icon-link")[0].childNodes[0].nodeValue;
-				vm.currentTemp = tempVal;
+                vm.currentTemp = tempVal;
 				this.checkWeatherImage(icon);								 
 			}).catch(error => {
                 vm = "Fetch " + error;
@@ -422,29 +421,16 @@ var app = new Vue({
         statRefresh: function(){
             console.log("stats refreshing");
             this.loadStats();
+            this.getWeatherAPI();
         },
-        checkWeatherImage: function(c){
-            var d = new Date();
-            var n = d.getHours();
-            if (c == "Clear" || c == "Sunny"){
-                if (n < 7 || n > 20){
-                    this.weatherImage = "./icons/weatherNight/skc.svg";
-                }
-                this.weatherImage = "./icons/weather/skc.svg";
+        checkWeatherImage: function(icon){
+            const hours = new Date().getUTCHours();
+			var timeOfDay = "weatherNight";
+			if(hours <= 2 || (hours > 12 && hours < 24  )){
+                timeOfDay = "weather";
             }
-            if (c == "Mostly Clear" || c == "Mostly Sunny" || c == "Partly Cloudy"){
-                if (n < 7 || n > 20){
-                    this.weatherImage = "./icons/weatherNight/few.svg";
-                }
-                this.weatherImage = "./icons/weather/few.svg";
-            }
-            if (c == "Mostly Cloudy"){
-                if (n < 7 || n > 20){
-                    this.weatherImage = "./icons/weatherNight/sct.svg";
-                }
-                this.weatherImage = "./icons/weather/sct.svg";
-            }
-
+            icon = "./icons/"+ timeOfDay + icon.substr(icon.lastIndexOf("/")).replace(".png",".svg");
+            this.weatherImage = icon;
         },
         resetStateTabs: function() {
             this.stateTimePage = 'By Hour';
@@ -489,14 +475,17 @@ var app = new Vue({
                 case '30 Day': this.canyon_junctionStateURL = ''; break;
             }
         }
-
-        // console.log('state url', this.southStateURL,);
-        // statesTimes: ['ByHour', 'Yesterday', '24Hour', '7Day', '30Day'],
-        // stateTimePage : 'By Hour',
-        // southStateURL:
     },
     mounted() {
         this.getTodaysDate();
     }
 });
 
+function loadEastInOutDate(date1,countIn,countOut){
+	var addr = 'https://trailwaze.info/zion/inOut_east_date.php?date='+date1+'&countin='+countIn+'&countout='+countOut;
+	var alerts = axios.get(addr).then(function( data ) {
+		var iframe = document.getElementById("ratioFrame");
+		var innerDoc = (iframe.contentDocument) ? iframe.contentDocument : iframe.contentWindow.document;
+		innerDoc.getElementById( "inOutSub" ).innerHTML = data.data;
+	});
+}
