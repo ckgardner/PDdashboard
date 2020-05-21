@@ -675,7 +675,6 @@
 						</div>
 						<!-- END RADAR TAB FOR ALL ENTRANCES -->
 
-						<!-- <v-toolbar-title id="loginTitle" v-on:click="MainPage='Login' "><img class="bison" src="images/blueBison.svg">Parkdata</v-toolbar-title> -->
 						<!-- START STATE TAB FOR ALL ENTRANCES -->
 						<div v-if="S_selected">
 							<div v-if="EntrancePage=='South'">  <!-- SOUTH--Entrance--STATE tab -->
@@ -687,7 +686,7 @@
 								<!-- drop down for times -->
 								<v-menu offset-y>
 									<template v-slot:activator="{ on }">
-									  <v-btn class="mt-2 ml-2" color="#fff" @click="switchArrow()" v-on="on">{{stateTimePage}}<img class="pl-3" :src="stateArrowImage" alt="arrow"></v-btn>
+									  <v-btn class="mt-2 ml-2" outlined color="black" @click="switchArrow()" v-on="on">{{stateTimePage}}<img class="pl-3" :src="stateArrowImage" alt="arrow"></v-btn>
 									</template>
 									<v-list>
 									  <v-list-item
@@ -696,7 +695,7 @@
 									  </v-list-item>
 									</v-list>
 								</v-menu>
-								<iframe class="radarCharts mt-5" :src="southStateURL"></iframe>
+								<iframe class="radarCharts charts" :src="southStateURL"></iframe>
 							</div>
 
 							<div v-if="EntrancePage=='East'"> <!-- EAST--Entrance--STATE tab -->
@@ -708,7 +707,7 @@
 								<!-- drop down for times -->
 								<v-menu offset-y>
 									<template v-slot:activator="{ on }">
-									  <v-btn class="mt-2 ml-2" color="#fff" @click="switchArrow()" v-on="on">{{stateTimePage}}<img class="pl-3"  :src="stateArrowImage" alt="arrow"></v-btn>
+									  <v-btn class="mt-2 ml-2" outlined color="black" @click="switchArrow()" v-on="on">{{stateTimePage}}<img class="pl-3"  :src="stateArrowImage" alt="arrow"></v-btn>
 									</template>
 									<v-list>
 									  <v-list-item
@@ -717,7 +716,7 @@
 									  </v-list-item>
 									</v-list>
 								</v-menu>
-								<iframe class="radarCharts mt-5" :src="eastStateURL"></iframe>
+								<iframe class="radarCharts eastCharts" :src="eastStateURL"></iframe>
 							</div>
 
 							<div v-if="EntrancePage=='River'">  <!-- RIVER--Entrance--STATE tab -->
@@ -738,7 +737,7 @@
 								<!-- drop down for times -->
 								<v-menu offset-y>
 									<template v-slot:activator="{ on }">
-									  <v-btn class="mt-2 ml-2" color="#fff" @click="switchArrow()" v-on="on">{{stateTimePage}}<img class="pl-3"  :src="stateArrowImage" alt="arrow"></v-btn>
+									  <v-btn class="mt-2 ml-2" outlined color="black" @click="switchArrow()" v-on="on">{{stateTimePage}}<img class="pl-3"  :src="stateArrowImage" alt="arrow"></v-btn>
 									</template>
 									<v-list>
 									  <v-list-item
@@ -759,7 +758,7 @@
 								<!-- drop down for times -->
 								<v-menu offset-y>
 									<template v-slot:activator="{ on }">
-									  <v-btn class="mt-2 ml-2" color="#fff" @click="switchArrow()" v-on="on">{{stateTimePage}}<img class="pl-3" :src="stateArrowImage" alt="arrow"></v-btn>
+									  <v-btn class="mt-2 ml-2" outlined color="black" @click="switchArrow()" v-on="on">{{stateTimePage}}<img class="pl-3" :src="stateArrowImage" alt="arrow"></v-btn>
 									</template>
 									<v-list>
 									  <v-list-item
@@ -768,7 +767,7 @@
 									  </v-list-item>
 									</v-list>
 								</v-menu>
-								<iframe class="radarCharts mt-7" :src="canyon_junctionStateURL"></iframe>
+								<iframe class="radarCharts" :src="canyon_junctionStateURL"></iframe>
 							</div>
 						</div>
 						<!-- END STATE TAB FOR ALL ENTRANCES -->
