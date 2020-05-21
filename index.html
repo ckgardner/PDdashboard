@@ -109,8 +109,8 @@
 								<v-toolbar-title id="loginTitle" class="homeTitle d-none d-sm-flex" v-on:click="MainPage='Home'; statRefresh();"><img class="bison" src="images/blueBison.svg">Parkdata - Zion National Park</v-toolbar-title>
 								<v-toolbar-title class="d-xs-flex d-sm-none">Parkdata</v-toolbar-title>
 								<v-spacer></v-spacer>
-								<v-btn class="d-none d-sm-flex" text color="#507282" v-on:click="MainPage='Parking'; resetPages()">Parking</v-btn>
-								<v-btn class="d-xs-flex d-sm-none" text color="#507282" v-on:click="MainPage='Parking'; resetPages()">
+								<v-btn class="d-none d-sm-flex" text color="#507282" v-on:click="MainPage='Parking'; statRefresh(); resetPages()">Parking</v-btn>
+								<v-btn class="d-xs-flex d-sm-none" text color="#507282" v-on:click="MainPage='Parking'; statRefresh(); resetPages()">
 									<img src="icons/parking_outline_blue.svg" alt="">
 								</v-btn>
 								<!-- drop down for Entrances -->
@@ -123,7 +123,7 @@
 									</template>
 									<v-list>
 									  <v-list-item
-										v-for="(enterance, index) in Entrances" :key="index" v-on:click="MainPage='Entrances'; EntrancePage=enterance ">
+										v-for="(enterance, index) in Entrances" :key="index" v-on:click="MainPage='Entrances'; statRefresh(); EntrancePage=enterance ">
 										<v-list-item-title>{{ enterance }}</v-list-item-title>
 									  </v-list-item>
 									</v-list>
@@ -267,9 +267,9 @@
 								
 								<div class="float-right d-inline-flex">
 									<!-- <v-btn v-on:click="MainPage='Parking'; resetPages()"text color="#507282" class="d-inline">Parking</v-btn> -->
-									<v-btn class="d-none d-md-flex mt-8" text color="#507282" v-on:click="MainPage='Parking'; resetPages()">Parking</v-btn>
-									<v-btn class="d-none d-sm-flex d-md-none mt-4" text color="#507282" v-on:click="MainPage='Parking'; resetPages()">Parking</v-btn>
-									<v-btn class="d-xs-flex d-sm-none mt-3" text color="#507282" v-on:click="MainPage='Parking'; resetPages()">
+									<v-btn class="d-none d-md-flex mt-8" text color="#507282" v-on:click="MainPage='Parking'; resetPages(); statRefresh();">Parking</v-btn>
+									<v-btn class="d-none d-sm-flex d-md-none mt-4" text color="#507282" v-on:click="MainPage='Parking'; resetPages(); statRefresh();">Parking</v-btn>
+									<v-btn class="d-xs-flex d-sm-none mt-3" text color="#507282" v-on:click="MainPage='Parking'; resetPages(); statRefresh();">
 										<img src="icons/parking_outline_blue.svg" alt="">
 									</v-btn>
 
@@ -283,7 +283,7 @@
 											</v-btn>
 										</template>
 										<v-list>
-											<v-list-item v-for="(enterance, index) in Entrances" :key="index" v-on:click="MainPage='Entrances'; resetStateTabs(); EntrancePage=enterance;">
+											<v-list-item v-for="(enterance, index) in Entrances" :key="index" v-on:click="MainPage='Entrances'; resetStateTabs(); statRefresh(); EntrancePage=enterance;">
 												<v-list-item-title>{{ enterance }}</v-list-item-title>
 											</v-list-item>
 										</v-list>
@@ -292,10 +292,10 @@
 							</div>
 								<div class="tabs">
 									<div class="visitorButtonContainer">
-										<button class="visitorButton parkButtons" :class="{parkButtonsfocus: visitor_selected}" @click="visitorSelected">VISITOR LOT</button>
+										<button class="visitorButton parkButtons" :class="{parkButtonsfocus: visitor_selected}" @click="visitorSelected(); statRefresh();">VISITOR LOT</button>
 									</div>
 									<div class="overflowButtonContainer">
-										<button class="overflowButton parkButtons" :class="{parkButtonsfocus: overflow_selected}" @click="overflowSelected">OVERFLOW LOT</button>
+										<button class="overflowButton parkButtons" :class="{parkButtonsfocus: overflow_selected}" @click="overflowSelected(); statRefresh();">OVERFLOW LOT</button>
 									</div>
 								</div>
 						</v-card> 
@@ -310,7 +310,7 @@
 									<svg class="svg2" viewBox="86 86 30 30" height="50px" width="50px">
 										<circle cx="100" cy="100" r="13" style="stroke: white; fill: white;"/> 
 										<circle class="background" cx="100" cy="100" r="9" stroke="#DCE3E6" />
-										<circle id="line4" class="overlayLine" cx="100" cy="100" r="9" stroke="#507282" stroke-dasharray="0, 3000" stroke-dashoffset="126" transform="rotate(-90,100,100)" />
+										<circle id="line16" class="overlayLine" cx="100" cy="100" r="9" stroke="#507282" stroke-dasharray="0, 3000" stroke-dashoffset="126" transform="rotate(-90,100,100)" />
 									</svg>
 								</div>
 							</div>
@@ -328,7 +328,7 @@
 								<svg class="svg2" viewBox="86 86 30 30" height="50px" width="50px">
 									<circle cx="100" cy="100" r="13" style="stroke: white; fill: white;"/> 
 									<circle class="background" cx="100" cy="100" r="9" stroke="#DCE3E6" />
-									<circle id="line5" class="overlayLine" cx="100" cy="100" r="9" stroke="#507282" stroke-dasharray="0, 3000" stroke-dashoffset="126" transform="rotate(-90,100,100)" />
+									<circle id="line17" class="overlayLine" cx="100" cy="100" r="9" stroke="#507282" stroke-dasharray="0, 3000" stroke-dashoffset="126" transform="rotate(-90,100,100)" />
 								</svg>
 							</div>
 							<div class="d-flex justify-center mt-5">
@@ -361,9 +361,9 @@
 
 								<div class="float-right d-inline-flex">
 									<!-- <v-btn v-on:click="MainPage='Parking'; resetPages()"text color="#507282" class="d-inline">Parking</v-btn> -->
-									<v-btn class="d-none d-md-flex mt-8" text color="#507282" v-on:click="MainPage='Parking'; resetPages()">Parking</v-btn>
-									<v-btn class="d-none d-sm-flex d-md-none mt-4" text color="#507282" v-on:click="MainPage='Parking'; resetPages()">Parking</v-btn>
-									<v-btn class="d-xs-flex d-sm-none mt-3" text color="#507282" v-on:click="MainPage='Parking'; resetPages()">
+									<v-btn class="d-none d-md-flex mt-8" text color="#507282" v-on:click="MainPage='Parking'; resetPages(); statRefresh();">Parking</v-btn>
+									<v-btn class="d-none d-sm-flex d-md-none mt-4" text color="#507282" v-on:click="MainPage='Parking'; resetPages(); statRefresh();">Parking</v-btn>
+									<v-btn class="d-xs-flex d-sm-none mt-3" text color="#507282" v-on:click="MainPage='Parking'; resetPages(); statRefresh();">
 										<img src="icons/parking_outline_blue.svg" alt="">
 									</v-btn>
 
@@ -377,7 +377,7 @@
 											</v-btn>
 										</template>
 										<v-list>
-											<v-list-item v-for="(enterance, index) in Entrances" :key="index" v-on:click="MainPage='Entrances'; resetStateTabs(); EntrancePage=enterance ">
+											<v-list-item v-for="(enterance, index) in Entrances" :key="index" v-on:click="MainPage='Entrances'; resetStateTabs(); statRefresh(); EntrancePage=enterance ">
 												<v-list-item-title>{{ enterance }}</v-list-item-title>
 											</v-list-item>
 										</v-list>
@@ -386,11 +386,11 @@
 							</div>
 							<div v-if="EntrancePage!='East' && EntrancePage!='River'" class="tabs">
 								<!-- need to figure a better way to change with smaller devices; too much repetition -->
-								<div class="ETIButtonContainer desktop-tabs"><button class="ETIButton entranceButtons" :class="{entranceButtonsfocus: ETI_selected}" @click="ETISelected">CAMERA IN</button></div>
-								<div class="ETIButtonContainer mobile-tabs"><button class="ETIButton entranceButtons" :class="{entranceButtonsfocus: ETI_selected}" @click="ETISelected">IN</button></div>
+								<div class="ETIButtonContainer desktop-tabs"><button class="ETIButton entranceButtons" :class="{entranceButtonsfocus: ETI_selected}" @click="ETISelected(); statRefresh();">CAMERA IN</button></div>
+								<div class="ETIButtonContainer mobile-tabs"><button class="ETIButton entranceButtons" :class="{entranceButtonsfocus: ETI_selected}" @click="ETISelected(); statRefresh();">IN</button></div>
 
-								<div class="ETOButtonContainer desktop-tabs"><button class="ETOButton entranceButtons" :class="{entranceButtonsfocus: ETO_selected}" @click="ETOSelected">CAMERA OUT</button></div>
-								<div class="ETOButtonContainer mobile-tabs"><button class="ETOButton entranceButtons" :class="{entranceButtonsfocus: ETO_selected}" @click="ETOSelected">OUT</button></div>
+								<div class="ETOButtonContainer desktop-tabs"><button class="ETOButton entranceButtons" :class="{entranceButtonsfocus: ETO_selected}" @click="ETOSelected(); statRefresh();">CAMERA OUT</button></div>
+								<div class="ETOButtonContainer mobile-tabs"><button class="ETOButton entranceButtons" :class="{entranceButtonsfocus: ETO_selected}" @click="ETOSelected(); statRefresh();">OUT</button></div>
 
 								<div class="RButtonContainer desktop-tabs"><button class="RButton entranceButtons" :class="{entranceButtonsfocus: R_selected}" @click="RSelected">RADAR</button></div>
 								<div class="RButtonContainer mobile-tabs mr-3"><button class="RButton entranceButtons" :class="{entranceButtonsfocus: R_selected}" @click="RSelected">RADAR</button></div>
@@ -399,11 +399,11 @@
 								<div class="SButtonContainer mobile-tabs"><button class="SButton entranceButtons" :class="{entranceButtonsfocus: S_selected}" @click="SSelected">STATES</button></div>
 							</div>
 							<div v-if="EntrancePage=='East'" class="tabs">
-								<div class="ETIButtonContainer desktop-tabs"><button class="ETIButton entranceButtons" :class="{entranceButtonsfocus: ETI_selected}" @click="ETISelected">CAMERA IN</button></div>
-								<div class="ETIButtonContainer mobile-tabs"><button class="ETIButton entranceButtons" :class="{entranceButtonsfocus: ETI_selected}" @click="ETISelected">IN</button></div>
+								<div class="ETIButtonContainer desktop-tabs"><button class="ETIButton entranceButtons" :class="{entranceButtonsfocus: ETI_selected}" @click="ETISelected(); statRefresh();">CAMERA IN</button></div>
+								<div class="ETIButtonContainer mobile-tabs"><button class="ETIButton entranceButtons" :class="{entranceButtonsfocus: ETI_selected}" @click="ETISelected(); statRefresh();">IN</button></div>
 
-								<div class="ETOButtonContainer desktop-tabs"><button class="ETOButton entranceButtons" :class="{entranceButtonsfocus: ETO_selected}" @click="ETOSelected">CAMERA OUT</button></div>
-								<div class="ETOButtonContainer mobile-tabs"><button class="ETOButton entranceButtons" :class="{entranceButtonsfocus: ETO_selected}" @click="ETOSelected">OUT</button></div>
+								<div class="ETOButtonContainer desktop-tabs"><button class="ETOButton entranceButtons" :class="{entranceButtonsfocus: ETO_selected}" @click="ETOSelected(); statRefresh();">CAMERA OUT</button></div>
+								<div class="ETOButtonContainer mobile-tabs"><button class="ETOButton entranceButtons" :class="{entranceButtonsfocus: ETO_selected}" @click="ETOSelected(); statRefresh();">OUT</button></div>
 
 								<div class="ETOButtonContainer desktop-tabs"><button class="ETOButton entranceButtons" :class="{entranceButtonsfocus: Ratio_selected}" @click="ratioSelected">IN/OUT RATIO</button></div>
 								<div class="ETOButtonContainer mobile-tabs"><button class="ETOButton entranceButtons" :class="{entranceButtonsfocus: Ratio_selected}" @click="ratioSelected">RATIO</button></div>
@@ -420,10 +420,10 @@
 							</div>
 							<div v-if="EntrancePage=='River'" class="tabs">
 								<div class="ETIButtonContainer">
-									<button class="ETIButton entranceButtons" :class="{entranceButtonsfocus: ETI_selected}" @click="ETISelected">CAMERA IN</button>
+									<button class="ETIButton entranceButtons" :class="{entranceButtonsfocus: ETI_selected}" @click="ETISelected(); statRefresh();">CAMERA IN</button>
 								</div>
 								<div class="ETOButtonContainer">
-									<button class="ETOButton entranceButtons" :class="{entranceButtonsfocus: ETO_selected}" @click="ETOSelected">CAMERA OUT</button>
+									<button class="ETOButton entranceButtons" :class="{entranceButtonsfocus: ETO_selected}" @click="ETOSelected(); statRefresh();">CAMERA OUT</button>
 								</div>
 							</div>
 						</v-card> 
@@ -436,8 +436,7 @@
 									<div class="statWrapper">
 										<img class="statImage" src="icons/south_entrance_outline.svg">
 										<div class="textWrapper">
-											<span class="smallHide"><b>South Entrance:</b></span>
-											<span>{{southEntranceStat}}</span>
+											<span class="smallHide"><b>South Entrance:</b><br>{{southEntranceStat}}</span>
 											<svg class="svg2" viewBox="86 86 30 30" height="50px" width="50px">
 												<circle cx="100" cy="100" r="13" style="stroke: white; fill: white;"/> 
 												<circle class="background" cx="100" cy="100" r="9" stroke="#f7f6f4" />
@@ -453,13 +452,14 @@
 								<div class="statHeader2">
 									<div class="statWrapper">
 										<img class="statImage" src="icons/east_entrance_outline.svg">
-										<span class="smallHide"><b>East Entrance:</b></span>
-										<span>{{eastEntranceStat}}</span>
-										<svg class="svg2" viewBox="86 86 30 30" height="50px" width="50px">
-											<circle cx="100" cy="100" r="13" style="stroke: white; fill: white;"/> 
-											<circle class="background" cx="100" cy="100" r="9" stroke="#f7f6f4" />
-											<circle id="line7" class="overlayLine" cx="100" cy="100" r="9" stroke="#C9AC68" stroke-dasharray="0, 3000" stroke-dashoffset="126" transform="rotate(-90,100,100)" />
-										</svg>
+										<div class="textWrapper">
+											<span class="smallHide"><b>East Entrance:</b><br>{{eastEntranceStat}}</span>
+											<svg class="svg2" viewBox="86 86 30 30" height="50px" width="50px">
+												<circle cx="100" cy="100" r="13" style="stroke: white; fill: white;"/> 
+												<circle class="background" cx="100" cy="100" r="9" stroke="#f7f6f4" />
+												<circle id="line8" class="overlayLine" cx="100" cy="100" r="9" stroke="#C9AC68" stroke-dasharray="0, 3000" stroke-dashoffset="126" transform="rotate(-90,100,100)" />
+											</svg>
+										</div>
 									</div>
 								</div>
 								<iframe class="radarCharts  mt-5" src="https://trailwaze.info/vehicleTrafficStats.php?site=zioneastin"></iframe>
@@ -469,13 +469,14 @@
 								<div class="statHeader2">
 									<div class="statWrapper">
 										<img class="statImage" src="icons/riverside_walk.svg">
-										<span class="smallHide"><b>River Entrance:</b></span>
-										<span>{{riverPeople}} People</span>
-										<svg class="svg2" viewBox="86 86 30 30" height="50px" width="50px">
-											<circle cx="100" cy="100" r="13" style="stroke: white; fill: white;"/> 
-											<circle class="background" cx="100" cy="100" r="9" stroke="#f7f6f4" />
-											<circle id="line8" class="overlayLine" cx="100" cy="100" r="9" stroke="#C9AC68" stroke-dasharray="0, 3000" stroke-dashoffset="126" transform="rotate(-90,100,100)" />
-										</svg>
+										<div class="textWrapper">
+											<span class="smallHide"><b>River Entrance:</b><br>{{riverPeople}} People</span>
+											<svg class="svg2" viewBox="86 86 30 30" height="50px" width="50px">
+												<circle cx="100" cy="100" r="13" style="stroke: white; fill: white;"/> 
+												<circle class="background" cx="100" cy="100" r="9" stroke="#f7f6f4" />
+												<circle id="line10" class="overlayLine" cx="100" cy="100" r="9" stroke="#C9AC68" stroke-dasharray="0, 3000" stroke-dashoffset="126" transform="rotate(-90,100,100)" />
+											</svg>
+										</div>
 									</div>
 								</div>
 								<h3 class="noData">No Camera Data</h3>
@@ -485,13 +486,14 @@
 								<div class="statHeader2">
 									<div class="statWrapper">
 										<img class="statImage" src="icons/kolob_outline.svg">
-										<span class="smallHide"><b>Kolob Entrance:</b></span>
-										<span>{{kolobVehicles}}</span>
-										<svg class="svg2" viewBox="86 86 30 30" height="50px" width="50px">
-											<circle cx="100" cy="100" r="13" style="stroke: white; fill: white;"/> 
-											<circle class="background" cx="100" cy="100" r="9" stroke="#f7f6f4" />
-											<circle id="line9" class="overlayLine" cx="100" cy="100" r="9" stroke="#C9AC68" stroke-dasharray="0, 3000" stroke-dashoffset="126" transform="rotate(-90,100,100)" />
-										</svg>
+										<div class="textWrapper">
+											<span class="smallHide"><b>Kolob Entrance:</b><br>{{kolobVehicles}}</span>
+											<svg class="svg2" viewBox="86 86 30 30" height="50px" width="50px">
+												<circle cx="100" cy="100" r="13" style="stroke: white; fill: white;"/> 
+												<circle class="background" cx="100" cy="100" r="9" stroke="#f7f6f4" />
+												<circle id="line12" class="overlayLine" cx="100" cy="100" r="9" stroke="#C9AC68" stroke-dasharray="0, 3000" stroke-dashoffset="126" transform="rotate(-90,100,100)" />
+											</svg>
+										</div>
 									</div>
 								</div>
 								<h3 class="noData">No Camera Data</h3>
@@ -501,13 +503,14 @@
 								<div class="statHeader2">
 									<div class="statWrapper">
 										<img class="statImage" src="icons/canyon junction icon.svg">
-										<span class="smallHide"><b>Canyon Junction:</b></span>
-										<span>{{canyonStat}}</span>
-										<svg class="svg2" viewBox="86 86 30 30" height="50px" width="50px">
-											<circle cx="100" cy="100" r="13" style="stroke: white; fill: white;"/> 
-											<circle class="background" cx="100" cy="100" r="9" stroke="#f7f6f4" />
-											<circle id="line10" class="overlayLine" cx="100" cy="100" r="9" stroke="#C9AC68" stroke-dasharray="0, 3000" stroke-dashoffset="126" transform="rotate(-90,100,100)" />
-										</svg>
+										<div class="textWrapper">
+											<span class="smallHide"><b>Canyon Junction:</b><br>{{canyonStat}}</span>
+											<svg class="svg2" viewBox="86 86 30 30" height="50px" width="50px">
+												<circle cx="100" cy="100" r="13" style="stroke: white; fill: white;"/> 
+												<circle class="background" cx="100" cy="100" r="9" stroke="#f7f6f4" />
+												<circle id="line14" class="overlayLine" cx="100" cy="100" r="9" stroke="#C9AC68" stroke-dasharray="0, 3000" stroke-dashoffset="126" transform="rotate(-90,100,100)" />
+											</svg>
+										</div>
 									</div>
 								</div>
 								<h3 class="noData">No Camera Data</h3>
@@ -522,13 +525,14 @@
 								<div class="statHeader2">
 									<div class="statWrapper">
 										<img class="statImage" src="icons/south_entrance_outline.svg">
-										<span class="smallHide"><b>South Exit:</b></span>
-										<span>{{southExitStat}}</span>
-										<svg class="svg2" viewBox="86 86 30 30" height="50px" width="50px">
-											<circle cx="100" cy="100" r="13" style="stroke: white; fill: white;"/> 
-											<circle class="background" cx="100" cy="100" r="9" stroke="#f7f6f4" />
-											<circle id="line11" class="overlayLine" cx="100" cy="100" r="9" stroke="#C9AC68" stroke-dasharray="0, 3000" stroke-dashoffset="126" transform="rotate(-90,100,100)" />
-										</svg>
+										<div class="textWrapper">
+											<span class="smallHide"><b>South Exit:</b><br>{{southExitStat}}</span>
+											<svg class="svg2" viewBox="86 86 30 30" height="50px" width="50px">
+												<circle cx="100" cy="100" r="13" style="stroke: white; fill: white;"/> 
+												<circle class="background" cx="100" cy="100" r="9" stroke="#f7f6f4" />
+												<circle id="line7" class="overlayLine" cx="100" cy="100" r="9" stroke="#C9AC68" stroke-dasharray="0, 3000" stroke-dashoffset="126" transform="rotate(-90,100,100)" />
+											</svg>
+										</div>
 									</div>
 								</div>
 								<iframe class="radarCharts mt-5" src="https://trailwaze.info/vehicleTrafficStats.php"></iframe>
@@ -538,13 +542,14 @@
 								<div class="statHeader2">
 									<div class="statWrapper">
 										<img class="statImage" src="icons/east_entrance_outline.svg">
-										<span class="smallHide"><b>East Exit:</b></span>
-										<span>{{eastExitStat}}</span>
-										<svg class="svg2" viewBox="86 86 30 30" height="50px" width="50px">
-											<circle cx="100" cy="100" r="13" style="stroke: white; fill: white;"/> 
-											<circle class="background" cx="100" cy="100" r="9" stroke="#f7f6f4" />
-											<circle id="line12" class="overlayLine" cx="100" cy="100" r="9" stroke="#C9AC68" stroke-dasharray="0, 3000" stroke-dashoffset="126" transform="rotate(-90,100,100)" />
-										</svg>
+										<div class="textWrapper">
+											<span class="smallHide"><b>East Exit:</b><br>{{eastExitStat}}</span>
+											<svg class="svg2" viewBox="86 86 30 30" height="50px" width="50px">
+												<circle cx="100" cy="100" r="13" style="stroke: white; fill: white;"/> 
+												<circle class="background" cx="100" cy="100" r="9" stroke="#f7f6f4" />
+												<circle id="line9" class="overlayLine" cx="100" cy="100" r="9" stroke="#C9AC68" stroke-dasharray="0, 3000" stroke-dashoffset="126" transform="rotate(-90,100,100)" />
+											</svg>
+										</div>
 									</div>
 								</div>
 								<iframe class="radarCharts mt-5" src="https://trailwaze.info/vehicleTrafficStats.php?site=zioneastout"></iframe>
@@ -554,13 +559,14 @@
 								<div class="statHeader2">
 									<div class="statWrapper">
 										<img class="statImage" src="icons/riverside_walk.svg">
-										<span class="smallHide"><b>River Exit:</b></span>
-										<span>{{riverExit}}</span>
-										<svg class="svg2" viewBox="86 86 30 30" height="50px" width="50px">
-											<circle cx="100" cy="100" r="13" style="stroke: white; fill: white;"/> 
-											<circle class="background" cx="100" cy="100" r="9" stroke="#f7f6f4" />
-											<circle id="line13" class="overlayLine" cx="100" cy="100" r="9" stroke="#C9AC68" stroke-dasharray="0, 3000" stroke-dashoffset="126" transform="rotate(-90,100,100)" />
-										</svg>
+										<div class="textWrapper">
+											<span class="smallHide"><b>River Exit:</b><br>{{riverExit}}</span>
+											<svg class="svg2" viewBox="86 86 30 30" height="50px" width="50px">
+												<circle cx="100" cy="100" r="13" style="stroke: white; fill: white;"/> 
+												<circle class="background" cx="100" cy="100" r="9" stroke="#f7f6f4" />
+												<circle id="line11" class="overlayLine" cx="100" cy="100" r="9" stroke="#C9AC68" stroke-dasharray="0, 3000" stroke-dashoffset="126" transform="rotate(-90,100,100)" />
+											</svg>
+										</div>
 									</div>
 								</div>
 								<h3 class="noData">No Camera Data</h3>
@@ -570,13 +576,14 @@
 								<div class="statHeader2">
 									<div class="statWrapper">
 										<img class="statImage" src="icons/kolob_outline.svg">
-										<span class="smallHide"><b>Kolob Exit:</b></span>
-										<span>{{kolobExit}}</span>
-										<svg class="svg2" viewBox="86 86 30 30" height="50px" width="50px">
-											<circle cx="100" cy="100" r="13" style="stroke: white; fill: white;"/> 
-											<circle class="background" cx="100" cy="100" r="9" stroke="#f7f6f4" />
-											<circle id="line14" class="overlayLine" cx="100" cy="100" r="9" stroke="#C9AC68" stroke-dasharray="0, 3000" stroke-dashoffset="126" transform="rotate(-90,100,100)" />
-										</svg>
+										<div class="textWrapper">
+										<span class="smallHide"><b>Kolob Exit:</b><br>{{kolobExit}}</span>
+											<svg class="svg2" viewBox="86 86 30 30" height="50px" width="50px">
+												<circle cx="100" cy="100" r="13" style="stroke: white; fill: white;"/> 
+												<circle class="background" cx="100" cy="100" r="9" stroke="#f7f6f4" />
+												<circle id="line13" class="overlayLine" cx="100" cy="100" r="9" stroke="#C9AC68" stroke-dasharray="0, 3000" stroke-dashoffset="126" transform="rotate(-90,100,100)" />
+											</svg>
+										</div>
 									</div>
 								</div>
 								<h3 class="noData">No Camera Data</h3>
@@ -586,13 +593,14 @@
 								<div class="statHeader2">
 									<div class="statWrapper">
 										<img class="statImage" src="icons/canyon junction icon.svg">
-										<span class="smallHide"><b>Canyon Junction:</b></span>
-										<span>{{canyonExit}}</span>
-										<svg class="svg2" viewBox="86 86 30 30" height="50px" width="50px">
-											<circle cx="100" cy="100" r="13" style="stroke: white; fill: white;"/> 
-											<circle class="background" cx="100" cy="100" r="9" stroke="#f7f6f4" />
-											<circle id="line15" class="overlayLine" cx="100" cy="100" r="9" stroke="#C9AC68" stroke-dasharray="0, 3000" stroke-dashoffset="126" transform="rotate(-90,100,100)" />
-										</svg>
+										<div class="textWrapper">
+											<span class="smallHide"><b>Canyon Junction:</b><br>{{canyonExit}}</span>
+											<svg class="svg2" viewBox="86 86 30 30" height="50px" width="50px">
+												<circle cx="100" cy="100" r="13" style="stroke: white; fill: white;"/> 
+												<circle class="background" cx="100" cy="100" r="9" stroke="#f7f6f4" />
+												<circle id="line15" class="overlayLine" cx="100" cy="100" r="9" stroke="#C9AC68" stroke-dasharray="0, 3000" stroke-dashoffset="126" transform="rotate(-90,100,100)" />
+											</svg>
+										</div>
 									</div>
 								</div>
 								<h3 class="noData">No Camera Data</h3>

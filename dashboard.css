@@ -267,9 +267,10 @@ v-app-bar{
     margin: 0 auto;
 }
 .textWrapper{
-    display: inline;
+    display: inline-block;
     position: relative;
     line-height: 23px;
+    vertical-align: middle;
 }
 .statImage{
     height: 23px;
