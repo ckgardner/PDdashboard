@@ -331,18 +331,8 @@
 									<circle id="line17" class="overlayLine" cx="100" cy="100" r="9" stroke="#507282" stroke-dasharray="0, 3000" stroke-dashoffset="126" transform="rotate(-90,100,100)" />
 								</svg>
 							</div>
-							<div class="d-flex justify-center mt-5">
-								<p class="parkingInfo">Parking Overflow Lot N/A</p>
-							</div>
-							<table id="parkingWrapper">
-								<tr>
-								<th>Time</th>
-								<th class="right">Occupancy Pct(%)</th>
-								</tr>
-							</table>
 						</div>
-						<!--END OVERFLOW-LOT PARKING PAGES -->
-
+						<iframe id="parkingApi" src="https://trailwaze.info/zion/parking.php?lot=Overlow_Lot"></iframe>
 					</div>
 					<!-- END PARKING PAGES -->
 
@@ -479,7 +469,7 @@
 										</div>
 									</div>
 								</div>
-								<h3 class="noData">No Camera Data</h3>
+								<iframe class="radarCharts mt-5" src="https://trailwaze.info/bridgeTraffic.php"></iframe>
 							</div>
 
 							<div v-if="EntrancePage=='Kolob'"> <!-- Kolob--Entrance--Camera in tab -->
@@ -569,7 +559,7 @@
 										</div>
 									</div>
 								</div>
-								<h3 class="noData">No Camera Data</h3>
+								<iframe class="radarCharts mt-5" src="https://trailwaze.info/bridgeTraffic.php"></iframe>
 							</div>
 
 							<div v-if="EntrancePage=='Kolob'"> <!-- Kolob--Entrance--Camera OUT tab -->
@@ -626,7 +616,7 @@
 										<span> East Entrance Dwell Report</span>
 									</div>
 								</div>
-								<iframe class="radarCharts mt-5" src="https://trailwaze.info/zion/inOut_east.php"></iframe>
+								<iframe class="radarCharts mt-5" src="https://trailwaze.info/zion/dwellTime.php"></iframe>
 							</div>
 						</div>
 						
@@ -646,7 +636,7 @@
 										<span>East Entrance Radar Report</span>
 									</div>
 								</div>
-								<h3 class="noData">No Radar Data</h3>
+								<iframe class="radarCharts mt-6" src="https://trailwaze.info/zion/radar_monthly.php"></iframe>
 							</div>
 							<div v-if="EntrancePage=='River'"> <!-- RIVER--Entrance--RADAR tab -->
 								<div class="statHeader2">
