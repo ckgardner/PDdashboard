@@ -331,6 +331,7 @@
 									<circle id="line5" class="overlayLine" cx="100" cy="100" r="9" stroke="#507282" stroke-dasharray="0, 3000" stroke-dashoffset="126" transform="rotate(-90,100,100)" />
 								</svg>
 							</div>
+							
 							<div class="d-flex justify-center mt-5">
 								<p class="parkingInfo">Parking Overflow Lot N/A</p>
 							</div>
@@ -676,18 +677,38 @@
 									</div>
 								</div>
 								<!-- drop down for times -->
-								<v-menu offset-y>
-									<template v-slot:activator="{ on }">
-									  <v-btn class="mt-2 ml-2" outlined color="black" @click="switchArrow()" v-on="on">{{stateTimePage}}<img class="pl-3" :src="stateArrowImage" alt="arrow"></v-btn>
-									</template>
-									<v-list>
-									  <v-list-item
-										v-for="(time, index) in statesTimes" :key="index" v-on:click="stateTimePage=time; setSouthStateData(); resetArrow();">
-										<v-list-item-title>{{ time }}</v-list-item-title>
-									  </v-list-item>
-									</v-list>
-								</v-menu>
-								<iframe class="radarCharts charts" :src="southStateURL"></iframe>
+								<div class="d-inline">
+									<v-menu offset-y>
+										<template v-slot:activator="{ on }">
+										<v-btn class="mt-2 ml-2" outlined color="black" @click="switchArrow()" v-on="on">{{stateTimePage}}<img class="pl-3" :src="stateArrowImage" alt="arrow"></v-btn>
+										</template>
+										<v-list>
+										<v-list-item
+											v-for="(time, index) in statesTimes" :key="index" v-on:click="stateTimePage=time; setSouthStateData(); resetArrow();">
+											<v-list-item-title>{{ time }}</v-list-item-title>
+										</v-list-item>
+										</v-list>
+									</v-menu>
+								</div>
+								
+								<div class="d-inline">
+									<v-dialog ref="dialog" v-model="modal" :return-value.sync="date" persistent width="290px" >
+										<template v-slot:activator="{ on }">
+											<v-btn class="mt-2" v-on="on">pick dates</v-btn>
+											<!-- <v-text-field v-model="stateDateRange" label="Picker in dialog" prepend-icon="event" readonly v-on="on" ></v-text-field> -->
+										</template>
+										<v-date-picker v-model="stateDateRange" range scrollable>
+											<v-spacer></v-spacer>
+											<v-btn text color="primary" @click="modal = false">Cancel</v-btn>
+											<v-btn text color="primary" @click="$refs.dialog.save(date); selectStateDates();">OK</v-btn>
+										</v-date-picker>
+									</v-dialog>
+								</div>
+
+
+								<div>
+									<iframe class="radarCharts charts" :src="southStateURL"></iframe>
+								</div>
 							</div>
 
 							<div v-if="EntrancePage=='East'"> <!-- EAST--Entrance--STATE tab -->

@@ -79,7 +79,11 @@ var app = new Vue({
         Entrances: ['South', 'East', 'River', 'Kolob', 'Canyon Junction'],
         statesTimes: ['By Hour', 'Yesterday', '24 Hour', '7 Day', '30 Day'],
         stateArrowImage: 'icons/downArrow.png',
-        stateTimePage : 'By Hour',
+        stateTimePage : 'By Hour', // change back to 'By Hour'
+        stateDateRange: [],
+        date: new Date().toISOString().substr(0, 10),
+        menu: false,
+        modal: false,
         southStateURL: 'https://trailwaze.info/vehicleTrafficAvgPerHour.php?site=south',
         eastStateURL: 'https://trailwaze.info/vehicleTrafficAvgPerHour.php?site=east', // doesnt work
         kolobStateURL: 'https://trailwaze.info/vehicleTrafficAvgPerHour.php?site=kolob', // doesnt work
@@ -99,10 +103,10 @@ var app = new Vue({
 
         visitor_selected: true,
         overflow_selected: false,
-        ETI_selected: true, //true
+        ETI_selected: false, 
         ETO_selected: false,
         R_selected: false,
-        S_selected: false,  //false
+        S_selected: true, 
         D_selected: false,
         Ratio_selected: false,
         Month_selected: true,
@@ -485,10 +489,34 @@ var app = new Vue({
         },
         resetArrow: function() {
             this.stateArrowImage = 'icons/downArrow.png';
+        },
+        selectStateDates: function() {
+            //https://trailwaze.info/zion/plates_by_state_date_south.php?date1=2020-05-23&date2=2020-05-20
+            if( this.stateDateRange.length > 1) {
+                var year1 = this.stateDateRange[0].substr(0,4);
+                var year2 = this.stateDateRange[1].substr(0,4);
+                var month1 = this.stateDateRange[0].substr(5,2);
+                var month2 = this.stateDateRange[1].substr(5,2);
+                var day1 = this.stateDateRange[0].substr(8,2);
+                var day2 = this.stateDateRange[1].substr(8,2);
+                this.southStateURL = `https://trailwaze.info/zion/plates_by_state_date_south.php?date1=${year1}-${month1}-${day1}&date2=${year2}-${month2}-${day2}`
+            }else if( this.stateDateRange.length == 1) {
+                var year1 = this.stateDateRange[0].substr(0,4);
+                var month1 = this.stateDateRange[0].substr(5,2);
+                var day1 = this.stateDateRange[0].substr(8,2);
+                this.southStateURL = `https://trailwaze.info/zion/plates_by_state_date_south.php?date1=${year1}-${month1}-${day1}&date2=${year1}-${month1}-${day1}`
+            } else{
+                alert('No days were selected!');
+            }
         }
     },
     mounted() {
         this.getTodaysDate();
+    },
+    computed: {
+        dateRangeText () {
+            return this.stateDateRange.join(' ~ ')
+        }
     }
 });
 
