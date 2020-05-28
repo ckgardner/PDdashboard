@@ -115,8 +115,6 @@ var app = new Vue({
     created: function(){
         this.loadStats();
         this.getWeatherAPI();
-        this.loadParking();
-        this.loadEntrances();
     },
     methods: {
         getAPIData_safe: function (data, fields, def){
@@ -183,13 +181,14 @@ var app = new Vue({
 				vm.riverPeople = this.getAPIData_safe(response.data, ["ZionRiverEntrance", "Yesterday", "count"], "N/A");
 				vm.RiverDateUpdated = this.getAPIData_safe(response.data, ["ZionRiverEntrance", "Yesterday", "date"], "N/A");
 
-				var parkingStatSum = 0;
+                var parkingTotal = 0;
 				//Parking: Visitor Center
-				parkingStatSum += this.getAPIData_safe(response.data, ["ParkingVisitorCenter", "Today", "count"], 0);
+				vm.vcStat = this.getAPIData_safe(response.data, ["ParkingVisitorCenter", "Today", "count"], 0);
 				//Parking: Overflow
-				parkingStatSum += this.getAPIData_safe(response.data, ["ParkingOverflow", "Today", "count"], 0);
-				//Parking: total
-                vm.parkingStat = parkingStatSum / 2;
+                vm.overflowStat = this.getAPIData_safe(response.data, ["ParkingOverflow", "Today", "count"], 0);
+                //Parking: total
+                parkingTotal = vm.overflowStat + vm.vcStat;
+                vm.parkingStat = parkingTotal / 2;
 				//vm.parkingStat/=500;
 
 				//multiply vehicles by multiplier and set south and east people
@@ -218,12 +217,16 @@ var app = new Vue({
                     vm.parkingStat = 10;
                 }
 
+                var VC = vm.vcStat;
+                var OF = vm.overflowStat;
+
                 var ES = vm.eastEntranceStat.substr(0,vm.eastEntranceStat.indexOf(' ')) / 2500;
                 if (ES < 0.1){
                     ES = 0.1;
                 }
 
                 var SES = vm.southEntranceStat.substr(0,vm.southEntranceStat.indexOf(' ')) / 2500;
+                
                 if (SES < 0.1 || vm.southEntranceStat == "N/A"){
                     SES = 0.1;
                 }
@@ -232,16 +235,37 @@ var app = new Vue({
                 if (CJ < 0.1 || vm.canyonStat == "N/A"){
                     CJ = 0.1;
                 }
+                R = 0.1;
+                K = 0.1;
 
-                this.setStop("line0", 23, CJ);
-                this.setStop("line1", 31, SES);
-                this.setStop("line2", 39, ES);
-                this.setStop("line3", 47, PS);
-                //vm.parkingStat *= 100;
+                SEx = 0.1;
+                Ex = 0.1;
+                Rx = 0.1;
+                Kx = 0.1;
+                CJx = 0.1;
+                
+                // Get Parking Percentages
+                if (vm.vcStat < 0.1){
+                    vm.vcStat = 0.1;
+                }
+                if (vm.overflowStat < 0.1){
+                    vm.overflowStat = 0.1;
+                }
                 vm.parkingStat = vm.parkingStat.toFixed(0);
-                this.loadParking();
-                this.loadEntrances();
+                vm.vcStat *= 100;
+                vm.vcStat = vm.vcStat.toFixed(0);
+                vm.overflowStat *= 100;
+                vm.overflowStat = vm.overflowStat.toFixed(0);
 
+                if (this.MainPage == "Home"){
+                    this.loadHome(CJ, SES, ES, PS);
+                }
+                if (this.MainPage == "Parking"){
+                    this.loadParking(VC, OF);
+                }
+                if (this.MainPage == "Entrances"){
+                    this.loadEntrances(SES, SEx, ES, Ex, R, Rx, K, Kx, CJ, CJx);
+                }
             }).catch(error => {
                 vm = "Fetch " + error;
             });
@@ -261,38 +285,64 @@ var app = new Vue({
                 vm = "Fetch " + error;
             });
         },
-        loadParking: function(){
-            this.vcStat /= 465;
-            this.overflowStat /= 100;
-            var VC = this.vcStat;
+        loadHome: function(CJ, SES, ES, PS){
+            this.setStop("line0", 23, CJ);
+            this.setStop("line1", 31, SES);
+            this.setStop("line2", 39, ES);
+            this.setStop("line3", 47, PS);
+        },
+        loadParking: function(VC, OF){
+            VC /= 465;
+            OF /= 100;
             if(VC < 0.1){
                 VC = 0.1;
-                this.vcStat = 0.1;
             }
-            var OS = this.overflowStat;
-            if (OS < 0.1){
-                OS = 0.1;
-                this.overflowStat = 0.1;
+            if (OF < 0.1){
+                OF = 0.1;
             }
-            this.vcStat *= 100;
-            this.vcStat = this.vcStat.toFixed(0);
-            this.overflowStat *= 100;
-            this.overflowStat = this.overflowStat.toFixed(0);
-
-            this.setStop("line4", 9, VC);
-            this.setStop("line5", 9, OS);
+            if (this.visitor_selected == true){
+                this.setStop("line16", 9, VC);
+            }
+            if (this.overflow_selected == true){
+                this.setStop("line17", 9, OF);
+            }
         },
-        loadEntrances: function(){
-            this.setStop("line6", 9, 0.1);
-            this.setStop("line7", 9, 0.1);
-            this.setStop("line8", 9, 0.1);
-            this.setStop("line9", 9, 0.1);
-            this.setStop("line10", 9, 0.1);
-            this.setStop("line11", 9, 0.1);
-            this.setStop("line12", 9, 0.1);
-            this.setStop("line13", 9, 0.1);
-            this.setStop("line14", 9, 0.1);
-            this.setStop("line15", 9, 0.1);
+        loadEntrances: function(SEn, SEx, En, Ex, Rn, Rx, Kn, Kx, CJn, CJx ){
+            if(this.EntrancePage == "South"){
+                if(this.ETI_selected == true){
+                    this.setStop("line6", 9, SEn);
+                }else{
+                    this.setStop("line7", 9, SEx);
+                }
+            }
+            if(this.EntrancePage == "East"){
+                if(this.ETI_selected == true){
+                    this.setStop("line8", 9, En);
+                }else{
+                    this.setStop("line9", 9, Ex);
+                }
+            }
+            if(this.EntrancePage == "River"){
+                if(this.ETI_selected == true){
+                    this.setStop("line10", 9, Rn);
+                }else{
+                    this.setStop("line11", 9, Rx);
+                }
+            }
+            if(this.EntrancePage == "Kolob"){
+                if(this.ETI_selected == true){
+                    this.setStop("line12", 9, Kn);
+                }else{
+                    this.setStop("line13", 9, Kx);
+                }
+            }
+            if(this.EntrancePage == "Canyon Junction"){
+                if(this.ETI_selected == true){
+                    this.setStop("line14", 9, CJn);
+                }else{
+                    this.setStop("line15", 9, CJx);
+                }
+            }
         },
         setStop: function(id, radius, stop){
             var c = document.getElementById(id);
@@ -424,7 +474,6 @@ var app = new Vue({
             this.MonthSelected();
         },
         statRefresh: function(){
-            console.log("stats refreshing");
             this.loadStats();
             this.getWeatherAPI();
         },
@@ -484,7 +533,7 @@ var app = new Vue({
             if(this.stateArrowImage == 'icons/downArrow.png'){
                 this.stateArrowImage = 'icons/upArrow.png';
             } else{
-                this.stateArrowImage = 'icons/downArrow.png'
+                this.stateArrowImage = 'icons/downArrow.png';
             }
         },
         resetArrow: function() {
@@ -508,7 +557,15 @@ var app = new Vue({
             } else{
                 alert('No days were selected!');
             }
-        }
+        },
+        sleep: function(milliseconds) {
+            var start = new Date().getTime();
+            for (var i = 0; i < 1e7; i++) {
+              if ((new Date().getTime() - start) > milliseconds){
+                break;
+              }
+            }
+        },
     },
     mounted() {
         this.getTodaysDate();
