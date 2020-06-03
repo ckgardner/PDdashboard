@@ -79,7 +79,7 @@ var app = new Vue({
         Entrances: ['South', 'East', 'River', 'Kolob', 'Canyon Junction'],
         statesTimes: ['By Hour', 'Yesterday', '24 Hour', '7 Day', '30 Day'],
         stateArrowImage: 'icons/downArrow.png',
-        stateTimePage : 'By Hour', // change back to 'By Hour'
+        stateTimePage : 'By Hour', 
         stateDateRange: [],
         date: new Date().toISOString().substr(0, 10),
         menu: false,
@@ -103,10 +103,10 @@ var app = new Vue({
 
         visitor_selected: true,
         overflow_selected: false,
-        ETI_selected: false, 
+        ETI_selected: true, 
         ETO_selected: false,
         R_selected: false,
-        S_selected: true, 
+        S_selected: false, 
         D_selected: false,
         Ratio_selected: false,
         Month_selected: true,
@@ -511,6 +511,7 @@ var app = new Vue({
             }
         },
         setKolobStateData: function() {
+            // state data is N/A for kolob
             switch(this.stateTimePage) {
                 case 'By Hour': this.kolobStateURL = ''; break;
                 case 'Yesterday': this.kolobStateURL = ''; break;
@@ -572,6 +573,18 @@ var app = new Vue({
     computed: {
         dateRangeText () {
             return this.stateDateRange.join(' ~ ');
+        }
+    },
+    watch: {
+        EntrancePage: function() {
+            console.log('before if: ', this.EntrancePage);
+            if(this.EntrancePage == 'Kolob'){
+                console.log('in if: ', this.EntrancePage);
+                this.RSelected();
+            }else {
+                console.log('in else: ', this.EntrancePage);
+                //break;
+            }
         }
     }
 });

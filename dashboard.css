@@ -372,6 +372,13 @@ body {
     margin-top: 20%;
     font-size: 30px;
 }
+.state-NA{
+    text-align: center;
+    left: 0;
+    right: 0;
+    font-size: 30px;
+    margin-top: 2%;
+}
 
 /* ----------------- Parking Page ----------------------- */
 .visitorButtonContainer, .ETIButtonContainer{

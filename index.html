@@ -377,7 +377,7 @@
 											</v-btn>
 										</template>
 										<v-list>
-											<v-list-item v-for="(enterance, index) in Entrances" :key="index" v-on:click="MainPage='Entrances'; resetStateTabs(); statRefresh(); EntrancePage=enterance ">
+											<v-list-item v-for="(enterance, index) in Entrances" :key="index" v-on:click="MainPage='Entrances'; resetStateTabs(); resetPages(); statRefresh(); EntrancePage=enterance ">
 												<v-list-item-title>{{ enterance }}</v-list-item-title>
 											</v-list-item>
 										</v-list>
@@ -701,7 +701,7 @@
 								<div class="d-inline">
 									<v-dialog ref="dialog" v-model="modal" :return-value.sync="date" persistent width="290px" >
 										<template v-slot:activator="{ on }">
-											<v-btn class="mt-2" v-on="on">pick dates</v-btn>
+											<v-btn class="mt-2" outlined color="black" v-on="on">pick dates</v-btn>
 											<!-- <v-text-field v-model="stateDateRange" label="Picker in dialog" prepend-icon="event" readonly v-on="on" ></v-text-field> -->
 										</template>
 										<v-date-picker v-model="stateDateRange" range scrollable>
@@ -755,7 +755,7 @@
 									</div>
 								</div>
 								<!-- drop down for times -->
-								<v-menu offset-y>
+								<!-- <v-menu offset-y>
 									<template v-slot:activator="{ on }">
 									  <v-btn class="mt-2 ml-2" outlined color="black" @click="switchArrow()" v-on="on">{{stateTimePage}}<img class="pl-3"  :src="stateArrowImage" alt="arrow"></v-btn>
 									</template>
@@ -765,8 +765,8 @@
 										<v-list-item-title>{{ time }}</v-list-item-title>
 									  </v-list-item>
 									</v-list>
-								</v-menu>
-								<h3 class="noData">No State Data</h3>
+								</v-menu> -->
+								<h3 class="state-NA">N/A</h3>
 								<!-- will need to add the iframe if it has the state stats -->
 							</div>
 
