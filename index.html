@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
+		<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+		<meta content="utf-8" http-equiv="encoding">
+		<title>Parkdata Dashboard</title>
+		<link rel="stylesheet" type="text/css" href="vuetify.min.css">
+		<link rel="stylesheet" type="text/css" href="dashboard.css">
+		<link rel="apple-touch-icon" sizes="180x180" href="images/favicon.ico">
+		<link rel="icon" type="image/png" sizes="192x192" href="./images/favicon.ico">
+		<link rel="icon" type="image/png" sizes="512x512" href="./images/favicon.ico">
+		<link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
+		<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+		<script src="https://cdn.jsdelivr.net/npm/vue-apexcharts"></script>
+  </head>
+	<body>
+		<div id="app">
+			<v-app>
+				<v-content>
+					<div v-if="MainPage=='Login' ">
+						<div> <!-- App bar for login page -->
+							<v-app-bar dense>
+								<v-toolbar-title id="loginTitle" v-on:click="MainPage='Login' "><img class="bison" src="images/blueBison.svg">Parkdata</v-toolbar-title>
+								<v-spacer></v-spacer>
+								<v-btn text color="#507282" id="requestAccessButton" v-on:click="MainPage='requestAccess' ">Request Access</v-btn>
+								<v-btn text color="#507282" id="loginButton" v-on:click="MainPage='loggingIn' ">Login</v-btn>
+							</v-app-bar>
+						</div>
+						<div id="loginWrapper">
+							<img id="loginImage" src="images/background medium.png">
+							<button id="requestAccess" v-on:click="MainPage='requestAccess'">Request Access</button>
+						</div>
+						<div id="researchTextWrapper">
+							<h3 id="researchTitle">For Research Purposes Only</h3>
+							<span>No warranty is made by DSU, SUU or the National Park Service as to the accuracy or reliability of this Data. By entering you are agreeing to the terms and conditions of this site.</span><br>
+							<span>This Site contains information which may be confidential and/or privileged. If you are not specifically authorized to access this site, be aware that any disclosure, copying, distribution or use of the contents of this site is strictly prohibited by law.</span>
+						</div>
+						<div id="logosWrapper">
+							<div class="column">
+								<img id="dsuLogo">
+							</div>
+							<div class="column">
+								<img id="iicLogo">
+							</div>
+							<div class="column">
+								<img id="suuLogo">
+							</div>
+						</div>
+					</div>
+					
+					<div v-if="MainPage=='requestAccess'">
+						<div> <!-- App bar for request access page -->
+							<v-app-bar dense>
+								<v-toolbar-title id="loginTitle" v-on:click="MainPage='Login' "><img class="bison" src="images/blueBison.svg">Parkdata</v-toolbar-title>
+								<v-spacer></v-spacer>
+								<v-btn text color="#507282" id="requestAccessButton" v-on:click="MainPage='requestAccess' ">Request Access</v-btn>
+								<v-btn text color="#507282" id="loginButton" v-on:click="MainPage='loggingIn' ">Login</v-btn>
+							</v-app-bar>
+						</div>
+						<div class="formWrapper">
+							<div class="loginTitles">Request Access</div>
+
+							<div v-if="nameEmpty" v-bind:class="{nameError: nameEmpty}">Your Name</div>
+							<input class="inputs" v-bind:class="{name: nameEmpty}" v-model="nameField" placeholder="Your Name" type="name">
+							<div v-if="nameEmpty" v-bind:class="{nameReq: nameEmpty}">Required</div>
+
+							<div v-if="emailEmpty" v-bind:class="{emailError: emailEmpty}">Your Email</div>
+							<input class="inputs" v-bind:class="{email: emailEmpty}" v-model="emailField" placeholder="Your Email" type="email">
+							<div v-if="emailEmpty" v-bind:class="{emailReq: emailEmpty}">Required</div>
+
+							<textarea rows="10" maxlength="500" v-model="messageField" class="inputsMessage" placeholder="Message" type="message"></textarea>
+							<button class="submitButton" v-on:click="sendClicked">Send</button>
+						</div>
+
+					</div>
+
+					<div v-if="MainPage=='loggingIn'">
+						<div> <!-- App bar for logging in page -->
+							<v-app-bar dense>
+								<v-toolbar-title id="loginTitle" v-on:click="MainPage='Login' "><img class="bison" src="images/blueBison.svg">Parkdata</v-toolbar-title>
+								<v-spacer></v-spacer>
+								<v-btn text color="#507282" id="requestAccessButton" v-on:click="MainPage='requestAccess' ">Request Access</v-btn>
+								<v-btn text color="#507282" id="loginButton" v-on:click="MainPage='loggingIn' ">Login</v-btn>
+							</v-app-bar>
+						</div>
+						<div class="formWrapper">
+							<div class="loginTitles">Login</div>
+
+							<div v-if="usernameEmpty" v-bind:class="{usernameError: usernameEmpty}">Username</div>
+							<input class="inputs" v-bind:class="{username: usernameEmpty}" v-model="usernameField" placeholder="Username" type="text">
+							<div v-if="usernameEmpty" v-bind:class="{usernameReq: usernameEmpty}">Invalid Username</div>
+
+							<div v-if="passEmpty" v-bind:class="{passError: passEmpty}">Password</div>
+							<input class="inputs" v-bind:class="{pass: passEmpty}" v-model="passField" placeholder="Password" type="text">
+							<div v-if="passEmpty" v-bind:class="{passReq: passEmpty}">Invalid Password</div>
+							
+							<button class="submitButton" v-on:click="loginClicked">Login</button>
+						</div>
+
+					</div>
+
+					<!-- START MAIN PAGE -->
+					<div v-if="MainPage=='Home' ">
+						<div> <!-- App bar for main page -->
+							<v-app-bar dense>
+								<v-toolbar-title id="loginTitle" class="homeTitle d-none d-sm-flex" v-on:click="MainPage='Home'; statRefresh();"><img class="bison" src="images/blueBison.svg">Parkdata - Zion National Park</v-toolbar-title>
+								<v-toolbar-title class="d-xs-flex d-sm-none">Parkdata</v-toolbar-title>
+								<v-spacer></v-spacer>
+								<v-btn class="d-none d-sm-flex" text color="#507282" v-on:click="MainPage='Parking'; statRefresh(); resetPages()">Parking</v-btn>
+								<v-btn class="d-xs-flex d-sm-none" text color="#507282" v-on:click="MainPage='Parking'; statRefresh(); resetPages()">
+									<img src="icons/parking_outline_blue.svg" alt="">
+								</v-btn>
+								<!-- drop down for Entrances -->
+								<v-menu offset-y>
+									<template v-slot:activator="{ on }">
+									  <v-btn class="d-none d-sm-flex" color="#C9AC68" text v-on="on">Entrances</v-btn>
+									  <v-btn class="d-xs-flex d-sm-none" color="#C9AC68" text v-on="on">
+										  <img src="icons/kolob_outline_yellow.svg" alt="">
+									  </v-btn>
+									</template>
+									<v-list>
+									  <v-list-item
+										v-for="(enterance, index) in Entrances" :key="index" v-on:click="MainPage='Entrances'; statRefresh(); EntrancePage=enterance ">
+										<v-list-item-title>{{ enterance }}</v-list-item-title>
+									  </v-list-item>
+									</v-list>
+								</v-menu>
+								<!-- <v-btn text color="#507282" v-on:click="logoutClicked(); resetPages();">Log Out</v-btn> -->
+							</v-app-bar>
+						</div>
+
+						<div id="titleWrapper">
+							<div id="totalVisitors">{{totalVisitors}} Visitors in 2019</div>
+							<div id="title">Today: {{todaysDate}}</div>
+							<div id="titleStatus">{{titleStatus}}</div>
+						</div>
+						<div class="stat" id="parkingStat">
+							<div class="statWrapper">
+								<img class="statImage" src="icons/parking_outline.svg">
+								<span>Parking: {{parkingStat}}% Full</span>
+							</div>
+						</div>
+						<div class="stat" id="eastEntranceStat">
+							<div class="statWrapper">
+								<img class="statImage" src="icons/east_entrance_outline.svg">
+								<span style="display:inline-block;"><b>East Entrance:</b><br> {{eastEntranceStat}}</span>
+							</div>
+						</div>
+						<div class="stat" id="southEntranceStat">
+							<div class="statWrapper">
+								<img class="statImage" src="icons/south_entrance_outline.svg">
+								<span><b>South Entrance:</b><br> {{southEntranceStat}}</span>
+							</div>
+						</div>
+						<div class="stat" id="canyonStat">
+							<div class="statWrapper">
+								<img class="statImage" src="icons/canyon junction icon.svg">
+								<span><b>Canyon Junction:</b><br> {{canyonStat}}</span>
+							</div>
+						</div>
+						<div id="svgContainer">
+							<svg id="svg" viewBox="45 43 110 110">
+								<circle cx="100" cy="100" r="51" style="stroke: white; fill: white;"/> 
+								<text x="86" y="104" id="currentTemp" font-size="9" font-weight="bold" style="fill: #507282">{{currentTemp}}&#176;</text><image x="102" y="94" width="14" height="14" v-bind:href="weatherImage"></image>
+								<circle class="background" cx="100" cy="100" r="23" stroke="#F7F6F4" />
+								<circle class="background" cx="100" cy="100" r="31" stroke="#F5F2EA" />
+								<circle class="background" cx="100" cy="100" r="39" stroke="#eddfbb" />
+								<circle class="background" cx="100" cy="100" r="47" stroke="#DCE3E6" />
+								<circle id="line0" class="overlayLine" cx="100" cy="100" r="23" stroke="#B3A584" stroke-dasharray="0, 3000" stroke-dashoffset="126" transform="rotate(-90,100,100)" />
+								<circle id="line1" class="overlayLine" cx="100" cy="100" r="31" stroke="#CDBD97" stroke-dasharray="0, 3000" stroke-dashoffset="126" transform="rotate(-90,100,100)" />
+								<circle id="line2" class="overlayLine" cx="100" cy="100" r="39" stroke="#C9AC68" stroke-dasharray="0, 3000" stroke-dashoffset="188" transform="rotate(-90,100,100)" />
+								<circle id="line3" class="overlayLine" cx="100" cy="100" r="47" stroke="#507282" stroke-dasharray="0, 3000" stroke-dashoffset="251" transform="rotate(-90,100,100)" />
+							</svg>
+						</div>
+						<div class="smallShow">
+							<div class="smallStat" id="parkingStat">
+								<div class="statWrapper">
+									<img class="statImage" src="icons/parking_outline.svg">
+									<span>Parking: {{parkingStat}}% Full</span>
+								</div>
+							</div>
+							<div class="smallStat" id="eastEntranceStat">
+								<div class="statWrapper">
+									<img class="statImage" src="icons/east_entrance_outline.svg">
+									<span><b>East Entrance:</b><br> {{eastEntranceStat}}</span>
+								</div>
+							</div>
+							<div class="smallStat" id="southEntranceStat">
+								<div class="statWrapper">
+									<img class="statImage" src="icons/south_entrance_outline.svg">
+									<span><b>South Entrance:</b><br> {{southEntranceStat}}</span>
+								</div>
+							</div>
+							<div class="smallStat" id="canyonStat">
+								<div class="statWrapper">
+									<img class="statImage" src="icons/canyon junction icon.svg">
+									<span><b>Canyon Junction:</b><br> {{canyonStat}}</span>
+								</div>
+							</div>
+						</div>
+						<div id="yesterdayWrapper">
+							<div id="title" class="yesterdayTitle">Yesterday: {{yesterdaysDate}}</div>
+							<!-- <br><div class="yesterdayTitleStatus">{{yesterdayTitleStatus}}</div> -->
+							<table id="yesterdaysEntrances">
+								<tr>
+								<th>Entrance</th>
+								<th class="right">Vehicles</th>
+								<th class="right">People</th>
+								<th class="right smallHide">Date Updated</th>
+								</tr>
+								<tr>
+								<td>South</td>
+								<td class="right">{{SVehicles}}</td>
+								<td class="right">{{SPeople}}</td>
+								<td class="right smallHide">{{SDateUpdated}}</td>
+								</tr>
+								<tr>
+								<td>East</td>
+								<td class="right">{{EVehicles}}</td>
+								<td class="right">{{EPeople}}</td>
+								<td class="right smallHide">{{EastDateUpdated}}</td>
+								</tr>
+								<tr>
+								<td>River</td>
+								<td class="right"></td>
+								<td class="right">{{riverPeople}}</td>
+								<td class="right smallHide">{{RiverDateUpdated}}</td>
+								</tr>
+								<tr>
+								<td class="gold">Canyon Total</td>
+								<td class="right"></td>
+								<td class="right gold">{{yesterdayCanyonTotal}}</td>
+								<td class="right gold smallHide">{{SDateUpdated}}</td>
+								</tr>
+								<tr>
+								<td>Kolob</td>
+								<td class="right">{{kolobVehicles}}</td>
+								<td class="right">{{kolobPeople}}</td>
+								<td class="right smallHide">{{KolobDateUpdated}}</td>
+								</tr>
+								<tr>
+								<td class="gold">Zion Total</td>
+								<td class="right"></td>
+								<td class="right gold">{{yesterdayZionTotal}}</td>
+								<td class="right gold smallHide">{{SDateUpdated}}</td>
+								</tr>
+							</table>
+						</div>
+					</div>
+					<!-- END MAIN PAGE -->
+
+					<!-- START PARKING PAGES -->
+					<div v-if="MainPage=='Parking' ">
+						<!-- App bar -->
+						<v-card>
+							<div class="d-inline">
+								<div class="d-none d-md-inline-flex">
+									<p v-on:click="MainPage='Home'; statRefresh();" class="ml-6 titles mr-0 " ><img class="bison" src="images/blueBison.svg">Parkdata - Zion National Park</p>
+									<!-- <p v-on:click="MainPage='Home'; statRefresh();" class="ml-6 mr-0 d-flex d-md-none" >Parkdata</p> -->
+								</div>
+								<div class="d-sm-inline-flex d-md-none d-inline-flex">
+									<p v-on:click="MainPage='Home'; statRefresh();" class="ml-6 mt-4 appbar__title--mobile">Parkdata</p>
+								</div>
+								
+								<div class="float-right d-inline-flex">
+									<!-- <v-btn v-on:click="MainPage='Parking'; resetPages()"text color="#507282" class="d-inline">Parking</v-btn> -->
+									<v-btn class="d-none d-md-flex mt-8" text color="#507282" v-on:click="MainPage='Parking'; resetPages(); statRefresh();">Parking</v-btn>
+									<v-btn class="d-none d-sm-flex d-md-none mt-4" text color="#507282" v-on:click="MainPage='Parking'; resetPages(); statRefresh();">Parking</v-btn>
+									<v-btn class="d-xs-flex d-sm-none mt-3" text color="#507282" v-on:click="MainPage='Parking'; resetPages(); statRefresh();">
+										<img src="icons/parking_outline_blue.svg" alt="">
+									</v-btn>
+
+									<v-menu offset-y>
+										<template v-slot:activator="{ on }">
+											<!-- <v-btn color="#C9AC68" text v-on="on">Entrances</v-btn> -->
+											<v-btn class="d-none d-md-flex mt-8" color="#C9AC68" text v-on="on">Entrances</v-btn>
+											<v-btn class="d-none d-sm-flex d-md-none mt-4" color="#C9AC68" text v-on="on">Entrances</v-btn>
+											<v-btn class="d-xs-flex d-sm-none mt-3" color="#C9AC68" text v-on="on">
+												<img src="icons/kolob_outline_yellow.svg" alt="">
+											</v-btn>
+										</template>
+										<v-list>
+											<v-list-item v-for="(enterance, index) in Entrances" :key="index" v-on:click="MainPage='Entrances'; resetStateTabs(); statRefresh(); EntrancePage=enterance;">
+												<v-list-item-title>{{ enterance }}</v-list-item-title>
+											</v-list-item>
+										</v-list>
+									</v-menu>
+								</div>
+							</div>
+								<div class="tabs">
+									<div class="visitorButtonContainer">
+										<button class="visitorButton parkButtons" :class="{parkButtonsfocus: visitor_selected}" @click="visitorSelected(); statRefresh();">VISITOR LOT</button>
+									</div>
+									<div class="overflowButtonContainer">
+										<button class="overflowButton parkButtons" :class="{parkButtonsfocus: overflow_selected}" @click="overflowSelected(); statRefresh();">OVERFLOW LOT</button>
+									</div>
+								</div>
+						</v-card> 
+						<!-- End App bar -->
+
+						<!-- START VISITOR-LOT PARKING PAGES -->
+						<div v-if="visitor_selected"> 
+							<div class="statHeader">
+								<div class="statWrapper">
+									<img class="statImage" src="icons/parking_outline.svg">
+									<span class="smallHide">Parking Visitor Lot:&nbsp;</span><span> {{vcStat}}% Full</span>
+									<svg class="svg2" viewBox="86 86 30 30" height="50px" width="50px">
+										<circle cx="100" cy="100" r="13" style="stroke: white; fill: white;"/> 
+										<circle class="background" cx="100" cy="100" r="9" stroke="#DCE3E6" />
+										<circle id="line16" class="overlayLine" cx="100" cy="100" r="9" stroke="#507282" stroke-dasharray="0, 3000" stroke-dashoffset="126" transform="rotate(-90,100,100)" />
+									</svg>
+								</div>
+							</div>
+							<iframe id="parkingApi" src="https://trailwaze.info/zion/parking_date.php#"></iframe>				
+						</div>
+								<!-- We will have to figure out a way to dynamically fill this data based off dates -->
+
+						<!-- END VISITOR-LOT PARKING PAGES -->
+
+						<!--START OVERFLOW-LOT PARKING PAGES -->
+						<div v-if="overflow_selected"> 
+							<div class="statHeader">
+								<img class="statImage" src="icons/parking_outline.svg">
+								<span>Parking Overflow Lot:&nbsp;{{overflowStat}}% Full</span>
+								<svg class="svg2" viewBox="86 86 30 30" height="50px" width="50px">
+									<circle cx="100" cy="100" r="13" style="stroke: white; fill: white;"/> 
+									<circle class="background" cx="100" cy="100" r="9" stroke="#DCE3E6" />
+									<circle id="line17" class="overlayLine" cx="100" cy="100" r="9" stroke="#507282" stroke-dasharray="0, 3000" stroke-dashoffset="126" transform="rotate(-90,100,100)" />
+								</svg>
+							</div>
+							
+							<div class="d-flex justify-center mt-5">
+								<p class="parkingInfo">Parking Overflow Lot N/A</p>
+							</div>
+							<table id="parkingWrapper">
+								<tr>
+								<th>Time</th>
+								<th class="right">Occupancy Pct(%)</th>
+								</tr>
+							</table>
+						</div>
+						<iframe id="parkingApi" src="https://trailwaze.info/zion/parking.php?lot=Overlow_Lot"></iframe>
+					</div>
+					<!-- END PARKING PAGES -->
+
+					<!-- START ENTRANCE PAGES -->
+					<div v-if="MainPage=='Entrances' ">
+						<!-- App bar -->
+						<v-card>
+							<div>
+								<div class="d-none d-md-inline-flex">
+									<p v-on:click="MainPage='Home'; statRefresh();" class="ml-6 titles mr-0 " ><img class="bison" src="images/blueBison.svg">Parkdata - Zion National Park</p>
+									<!-- <p v-on:click="MainPage='Home'; statRefresh();" class="ml-6 mr-0 d-flex d-md-none" >Parkdata</p> -->
+								</div>
+								<div class="d-sm-inline-flex d-md-none d-inline-flex">
+									<p v-on:click="MainPage='Home'; statRefresh();" class="ml-6 mt-4 appbar__title--mobile">Parkdata</p>
+								</div>
+
+								<div class="float-right d-inline-flex">
+									<!-- <v-btn v-on:click="MainPage='Parking'; resetPages()"text color="#507282" class="d-inline">Parking</v-btn> -->
+									<v-btn class="d-none d-md-flex mt-8" text color="#507282" v-on:click="MainPage='Parking'; resetPages(); statRefresh();">Parking</v-btn>
+									<v-btn class="d-none d-sm-flex d-md-none mt-4" text color="#507282" v-on:click="MainPage='Parking'; resetPages(); statRefresh();">Parking</v-btn>
+									<v-btn class="d-xs-flex d-sm-none mt-3" text color="#507282" v-on:click="MainPage='Parking'; resetPages(); statRefresh();">
+										<img src="icons/parking_outline_blue.svg" alt="">
+									</v-btn>
+
+									<v-menu offset-y>
+										<template v-slot:activator="{ on }">
+											<!-- <v-btn color="#C9AC68" text v-on="on">Entrances</v-btn> -->
+											<v-btn class="d-none d-md-flex mt-8" color="#C9AC68" text v-on="on">Entrances</v-btn>
+											<v-btn class="d-none d-sm-flex d-md-none mt-4" color="#C9AC68" text v-on="on">Entrances</v-btn>
+											<v-btn class="d-xs-flex d-sm-none mt-3" color="#C9AC68" text v-on="on">
+												<img src="icons/kolob_outline_yellow.svg" alt="">
+											</v-btn>
+										</template>
+										<v-list>
+											<v-list-item v-for="(enterance, index) in Entrances" :key="index" v-on:click="MainPage='Entrances'; resetStateTabs(); statRefresh(); EntrancePage=enterance ">
+												<v-list-item-title>{{ enterance }}</v-list-item-title>
+											</v-list-item>
+										</v-list>
+									</v-menu>
+								</div>
+							</div>
+							<div v-if="EntrancePage!='East' && EntrancePage!='River'" class="tabs">
+								<!-- need to figure a better way to change with smaller devices; too much repetition -->
+								<div class="ETIButtonContainer desktop-tabs"><button class="ETIButton entranceButtons" :class="{entranceButtonsfocus: ETI_selected}" @click="ETISelected(); statRefresh();">CAMERA IN</button></div>
+								<div class="ETIButtonContainer mobile-tabs"><button class="ETIButton entranceButtons" :class="{entranceButtonsfocus: ETI_selected}" @click="ETISelected(); statRefresh();">IN</button></div>
+
+								<div class="ETOButtonContainer desktop-tabs"><button class="ETOButton entranceButtons" :class="{entranceButtonsfocus: ETO_selected}" @click="ETOSelected(); statRefresh();">CAMERA OUT</button></div>
+								<div class="ETOButtonContainer mobile-tabs"><button class="ETOButton entranceButtons" :class="{entranceButtonsfocus: ETO_selected}" @click="ETOSelected(); statRefresh();">OUT</button></div>
+
+								<div class="RButtonContainer desktop-tabs"><button class="RButton entranceButtons" :class="{entranceButtonsfocus: R_selected}" @click="RSelected">RADAR</button></div>
+								<div class="RButtonContainer mobile-tabs mr-3"><button class="RButton entranceButtons" :class="{entranceButtonsfocus: R_selected}" @click="RSelected">RADAR</button></div>
+
+								<div class="SButtonContainer desktop-tabs"><button class="SButton entranceButtons" :class="{entranceButtonsfocus: S_selected}" @click="SSelected">STATES</button></div>
+								<div class="SButtonContainer mobile-tabs"><button class="SButton entranceButtons" :class="{entranceButtonsfocus: S_selected}" @click="SSelected">STATES</button></div>
+							</div>
+							<div v-if="EntrancePage=='East'" class="tabs">
+								<div class="ETIButtonContainer desktop-tabs"><button class="ETIButton entranceButtons" :class="{entranceButtonsfocus: ETI_selected}" @click="ETISelected(); statRefresh();">CAMERA IN</button></div>
+								<div class="ETIButtonContainer mobile-tabs"><button class="ETIButton entranceButtons" :class="{entranceButtonsfocus: ETI_selected}" @click="ETISelected(); statRefresh();">IN</button></div>
+
+								<div class="ETOButtonContainer desktop-tabs"><button class="ETOButton entranceButtons" :class="{entranceButtonsfocus: ETO_selected}" @click="ETOSelected(); statRefresh();">CAMERA OUT</button></div>
+								<div class="ETOButtonContainer mobile-tabs"><button class="ETOButton entranceButtons" :class="{entranceButtonsfocus: ETO_selected}" @click="ETOSelected(); statRefresh();">OUT</button></div>
+
+								<div class="ETOButtonContainer desktop-tabs"><button class="ETOButton entranceButtons" :class="{entranceButtonsfocus: Ratio_selected}" @click="ratioSelected">IN/OUT RATIO</button></div>
+								<div class="ETOButtonContainer mobile-tabs"><button class="ETOButton entranceButtons" :class="{entranceButtonsfocus: Ratio_selected}" @click="ratioSelected">RATIO</button></div>
+
+								<div class="ETOButtonContainer desktop-tabs"><button class="DButton entranceButtons" :class="{entranceButtonsfocus: D_selected}" @click="DSelected">DWELL</button></div>
+								<div class="ETOButtonContainer mobile-tabs"><button class="DButton entranceButtons" :class="{entranceButtonsfocus: D_selected}" @click="DSelected">DWELL</button></div>
+
+								<div class="RButtonContainer desktop-tabs"><button class="RButton entranceButtons" :class="{entranceButtonsfocus: R_selected}" @click="RSelected">RADAR/LOOP</button></div>
+								<div class="RButtonContainer mobile-tabs"><button class="RButton entranceButtons" :class="{entranceButtonsfocus: R_selected}" @click="RSelected">LOOP</button></div>
+
+								<div class="SButtonContainer desktop-tabs"><button class="SButton entranceButtons" :class="{entranceButtonsfocus: S_selected}" @click="SSelected">STATES</button></div>
+								<div class="SButtonContainer mobile-tabs"><button class="SButton entranceButtons" :class="{entranceButtonsfocus: S_selected}" @click="SSelected">STATES</button></div>
+
+							</div>
+							<div v-if="EntrancePage=='River'" class="tabs">
+								<div class="ETIButtonContainer">
+									<button class="ETIButton entranceButtons" :class="{entranceButtonsfocus: ETI_selected}" @click="ETISelected(); statRefresh();">CAMERA IN</button>
+								</div>
+								<div class="ETOButtonContainer">
+									<button class="ETOButton entranceButtons" :class="{entranceButtonsfocus: ETO_selected}" @click="ETOSelected(); statRefresh();">CAMERA OUT</button>
+								</div>
+							</div>
+						</v-card> 
+						<!-- End App bar -->
+
+						<!-- CAMERA IN TAB FOR ALL ENTRANCES -->
+						<div v-if="ETI_selected"> 
+							<div v-if="EntrancePage=='South'"> <!-- South--Entrance--Camera in tab -->
+								<div class="statHeader2">
+									<div class="statWrapper">
+										<img class="statImage" src="icons/south_entrance_outline.svg">
+										<div class="textWrapper">
+											<span class="smallHide"><b>South Entrance:</b><br>{{southEntranceStat}}</span>
+											<svg class="svg2" viewBox="86 86 30 30" height="50px" width="50px">
+												<circle cx="100" cy="100" r="13" style="stroke: white; fill: white;"/> 
+												<circle class="background" cx="100" cy="100" r="9" stroke="#f7f6f4" />
+												<circle id="line6" class="overlayLine" cx="100" cy="100" r="9" stroke="#C9AC68" stroke-dasharray="0, 3000" stroke-dashoffset="126" transform="rotate(-90,100,100)" />
+											</svg>
+										</div>
+									</div>
+								</div>
+								<iframe class="radarCharts mt-8" src="https://trailwaze.info/vehicleTrafficStats.php"></iframe>
+							</div>
+
+							<div v-if="EntrancePage=='East'"> <!-- East--Entrance--Camera in tab -->
+								<div class="statHeader2">
+									<div class="statWrapper">
+										<img class="statImage" src="icons/east_entrance_outline.svg">
+										<div class="textWrapper">
+											<span class="smallHide"><b>East Entrance:</b><br>{{eastEntranceStat}}</span>
+											<svg class="svg2" viewBox="86 86 30 30" height="50px" width="50px">
+												<circle cx="100" cy="100" r="13" style="stroke: white; fill: white;"/> 
+												<circle class="background" cx="100" cy="100" r="9" stroke="#f7f6f4" />
+												<circle id="line8" class="overlayLine" cx="100" cy="100" r="9" stroke="#C9AC68" stroke-dasharray="0, 3000" stroke-dashoffset="126" transform="rotate(-90,100,100)" />
+											</svg>
+										</div>
+									</div>
+								</div>
+								<iframe class="radarCharts  mt-5" src="https://trailwaze.info/vehicleTrafficStats.php?site=zioneastin"></iframe>
+							</div>
+
+							<div v-if="EntrancePage=='River'"> <!-- River--Entrance--Camera in tab -->
+								<div class="statHeader2">
+									<div class="statWrapper">
+										<img class="statImage" src="icons/riverside_walk.svg">
+										<div class="textWrapper">
+											<span class="smallHide"><b>River Entrance:</b><br>{{riverPeople}} People</span>
+											<svg class="svg2" viewBox="86 86 30 30" height="50px" width="50px">
+												<circle cx="100" cy="100" r="13" style="stroke: white; fill: white;"/> 
+												<circle class="background" cx="100" cy="100" r="9" stroke="#f7f6f4" />
+												<circle id="line10" class="overlayLine" cx="100" cy="100" r="9" stroke="#C9AC68" stroke-dasharray="0, 3000" stroke-dashoffset="126" transform="rotate(-90,100,100)" />
+											</svg>
+										</div>
+									</div>
+								</div>
+								<iframe class="radarCharts mt-5" src="https://trailwaze.info/bridgeTraffic.php"></iframe>
+							</div>
+
+							<div v-if="EntrancePage=='Kolob'"> <!-- Kolob--Entrance--Camera in tab -->
+								<div class="statHeader2">
+									<div class="statWrapper">
+										<img class="statImage" src="icons/kolob_outline.svg">
+										<div class="textWrapper">
+											<span class="smallHide"><b>Kolob Entrance:</b><br>{{kolobVehicles}}</span>
+											<svg class="svg2" viewBox="86 86 30 30" height="50px" width="50px">
+												<circle cx="100" cy="100" r="13" style="stroke: white; fill: white;"/> 
+												<circle class="background" cx="100" cy="100" r="9" stroke="#f7f6f4" />
+												<circle id="line12" class="overlayLine" cx="100" cy="100" r="9" stroke="#C9AC68" stroke-dasharray="0, 3000" stroke-dashoffset="126" transform="rotate(-90,100,100)" />
+											</svg>
+										</div>
+									</div>
+								</div>
+								<h3 class="noData">No Camera Data</h3>
+							</div>
+
+							<div v-if="EntrancePage=='Canyon Junction'"> <!-- Cannyon-Junction--Entrance--Camera in tab -->
+								<div class="statHeader2">
+									<div class="statWrapper">
+										<img class="statImage" src="icons/canyon junction icon.svg">
+										<div class="textWrapper">
+											<span class="smallHide"><b>Canyon Junction:</b><br>{{canyonStat}}</span>
+											<svg class="svg2" viewBox="86 86 30 30" height="50px" width="50px">
+												<circle cx="100" cy="100" r="13" style="stroke: white; fill: white;"/> 
+												<circle class="background" cx="100" cy="100" r="9" stroke="#f7f6f4" />
+												<circle id="line14" class="overlayLine" cx="100" cy="100" r="9" stroke="#C9AC68" stroke-dasharray="0, 3000" stroke-dashoffset="126" transform="rotate(-90,100,100)" />
+											</svg>
+										</div>
+									</div>
+								</div>
+								<h3 class="noData">No Camera Data</h3>
+							</div>
+						</div> 
+						<!-- END CAMERA IN TAB FOR ALL ENTRANCES -->
+
+						<!-- START 'CAMERA-OUT' TAB FOR ALL ENTRANCES -->
+						<div v-if="ETO_selected"> 
+
+							<div v-if="EntrancePage=='South'"> <!-- South--Entrance--Camera OUT tab -->
+								<div class="statHeader2">
+									<div class="statWrapper">
+										<img class="statImage" src="icons/south_entrance_outline.svg">
+										<div class="textWrapper">
+											<span class="smallHide"><b>South Exit:</b><br>{{southExitStat}}</span>
+											<svg class="svg2" viewBox="86 86 30 30" height="50px" width="50px">
+												<circle cx="100" cy="100" r="13" style="stroke: white; fill: white;"/> 
+												<circle class="background" cx="100" cy="100" r="9" stroke="#f7f6f4" />
+												<circle id="line7" class="overlayLine" cx="100" cy="100" r="9" stroke="#C9AC68" stroke-dasharray="0, 3000" stroke-dashoffset="126" transform="rotate(-90,100,100)" />
+											</svg>
+										</div>
+									</div>
+								</div>
+								<iframe class="radarCharts mt-5" src="https://trailwaze.info/vehicleTrafficStats.php"></iframe>
+							</div>
+
+							<div v-if="EntrancePage=='East'"> <!-- East--Entrance--Camera OUT tab -->
+								<div class="statHeader2">
+									<div class="statWrapper">
+										<img class="statImage" src="icons/east_entrance_outline.svg">
+										<div class="textWrapper">
+											<span class="smallHide"><b>East Exit:</b><br>{{eastExitStat}}</span>
+											<svg class="svg2" viewBox="86 86 30 30" height="50px" width="50px">
+												<circle cx="100" cy="100" r="13" style="stroke: white; fill: white;"/> 
+												<circle class="background" cx="100" cy="100" r="9" stroke="#f7f6f4" />
+												<circle id="line9" class="overlayLine" cx="100" cy="100" r="9" stroke="#C9AC68" stroke-dasharray="0, 3000" stroke-dashoffset="126" transform="rotate(-90,100,100)" />
+											</svg>
+										</div>
+									</div>
+								</div>
+								<iframe class="radarCharts mt-5" src="https://trailwaze.info/vehicleTrafficStats.php?site=zioneastout"></iframe>
+							</div>
+
+							<div v-if="EntrancePage=='River'"> <!-- River--Entrance--Camera OUT tab -->
+								<div class="statHeader2">
+									<div class="statWrapper">
+										<img class="statImage" src="icons/riverside_walk.svg">
+										<div class="textWrapper">
+											<span class="smallHide"><b>River Exit:</b><br>{{riverExit}}</span>
+											<svg class="svg2" viewBox="86 86 30 30" height="50px" width="50px">
+												<circle cx="100" cy="100" r="13" style="stroke: white; fill: white;"/> 
+												<circle class="background" cx="100" cy="100" r="9" stroke="#f7f6f4" />
+												<circle id="line11" class="overlayLine" cx="100" cy="100" r="9" stroke="#C9AC68" stroke-dasharray="0, 3000" stroke-dashoffset="126" transform="rotate(-90,100,100)" />
+											</svg>
+										</div>
+									</div>
+								</div>
+								<iframe class="radarCharts mt-5" src="https://trailwaze.info/bridgeTraffic.php"></iframe>
+							</div>
+
+							<div v-if="EntrancePage=='Kolob'"> <!-- Kolob--Entrance--Camera OUT tab -->
+								<div class="statHeader2">
+									<div class="statWrapper">
+										<img class="statImage" src="icons/kolob_outline.svg">
+										<div class="textWrapper">
+										<span class="smallHide"><b>Kolob Exit:</b><br>{{kolobExit}}</span>
+											<svg class="svg2" viewBox="86 86 30 30" height="50px" width="50px">
+												<circle cx="100" cy="100" r="13" style="stroke: white; fill: white;"/> 
+												<circle class="background" cx="100" cy="100" r="9" stroke="#f7f6f4" />
+												<circle id="line13" class="overlayLine" cx="100" cy="100" r="9" stroke="#C9AC68" stroke-dasharray="0, 3000" stroke-dashoffset="126" transform="rotate(-90,100,100)" />
+											</svg>
+										</div>
+									</div>
+								</div>
+								<h3 class="noData">No Camera Data</h3>
+							</div>
+
+							<div v-if="EntrancePage=='Canyon Junction'"> <!-- Canyon-Junction--Entrance--Camera OUT tab -->
+								<div class="statHeader2">
+									<div class="statWrapper">
+										<img class="statImage" src="icons/canyon junction icon.svg">
+										<div class="textWrapper">
+											<span class="smallHide"><b>Canyon Junction:</b><br>{{canyonExit}}</span>
+											<svg class="svg2" viewBox="86 86 30 30" height="50px" width="50px">
+												<circle cx="100" cy="100" r="13" style="stroke: white; fill: white;"/> 
+												<circle class="background" cx="100" cy="100" r="9" stroke="#f7f6f4" />
+												<circle id="line15" class="overlayLine" cx="100" cy="100" r="9" stroke="#C9AC68" stroke-dasharray="0, 3000" stroke-dashoffset="126" transform="rotate(-90,100,100)" />
+											</svg>
+										</div>
+									</div>
+								</div>
+								<h3 class="noData">No Camera Data</h3>
+							</div>
+						</div> 
+						<!-- END CAMERA OUT TAB FOR ALL ENTRANCES -->
+
+						<div v-if="Ratio_selected"> <!-- EAST--Entrance--IN/OUT RATIO tab -->
+							<div v-if="EntrancePage=='East'">
+								<div class="statHeader2">
+									<div class="statWrapper">
+										<span>East Entrance Ratio Report</span>
+									</div>
+								</div>
+								<iframe class="radarCharts mt-5" src="https://trailwaze.info/zion/inOut_east.php"></iframe>
+							</div>
+						</div>
+
+						<div v-if="D_selected">  <!-- EAST--Entrance--DWELL tab -->
+							<div v-if="EntrancePage=='East'">
+								<div class="statHeader2">
+									<div class="statWrapper">
+										<span> East Entrance Dwell Report</span>
+									</div>
+								</div>
+								<iframe class="radarCharts mt-5" src="https://trailwaze.info/zion/dwellTime.php"></iframe>
+							</div>
+						</div>
+						
+						<!-- START RADAR TAB FOR ALL ENTRANCES -->
+						<div v-if="R_selected" class="mb-9 iframeContainer"> 
+							<div v-if="EntrancePage=='South'">  <!-- SOUTH--Entrance--RADAR tab -->
+								<div class="statHeader2">
+									<div class="statWrapper">
+										<span>South Entrance Radar Report</span>
+									</div>
+								</div>
+								<iframe class="radarCharts mt-6" src="https://trailwaze.info/zion/radar_monthly.php"></iframe>
+							</div>
+							<div v-if="EntrancePage=='East'"> <!-- EAST--Entrance--RADAR tab -->
+								<div class="statHeader2">
+									<div class="statWrapper">
+										<span>East Entrance Radar Report</span>
+									</div>
+								</div>
+								<iframe class="radarCharts mt-6" src="https://trailwaze.info/zion/radar_monthly.php"></iframe>
+							</div>
+							<div v-if="EntrancePage=='River'"> <!-- RIVER--Entrance--RADAR tab -->
+								<div class="statHeader2">
+									<div class="statWrapper">
+										<span>River Entrance Radar Report</span>
+									</div>
+								</div>
+								<h3 class="noData">No Radar Data</h3>
+							</div>
+							<div v-if="EntrancePage=='Kolob'">  <!-- KOLOB--Entrance--RADAR tab -->
+								<div class="statHeader2">
+									<div class="statWrapper">
+										<span>Kolob Entrance Radar Report</span>
+									</div>
+								</div>
+								<iframe class="radarCharts mt-7" src="https://trailwaze.info/kolob/daily.php"></iframe>
+							</div>
+							<div v-if="EntrancePage=='Canyon Junction'">  <!-- CANYON-JUNCTION--RADAR--RADAR tab -->
+								<div class="statHeader2">
+									<div class="statWrapper">
+										<span>Canyon Junction Radar Report</span>
+									</div>
+								</div>
+								<h3 class="noData">No Radar Data</h3>
+							</div>
+						</div>
+						<!-- END RADAR TAB FOR ALL ENTRANCES -->
+
+						<!-- START STATE TAB FOR ALL ENTRANCES -->
+						<div v-if="S_selected">
+							<div v-if="EntrancePage=='South'">  <!-- SOUTH--Entrance--STATE tab -->
+								<div class="statHeader2">
+									<div class="statWrapper">
+										<span>South Entrance States Report</span>
+									</div>
+								</div>
+								<!-- drop down for times -->
+								<div class="d-inline">
+									<v-menu offset-y>
+										<template v-slot:activator="{ on }">
+										<v-btn class="mt-2 ml-2" outlined color="black" @click="switchArrow()" v-on="on">{{stateTimePage}}<img class="pl-3" :src="stateArrowImage" alt="arrow"></v-btn>
+										</template>
+										<v-list>
+										<v-list-item
+											v-for="(time, index) in statesTimes" :key="index" v-on:click="stateTimePage=time; setSouthStateData(); resetArrow();">
+											<v-list-item-title>{{ time }}</v-list-item-title>
+										</v-list-item>
+										</v-list>
+									</v-menu>
+								</div>
+								
+								<div class="d-inline">
+									<v-dialog ref="dialog" v-model="modal" :return-value.sync="date" persistent width="290px" >
+										<template v-slot:activator="{ on }">
+											<v-btn class="mt-2" v-on="on">pick dates</v-btn>
+											<!-- <v-text-field v-model="stateDateRange" label="Picker in dialog" prepend-icon="event" readonly v-on="on" ></v-text-field> -->
+										</template>
+										<v-date-picker v-model="stateDateRange" range scrollable>
+											<v-spacer></v-spacer>
+											<v-btn text color="primary" @click="modal = false">Cancel</v-btn>
+											<v-btn text color="primary" @click="$refs.dialog.save(date); selectStateDates();">OK</v-btn>
+										</v-date-picker>
+									</v-dialog>
+								</div>
+
+
+								<div>
+									<iframe class="radarCharts charts" :src="southStateURL"></iframe>
+								</div>
+							</div>
+
+							<div v-if="EntrancePage=='East'"> <!-- EAST--Entrance--STATE tab -->
+								<div class="statHeader2">
+									<div class="statWrapper">
+										<span>East Entrance States Report</span>
+									</div>
+								</div>
+								<!-- drop down for times -->
+								<v-menu offset-y>
+									<template v-slot:activator="{ on }">
+									  <v-btn class="mt-2 ml-2" outlined color="black" @click="switchArrow()" v-on="on">{{stateTimePage}}<img class="pl-3"  :src="stateArrowImage" alt="arrow"></v-btn>
+									</template>
+									<v-list>
+									  <v-list-item
+										v-for="(time, index) in statesTimes" :key="index" v-on:click="stateTimePage=time; setEastStateData(); resetArrow();">
+										<v-list-item-title>{{ time }}</v-list-item-title>
+									  </v-list-item>
+									</v-list>
+								</v-menu>
+								<iframe class="radarCharts eastCharts" :src="eastStateURL"></iframe>
+							</div>
+
+							<div v-if="EntrancePage=='River'">  <!-- RIVER--Entrance--STATE tab -->
+								<div class="statHeader2">
+									<div class="statWrapper">
+										<span>River Entrance States Report</span>
+									</div>
+								</div>
+								<h3 class="noData">No State Data</h3>
+							</div>
+
+							<div v-if="EntrancePage=='Kolob'">  <!-- KOLOB--Entrance--STATE tab -->
+								<div class="statHeader2">
+									<div class="statWrapper">
+										<span>Kolob Entrance States Report</span>
+									</div>
+								</div>
+								<!-- drop down for times -->
+								<v-menu offset-y>
+									<template v-slot:activator="{ on }">
+									  <v-btn class="mt-2 ml-2" outlined color="black" @click="switchArrow()" v-on="on">{{stateTimePage}}<img class="pl-3"  :src="stateArrowImage" alt="arrow"></v-btn>
+									</template>
+									<v-list>
+									  <v-list-item
+										v-for="(time, index) in statesTimes" :key="index" v-on:click="stateTimePage=time; setKolobStateData(); resetArrow();">
+										<v-list-item-title>{{ time }}</v-list-item-title>
+									  </v-list-item>
+									</v-list>
+								</v-menu>
+								<h3 class="noData">No State Data</h3>
+								<!-- will need to add the iframe if it has the state stats -->
+							</div>
+
+							<div v-if="EntrancePage=='Canyon Junction'"> <!-- CANYON-JUNCTION--Entrance--STATE tab -->
+								<div class="statHeader2">
+									<div class="statWrapper">
+										<span>Canyon Junction States Report</span>
+									</div>
+								</div>
+								<!-- drop down for times -->
+								<v-menu offset-y>
+									<template v-slot:activator="{ on }">
+									  <v-btn class="mt-2 ml-2" outlined color="black" @click="switchArrow()" v-on="on">{{stateTimePage}}<img class="pl-3" :src="stateArrowImage" alt="arrow"></v-btn>
+									</template>
+									<v-list>
+									  <v-list-item
+										v-for="(time, index) in statesTimes" :key="index" v-on:click="stateTimePage=time; setCanyonStateData(); resetArrow();">
+										<v-list-item-title>{{ time }}</v-list-item-title>
+									  </v-list-item>
+									</v-list>
+								</v-menu>
+								<iframe class="radarCharts" :src="canyon_junctionStateURL"></iframe>
+							</div>
+						</div>
+						<!-- END STATE TAB FOR ALL ENTRANCES -->
+						
+					</div>
+					<!-- END ENTRANCE PAGES -->
+
+				</div>
+				</v-content>
+			</v-app>
+		</div>
+		<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+		<script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+		<script src="dashboard.js"></script>
+	</body>
+</html>

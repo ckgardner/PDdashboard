@@ -27,6 +27,9 @@ body{
     font-style: normal;
     font-weight: normal;
 }
+html,body{
+    overflow-x: hidden;
+}
 v-app-bar{
     height: 80px;
 }
@@ -77,9 +80,9 @@ v-app-bar{
     width: 15%;
     font-weight: 500;
     font-size: 1.3vw;
-    line-height: 28px;
     text-align: center;
     text-transform: uppercase;
+    vertical-align: middle;
     position: absolute;
     left: 42%;
     top: 50%;
@@ -247,6 +250,28 @@ v-app-bar{
     width: 65%;
     margin: 0 auto;
 }
+.statWrapper span{
+	vertical-align:middle;
+	display:inline-block;
+}
+.textWrap{
+    display: inline;
+}
+.svg2{
+    vertical-align:middle;
+    display: inline-block;
+    margin-left: 20px;
+}
+.statWrapper2{
+    width: 98%;
+    margin: 0 auto;
+}
+.textWrapper{
+    display: inline-block;
+    position: relative;
+    line-height: 23px;
+    vertical-align: middle;
+}
 .statImage{
     height: 23px;
     width: 23px;
@@ -265,6 +290,11 @@ v-app-bar{
 }
 #southEntranceStat{
     background-color: #CDBD97;
+    color: white;
+    font-size: 16px;
+}
+#canyonStat{
+    background-color: #B3A584;
     color: white;
     font-size: 16px;
 }
@@ -315,6 +345,33 @@ th{
 #svgContainer{
     width: 100%;
 }
+.iframeContainer{
+    height: 100%;
+    width: 100%;
+}
+.radarCharts{
+    border: 0;
+    width: 100%;
+    height: 100%;
+    position: absolute; 
+    top: 290px; 
+    left: 0; 
+    bottom: 0; 
+    right: 0;  
+    margin: 10; 
+    padding: 0; 
+    overflow: hidden; 
+}
+body {
+    margin: 0;
+}
+.noData{
+    text-align: center;
+    left: 0;
+    right: 0;
+    margin-top: 20%;
+    font-size: 30px;
+}
 
 /* ----------------- Parking Page ----------------------- */
 .visitorButtonContainer, .ETIButtonContainer{
@@ -336,6 +393,12 @@ th{
     margin: 20px;
     cursor: pointer;
 }
+.appbar__title--mobile {
+    font-size: 20px;
+    line-height: 23px;
+    font-family: "titleRoboto";
+    color: rgba(0, 0, 0, 0.86);
+}
 .tabs{
     margin-top: 20px;
 }
@@ -343,26 +406,27 @@ th{
     font-size: 36px;
     font-family: "titleRoboto";
 }
-.overflowButtonContainer, .ETOButtonContainer, .RButtonContainer, .SButtonContainer, .MonthButtonContainer, .DayButtonContainer{
+.overflowButtonContainer, .ETOButtonContainer, .RButtonContainer, .SButtonContainer, .DButtonContainer, .MonthButtonContainer, .DayButtonContainer{
     font-weight: 500;
     font-size: 14px;
     line-height: 16px;
     text-align: center;
     display: inline-block;
 }
-.ETIButtonContainer, .ETOButtonContainer, .RButtonContainer, .SButtonContainer , .MonthButtonContainer, .DayButtonContainer{
+.ETIButtonContainer, .ETOButtonContainer, .RButtonContainer, .SButtonContainer, .DButtonContainer , .MonthButtonContainer, .DayButtonContainer{
     width: 150px;
 }
 .visitorButton, .overflowButton{
     width: 100%;
     height: 48px;
 }
-.ETIButton, .ETOButton, .RButton, .SButton, .MonthButton, .DayButton{
+.ETIButton, .ETOButton, .RButton, .SButton, .MonthButton, .DayButton, .DButton{
     width: 100%;
     height: 48px;
 }
 .parkButtons{
     color: #507282;
+    margin: 0px 20px;
 }
 .entranceButtons{
     color: #666666;
@@ -396,7 +460,63 @@ th{
 .tableHeading {
     font-weight: bold;
 }
+#parkingApi{
+    text-align: center;
+    height: 700px;
+    width: 100%;
+}
+.smallShow{
+    display: none;
+}
+.statHeader{
+    width: 100%;
+    height: 56px;
+    background-color: #507282;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 56px;
+    font-size: 24px;
+    font-family: "titleRoboto";
+}
+.statHeader2{
+    width: 100%;
+    height: 72px;
+    background-color: #C9AC68;
+    text-align: left;
+    padding-left: 20px;
+    vertical-align: middle;
+    line-height: 72px;
+    font-size: 20px;
+    font-family: "myRoboto";
+}
+.statHeader span, .statHeader2 span{
+    vertical-align: middle;
+    color: white;
+    font-style: normal;
+    font-weight: normal;
+}
+.mobile-tabs{
+    display: none;
+}
 @media only screen and (max-width: 719px){
+    /* for the tabs on entrance page */
+    .desktop-tabs{
+        display: none;
+    }
+    .mobile-tabs {
+        display: inline-flex;
+        width: 53px;
+    }
+    #logosWrapper{
+        text-align: center;
+    }
+    #researchTextWrapper{
+        width: 330px;
+    }
+    #dsulogo, #iiclogo, #suulogo, .column{
+        width: 70%;
+        margin-top: 0px;
+    }
     .stat{
         display: none;
     }
@@ -405,6 +525,9 @@ th{
         top: 18%;
         display: block;
         margin: 0 auto;
+    }
+    .smallShow{
+        display: block;
     }
     #svgContainer{
         display: block;
@@ -419,11 +542,37 @@ th{
         width: 420px;
         margin: 0 auto;
         margin-top: 15px;
+        margin-bottom: 20px;
     }
     table{
         width: 420px;
     }
     #title, #titleStatus{
         display: inline;
+    }
+}
+@media only screen and (max-width: 450px){
+    #title, #titleStatus, #yesterdayTitle{
+        font-size: 18px;
+    }
+    table{
+        overflow: scroll;
+    }
+    #yesterdayWrapper{
+        width: 100%;
+        margin-top: 10px;
+        margin-left: 5px;
+        margin-right: 5px;
+    }
+}
+@media only screen and (min-width: 960px){
+    .radarCharts {
+        margin-top: 30px;
+    }
+}
+
+@media only screen and (max-width: 365px){
+    .eastCharts {
+        margin-top: 30px;
     }
 }
