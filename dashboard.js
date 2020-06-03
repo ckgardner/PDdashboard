@@ -74,7 +74,7 @@ var app = new Vue({
         kolobPeople: "N/A",
         KolobDateUpdated: "N/A",
         
-        MainPage: 'Entrances', // Login, loggingIn, requestAccess, Home, Parking, Entrances 
+        MainPage: 'Home', // Login, loggingIn, requestAccess, Home, Parking, Entrances 
         EntrancePage: 'South',
         Entrances: ['South', 'East', 'River', 'Kolob', 'Canyon Junction'],
         statesTimes: ['By Hour', 'Yesterday', '24 Hour', '7 Day', '30 Day'],
@@ -212,27 +212,26 @@ var app = new Vue({
 				vm.totalVisitors = this.getAPIData_safe(response.data, ['LastYearVisitation', 'count'], 'N/A');
 
                 var PS = vm.parkingStat / 100;
-                if (PS < 0.1){
-                    PS = 0.1;
-                    vm.parkingStat = 10;
+                if (PS < 0.01){
+                    PS = 0.01;
                 }
 
                 var VC = vm.vcStat;
                 var OF = vm.overflowStat;
 
                 var ES = vm.eastEntranceStat.substr(0,vm.eastEntranceStat.indexOf(' ')) / 2500;
-                if (ES < 0.1){
-                    ES = 0.1;
-                }
+                // if (ES < 0.1){
+                //     ES = 0.1;
+                // }
 
                 var SES = vm.southEntranceStat.substr(0,vm.southEntranceStat.indexOf(' ')) / 2500;
                 
-                if (SES < 0.1 || vm.southEntranceStat == "N/A"){
-                    SES = 0.1;
-                }
+                // if (SES < 0.1 || vm.southEntranceStat == "N/A"){
+                //     SES = 0.1;
+                // }
 
                 var CJ = vm.canyonStat.substr(0,vm.canyonStat.indexOf(' ')) / 2500;
-                if (CJ < 0.1 || vm.canyonStat == "N/A"){
+                if (vm.canyonStat == "N/A"){
                     CJ = 0.1;
                 }
                 R = 0.1;
@@ -294,12 +293,12 @@ var app = new Vue({
         loadParking: function(VC, OF){
             VC /= 465;
             OF /= 100;
-            if(VC < 0.1){
-                VC = 0.1;
-            }
-            if (OF < 0.1){
-                OF = 0.1;
-            }
+            // if(VC < 0.1){
+            //     VC = 0.1;
+            // }
+            // if (OF < 0.1){
+            //     OF = 0.1;
+            // }
             if (this.visitor_selected == true){
                 this.setStop("line16", 9, VC);
             }
@@ -542,18 +541,18 @@ var app = new Vue({
         selectStateDates: function() {
             //https://trailwaze.info/zion/plates_by_state_date_south.php?date1=2020-05-23&date2=2020-05-20
             if( this.stateDateRange.length > 1) {
-                var year1 = this.stateDateRange[0].substr(0,4);
-                var year2 = this.stateDateRange[1].substr(0,4);
-                var month1 = this.stateDateRange[0].substr(5,2);
-                var month2 = this.stateDateRange[1].substr(5,2);
-                var day1 = this.stateDateRange[0].substr(8,2);
-                var day2 = this.stateDateRange[1].substr(8,2);
-                this.southStateURL = `https://trailwaze.info/zion/plates_by_state_date_south.php?date1=${year1}-${month1}-${day1}&date2=${year2}-${month2}-${day2}`
+                let year1 = this.stateDateRange[0].substr(0,4);
+                let year2 = this.stateDateRange[1].substr(0,4);
+                let month1 = this.stateDateRange[0].substr(5,2);
+                let month2 = this.stateDateRange[1].substr(5,2);
+                let day1 = this.stateDateRange[0].substr(8,2);
+                let day2 = this.stateDateRange[1].substr(8,2);
+                this.southStateURL = `https://trailwaze.info/zion/plates_by_state_date_south.php?date1=${year1}-${month1}-${day1}&date2=${year2}-${month2}-${day2}`;
             }else if( this.stateDateRange.length == 1) {
-                var year1 = this.stateDateRange[0].substr(0,4);
-                var month1 = this.stateDateRange[0].substr(5,2);
-                var day1 = this.stateDateRange[0].substr(8,2);
-                this.southStateURL = `https://trailwaze.info/zion/plates_by_state_date_south.php?date1=${year1}-${month1}-${day1}&date2=${year1}-${month1}-${day1}`
+                let year1 = this.stateDateRange[0].substr(0,4);
+                let month1 = this.stateDateRange[0].substr(5,2);
+                let day1 = this.stateDateRange[0].substr(8,2);
+                this.southStateURL = `https://trailwaze.info/zion/plates_by_state_date_south.php?date1=${year1}-${month1}-${day1}&date2=${year1}-${month1}-${day1}`;
             } else{
                 alert('No days were selected!');
             }
@@ -572,7 +571,7 @@ var app = new Vue({
     },
     computed: {
         dateRangeText () {
-            return this.stateDateRange.join(' ~ ')
+            return this.stateDateRange.join(' ~ ');
         }
     }
 });
