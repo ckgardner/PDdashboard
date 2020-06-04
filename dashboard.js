@@ -244,12 +244,12 @@ var app = new Vue({
                 CJx = 0.1;
                 
                 // Get Parking Percentages
-                if (vm.vcStat < 0.1){
-                    vm.vcStat = 0.1;
-                }
-                if (vm.overflowStat < 0.1){
-                    vm.overflowStat = 0.1;
-                }
+                // if (vm.vcStat < 0.1){
+                //     vm.vcStat = 0.1;
+                // }
+                // if (vm.overflowStat < 0.1){
+                //     vm.overflowStat = 0.1;
+                // }
                 vm.parkingStat = vm.parkingStat.toFixed(0);
                 vm.vcStat *= 100;
                 vm.vcStat = vm.vcStat.toFixed(0);
