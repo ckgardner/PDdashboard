@@ -1,27 +1,5 @@
 /*jshint esversion: 6 */
 
-Vue.component('apexchart', VueApexCharts);
-
-// var app1 = new Vue({
-//     el: '#appl',
-//     data: function(){
-//         return {
-//             options: {
-//               chart: {
-//                 id: 'vuechart-example'
-//               },
-//               xaxis: {
-//                 categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998]
-//               }
-//             },
-//             series: [{
-//               name: 'series-1',
-//               data: [30, 40, 45, 50, 49, 60, 70, 91]
-//             }]
-//         };
-//     }
-// });
-
 var app = new Vue({
     el: '#app',
     vuetify: new Vuetify(),
@@ -74,17 +52,27 @@ var app = new Vue({
         kolobPeople: "N/A",
         KolobDateUpdated: "N/A",
         
-        MainPage: 'Entrances', // Login, loggingIn, requestAccess, Home, Parking, Entrances 
+        MainPage: 'Home', // Login, loggingIn, requestAccess, Home, Parking, Entrances 
         EntrancePage: 'South',
         Entrances: ['South', 'East', 'River', 'Kolob', 'Canyon Junction'],
         statesTimes: ['By Hour', 'Yesterday', '24 Hour', '7 Day', '30 Day'],
+        radarTimes: ['Monthly', 'Daily'],
         stateArrowImage: 'icons/downArrow.png',
+<<<<<<< HEAD
         stateTimePage: 'By Hour', // change back to 'By Hour'
+=======
+        stateTimePage : 'By Hour',
+        radarTimePage: 'monthly',
+>>>>>>> aae73e3d81eb2ee7c68d3dacd762cfb0f5c22bb8
         stateDateRange: [],
         date: null,
         //date: new Date().toISOString().substr(0, 10),
         // menu: false,
         modal: false,
+        southRadarURL: 'https://trailwaze.info/zion/radar_monthly.php',
+        eastRadarURL: '',
+        kolobRadarURL: 'https://trailwaze.info/kolob/index.php',
+        cjRadarURL: '',
         southStateURL: 'https://trailwaze.info/vehicleTrafficAvgPerHour.php?site=south',
         eastStateURL: 'https://trailwaze.info/vehicleTrafficAvgPerHour.php?site=east', // doesnt work
         kolobStateURL: 'https://trailwaze.info/vehicleTrafficAvgPerHour.php?site=kolob', // doesnt work
@@ -104,10 +92,10 @@ var app = new Vue({
 
         visitor_selected: true,
         overflow_selected: false,
-        ETI_selected: false, 
+        ETI_selected: true, 
         ETO_selected: false,
         R_selected: false,
-        S_selected: true, 
+        S_selected: false, 
         D_selected: false,
         Ratio_selected: false,
         Month_selected: true,
@@ -128,7 +116,7 @@ var app = new Vue({
 				if(i == 0 && tdata.hasOwnProperty(f + "1")){multiEntrance = true;}
 				var tdata = data;
 				for(var i = 0; i < fields.length; i++){
-					var f = fields[i];
+					let f = fields[i];
 					if(tdata.hasOwnProperty(f)){
 						if(i == fields.length - 1){
 							ret = tdata[f];
@@ -189,8 +177,6 @@ var app = new Vue({
                 vm.overflowStat = this.getAPIData_safe(response.data, ["ParkingOverflow", "Today", "count"], 0);
                 //Parking: total
                 parkingTotal = vm.overflowStat + vm.vcStat;
-                vm.parkingStat = parkingTotal / 2;
-				//vm.parkingStat/=500;
 
 				//multiply vehicles by multiplier and set south and east people
 				if(vm.SVehicles != "N/A"){vm.SPeople = Math.round(vm.SVehicles * southMultiplier);}
@@ -212,51 +198,37 @@ var app = new Vue({
 				//Last Year Visitation
 				vm.totalVisitors = this.getAPIData_safe(response.data, ['LastYearVisitation', 'count'], 'N/A');
 
-                var PS = vm.parkingStat / 100;
-                if (PS < 0.1){
-                    PS = 0.1;
-                    vm.parkingStat = 10;
-                }
-
-                var VC = vm.vcStat;
-                var OF = vm.overflowStat;
-
-                var ES = vm.eastEntranceStat.substr(0,vm.eastEntranceStat.indexOf(' ')) / 2500;
-                if (ES < 0.1){
-                    ES = 0.1;
-                }
-
-                var SES = vm.southEntranceStat.substr(0,vm.southEntranceStat.indexOf(' ')) / 2500;
-                
-                if (SES < 0.1 || vm.southEntranceStat == "N/A"){
-                    SES = 0.1;
-                }
-
-                var CJ = vm.canyonStat.substr(0,vm.canyonStat.indexOf(' ')) / 2500;
-                if (CJ < 0.1 || vm.canyonStat == "N/A"){
-                    CJ = 0.1;
-                }
-                R = 0.1;
-                K = 0.1;
-
-                SEx = 0.1;
-                Ex = 0.1;
-                Rx = 0.1;
-                Kx = 0.1;
-                CJx = 0.1;
-                
-                // Get Parking Percentages
-                if (vm.vcStat < 0.1){
-                    vm.vcStat = 0.1;
-                }
-                if (vm.overflowStat < 0.1){
-                    vm.overflowStat = 0.1;
-                }
+                vm.parkingStat = parkingTotal / 2;
+                vm.parkingStat/=500;
+                var PS = vm.parkingStat;
                 vm.parkingStat = vm.parkingStat.toFixed(0);
-                vm.vcStat *= 100;
+                
+                vm.vcStat /= 465;
+                var VC = vm.vcStat;
                 vm.vcStat = vm.vcStat.toFixed(0);
-                vm.overflowStat *= 100;
+                
+                vm.overflowStat /= 100;
+                var OF = vm.overflowStat;
                 vm.overflowStat = vm.overflowStat.toFixed(0);
+
+                var ES = vm.eastEntranceStat.substr(0,vm.eastEntranceStat.indexOf(' ')) / 1000;
+
+                var SES = vm.southEntranceStat.substr(0,vm.southEntranceStat.indexOf(' ')) / 3000;
+
+                var CJ = vm.canyonStat.substr(0,vm.canyonStat.indexOf(' ')) / 2000;
+                if (vm.canyonStat == "N/A"){
+                    CJ = 0;
+                }
+
+                R = vm.riverPeople / 3000;
+                K = 0;
+
+                SEx = 0;
+                Ex = 0;
+                Rx = 0;
+                Kx = 0;
+                CJx = 0;
+                
 
                 if (this.MainPage == "Home"){
                     this.loadHome(CJ, SES, ES, PS);
@@ -293,14 +265,7 @@ var app = new Vue({
             this.setStop("line3", 47, PS);
         },
         loadParking: function(VC, OF){
-            VC /= 465;
-            OF /= 100;
-            if(VC < 0.1){
-                VC = 0.1;
-            }
-            if (OF < 0.1){
-                OF = 0.1;
-            }
+
             if (this.visitor_selected == true){
                 this.setStop("line16", 9, VC);
             }
@@ -487,6 +452,37 @@ var app = new Vue({
             icon = "./icons/"+ timeOfDay + icon.substr(icon.lastIndexOf("/")).replace(".png",".svg");
             this.weatherImage = icon;
         },
+        resetRadarTabs: function(){
+            this.radarTimePage = 'Monthly';
+            this.southRadarURL = 'https://trailwaze.info/zion/radar_monthly.php';
+            this.eastRadarURL = '';
+            this.kolobRadarURL = 'https://trailwaze.info/kolob/index.php';
+            this.cjRadarURL = '';
+        },
+        setSouthRadarData: function(){
+            switch(this.radarTimePage){
+                case 'Monthly': this.southRadarURL = 'https://trailwaze.info/zion/radar_monthly.php'; break;
+                case 'Daily': this.southRadarURL = 'https://trailwaze.info/zion/radar_daily.php'; break;
+            }
+        },
+        setEastRadarData: function(){
+            switch(this.radarTimePage){
+                case 'Monthly': this.eastRadarURL = ''; break;
+                case 'Daily': this.eastRadarURL = ''; break;
+            }
+        },
+        setKolobRadarData: function(){
+            switch(this.radarTimePage){
+                case 'Monthly': this.kolobRadarURL = 'https://trailwaze.info/kolob/index.php'; break;
+                case 'Daily': this.kolobRadarURL = 'https://trailwaze.info/kolob/daily.php'; break;
+            }
+        },
+        setcjRadarData: function(){
+            switch(this.radarTimePage){
+                case 'Monthly': this.cjRadarURL = ''; break;
+                case 'Daily': this.cjRadarURL = ''; break;
+            }
+        },
         resetStateTabs: function() {
             this.stateTimePage = 'By Hour';
             this.southStateURL= 'https://trailwaze.info/vehicleTrafficAvgPerHour.php?site=south';
@@ -513,6 +509,7 @@ var app = new Vue({
             }
         },
         setKolobStateData: function() {
+            // state data is N/A for kolob
             switch(this.stateTimePage) {
                 case 'By Hour': this.kolobStateURL = ''; break;
                 case 'Yesterday': this.kolobStateURL = ''; break;
@@ -543,21 +540,18 @@ var app = new Vue({
         selectStateDates: function() {
             //https://trailwaze.info/zion/plates_by_state_date_south.php?date1=2020-05-23&date2=2020-05-20
             if( this.stateDateRange.length > 1) {
-                var year1 = this.stateDateRange[0].substr(0,4);
-                var year2 = this.stateDateRange[1].substr(0,4);
-                var month1 = this.stateDateRange[0].substr(5,2);
-                var month2 = this.stateDateRange[1].substr(5,2);
-                var day1 = this.stateDateRange[0].substr(8,2);
-                var day2 = this.stateDateRange[1].substr(8,2);
-                this.southStateURL = `https://trailwaze.info/zion/plates_by_state_date_south.php?date1=${year1}-${month1}-${day1}&date2=${year2}-${month2}-${day2}`
-                console.log( this.southStateURL);
+                let year1 = this.stateDateRange[0].substr(0,4);
+                let year2 = this.stateDateRange[1].substr(0,4);
+                let month1 = this.stateDateRange[0].substr(5,2);
+                let month2 = this.stateDateRange[1].substr(5,2);
+                let day1 = this.stateDateRange[0].substr(8,2);
+                let day2 = this.stateDateRange[1].substr(8,2);
+                this.southStateURL = `https://trailwaze.info/zion/plates_by_state_date_south.php?date1=${year1}-${month1}-${day1}&date2=${year2}-${month2}-${day2}`;
             }else if( this.stateDateRange.length == 1) {
-                var year1 = this.stateDateRange[0].substr(0,4);
-                var month1 = this.stateDateRange[0].substr(5,2);
-                var day1 = this.stateDateRange[0].substr(8,2);
-                this.southStateURL = `https://trailwaze.info/zion/plates_by_state_date_south.php?date1=${year1}-${month1}-${day1}&date2=${year1}-${month1}-${day1}`
-                console.log( this.southStateURL);
-
+                let year1 = this.stateDateRange[0].substr(0,4);
+                let month1 = this.stateDateRange[0].substr(5,2);
+                let day1 = this.stateDateRange[0].substr(8,2);
+                this.southStateURL = `https://trailwaze.info/zion/plates_by_state_date_south.php?date1=${year1}-${month1}-${day1}&date2=${year1}-${month1}-${day1}`;
             } else{
                 alert('No days were selected!');
             }
@@ -576,9 +570,16 @@ var app = new Vue({
         this.getTodaysDate();
     },
     computed: {
-        // dateRangeText () {
-        //     return this.stateDateRange.join(' ~ ')
-        // }
+        dateRangeText () {
+            return this.stateDateRange.join(' ~ ');
+        }
+    },
+    watch: {
+        EntrancePage: function() {
+            if(this.EntrancePage == 'Kolob'){
+                this.RSelected();
+            }
+        }
     }
 });
 
