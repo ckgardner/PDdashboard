@@ -188,8 +188,7 @@ var app = new Vue({
                 vm.overflowStat = this.getAPIData_safe(response.data, ["ParkingOverflow", "Today", "count"], 0);
                 //Parking: total
                 parkingTotal = vm.overflowStat + vm.vcStat;
-                vm.parkingStat = parkingTotal / 2;
-				//vm.parkingStat/=500;
+                console.log("Parking Total:", parkingTotal);
 
 				//multiply vehicles by multiplier and set south and east people
 				if(vm.SVehicles != "N/A"){vm.SPeople = Math.round(vm.SVehicles * southMultiplier);}
@@ -211,24 +210,23 @@ var app = new Vue({
 				//Last Year Visitation
 				vm.totalVisitors = this.getAPIData_safe(response.data, ['LastYearVisitation', 'count'], 'N/A');
 
-                var PS = vm.parkingStat / 100;
-                if (PS < 0.01){
-                    PS = 0.01;
-                }
-
-                var VC = vm.vcStat;
-                var OF = vm.overflowStat;
-
-                var ES = vm.eastEntranceStat.substr(0,vm.eastEntranceStat.indexOf(' ')) / 2500;
-                // if (ES < 0.1){
-                //     ES = 0.1;
-                // }
-
-                var SES = vm.southEntranceStat.substr(0,vm.southEntranceStat.indexOf(' ')) / 2500;
+                vm.parkingStat = parkingTotal / 2;
+                vm.parkingStat/=500;
+                var PS = vm.parkingStat;
+                vm.parkingStat = vm.parkingStat.toFixed(0);
                 
-                // if (SES < 0.1 || vm.southEntranceStat == "N/A"){
-                //     SES = 0.1;
-                // }
+                vm.vcStat /= 465;
+                var VC = vm.vcStat;
+                vm.vcStat = vm.vcStat.toFixed(0);
+                
+                vm.overflowStat /= 100;
+                var OF = vm.overflowStat;
+                vm.overflowStat = vm.overflowStat.toFixed(0);
+
+                var ES = vm.eastEntranceStat.substr(0,vm.eastEntranceStat.indexOf(' ')) / 1000;
+                console.log("ES:", ES);
+
+                var SES = vm.southEntranceStat.substr(0,vm.southEntranceStat.indexOf(' ')) / 3000;
 
                 var CJ = vm.canyonStat.substr(0,vm.canyonStat.indexOf(' ')) / 2500;
                 if (vm.canyonStat == "N/A"){
@@ -243,18 +241,6 @@ var app = new Vue({
                 Kx = 0.1;
                 CJx = 0.1;
                 
-                // Get Parking Percentages
-                // if (vm.vcStat < 0.1){
-                //     vm.vcStat = 0.1;
-                // }
-                // if (vm.overflowStat < 0.1){
-                //     vm.overflowStat = 0.1;
-                // }
-                vm.parkingStat = vm.parkingStat.toFixed(0);
-                vm.vcStat *= 100;
-                vm.vcStat = vm.vcStat.toFixed(0);
-                vm.overflowStat *= 100;
-                vm.overflowStat = vm.overflowStat.toFixed(0);
 
                 if (this.MainPage == "Home"){
                     this.loadHome(CJ, SES, ES, PS);
@@ -291,14 +277,7 @@ var app = new Vue({
             this.setStop("line3", 47, PS);
         },
         loadParking: function(VC, OF){
-            VC /= 465;
-            OF /= 100;
-            // if(VC < 0.1){
-            //     VC = 0.1;
-            // }
-            // if (OF < 0.1){
-            //     OF = 0.1;
-            // }
+
             if (this.visitor_selected == true){
                 this.setStop("line16", 9, VC);
             }
