@@ -1,27 +1,5 @@
 /*jshint esversion: 6 */
 
-Vue.component('apexchart', VueApexCharts);
-
-// var app1 = new Vue({
-//     el: '#appl',
-//     data: function(){
-//         return {
-//             options: {
-//               chart: {
-//                 id: 'vuechart-example'
-//               },
-//               xaxis: {
-//                 categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998]
-//               }
-//             },
-//             series: [{
-//               name: 'series-1',
-//               data: [30, 40, 45, 50, 49, 60, 70, 91]
-//             }]
-//         };
-//     }
-// });
-
 var app = new Vue({
     el: '#app',
     vuetify: new Vuetify(),
@@ -78,12 +56,18 @@ var app = new Vue({
         EntrancePage: 'South',
         Entrances: ['South', 'East', 'River', 'Kolob', 'Canyon Junction'],
         statesTimes: ['By Hour', 'Yesterday', '24 Hour', '7 Day', '30 Day'],
+        radarTimes: ['Monthly', 'Daily'],
         stateArrowImage: 'icons/downArrow.png',
-        stateTimePage : 'By Hour', 
+        stateTimePage : 'By Hour',
+        radarTimePage: 'monthly',
         stateDateRange: [],
         date: new Date().toISOString().substr(0, 10),
         menu: false,
         modal: false,
+        southRadarURL: 'https://trailwaze.info/zion/radar_monthly.php',
+        eastRadarURL: '',
+        kolobRadarURL: 'https://trailwaze.info/kolob/index.php',
+        cjRadarURL: '',
         southStateURL: 'https://trailwaze.info/vehicleTrafficAvgPerHour.php?site=south',
         eastStateURL: 'https://trailwaze.info/vehicleTrafficAvgPerHour.php?site=east', // doesnt work
         kolobStateURL: 'https://trailwaze.info/vehicleTrafficAvgPerHour.php?site=kolob', // doesnt work
@@ -127,7 +111,7 @@ var app = new Vue({
 				if(i == 0 && tdata.hasOwnProperty(f + "1")){multiEntrance = true;}
 				var tdata = data;
 				for(var i = 0; i < fields.length; i++){
-					var f = fields[i];
+					let f = fields[i];
 					if(tdata.hasOwnProperty(f)){
 						if(i == fields.length - 1){
 							ret = tdata[f];
@@ -224,22 +208,22 @@ var app = new Vue({
                 vm.overflowStat = vm.overflowStat.toFixed(0);
 
                 var ES = vm.eastEntranceStat.substr(0,vm.eastEntranceStat.indexOf(' ')) / 1000;
-                console.log("ES:", ES);
 
                 var SES = vm.southEntranceStat.substr(0,vm.southEntranceStat.indexOf(' ')) / 3000;
 
-                var CJ = vm.canyonStat.substr(0,vm.canyonStat.indexOf(' ')) / 2500;
+                var CJ = vm.canyonStat.substr(0,vm.canyonStat.indexOf(' ')) / 2000;
                 if (vm.canyonStat == "N/A"){
-                    CJ = 0.1;
+                    CJ = 0;
                 }
-                R = 0.1;
-                K = 0.1;
 
-                SEx = 0.1;
-                Ex = 0.1;
-                Rx = 0.1;
-                Kx = 0.1;
-                CJx = 0.1;
+                R = vm.riverPeople / 3000;
+                K = 0;
+
+                SEx = 0;
+                Ex = 0;
+                Rx = 0;
+                Kx = 0;
+                CJx = 0;
                 
 
                 if (this.MainPage == "Home"){
@@ -463,6 +447,37 @@ var app = new Vue({
             }
             icon = "./icons/"+ timeOfDay + icon.substr(icon.lastIndexOf("/")).replace(".png",".svg");
             this.weatherImage = icon;
+        },
+        resetRadarTabs: function(){
+            this.radarTimePage = 'Monthly';
+            this.southRadarURL = 'https://trailwaze.info/zion/radar_monthly.php';
+            this.eastRadarURL = '';
+            this.kolobRadarURL = 'https://trailwaze.info/kolob/index.php';
+            this.cjRadarURL = '';
+        },
+        setSouthRadarData: function(){
+            switch(this.radarTimePage){
+                case 'Monthly': this.southRadarURL = 'https://trailwaze.info/zion/radar_monthly.php'; break;
+                case 'Daily': this.southRadarURL = 'https://trailwaze.info/zion/radar_daily.php'; break;
+            }
+        },
+        setEastRadarData: function(){
+            switch(this.radarTimePage){
+                case 'Monthly': this.eastRadarURL = ''; break;
+                case 'Daily': this.eastRadarURL = ''; break;
+            }
+        },
+        setKolobRadarData: function(){
+            switch(this.radarTimePage){
+                case 'Monthly': this.kolobRadarURL = 'https://trailwaze.info/kolob/index.php'; break;
+                case 'Daily': this.kolobRadarURL = 'https://trailwaze.info/kolob/daily.php'; break;
+            }
+        },
+        setcjRadarData: function(){
+            switch(this.radarTimePage){
+                case 'Monthly': this.cjRadarURL = ''; break;
+                case 'Daily': this.cjRadarURL = ''; break;
+            }
         },
         resetStateTabs: function() {
             this.stateTimePage = 'By Hour';
