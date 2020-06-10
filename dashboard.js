@@ -172,7 +172,6 @@ var app = new Vue({
                 vm.overflowStat = this.getAPIData_safe(response.data, ["ParkingOverflow", "Today", "count"], 0);
                 //Parking: total
                 parkingTotal = vm.overflowStat + vm.vcStat;
-                console.log("Parking Total:", parkingTotal);
 
 				//multiply vehicles by multiplier and set south and east people
 				if(vm.SVehicles != "N/A"){vm.SPeople = Math.round(vm.SVehicles * southMultiplier);}
@@ -571,13 +570,8 @@ var app = new Vue({
     },
     watch: {
         EntrancePage: function() {
-            console.log('before if: ', this.EntrancePage);
             if(this.EntrancePage == 'Kolob'){
-                console.log('in if: ', this.EntrancePage);
                 this.RSelected();
-            }else {
-                console.log('in else: ', this.EntrancePage);
-                //break;
             }
         }
     }
