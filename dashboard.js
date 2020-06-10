@@ -79,10 +79,11 @@ var app = new Vue({
         Entrances: ['South', 'East', 'River', 'Kolob', 'Canyon Junction'],
         statesTimes: ['By Hour', 'Yesterday', '24 Hour', '7 Day', '30 Day'],
         stateArrowImage: 'icons/downArrow.png',
-        stateTimePage : 'By Hour', // change back to 'By Hour'
+        stateTimePage: 'By Hour', // change back to 'By Hour'
         stateDateRange: [],
-        date: new Date().toISOString().substr(0, 10),
-        menu: false,
+        date: null,
+        //date: new Date().toISOString().substr(0, 10),
+        // menu: false,
         modal: false,
         southStateURL: 'https://trailwaze.info/vehicleTrafficAvgPerHour.php?site=south',
         eastStateURL: 'https://trailwaze.info/vehicleTrafficAvgPerHour.php?site=east', // doesnt work
@@ -549,14 +550,18 @@ var app = new Vue({
                 var day1 = this.stateDateRange[0].substr(8,2);
                 var day2 = this.stateDateRange[1].substr(8,2);
                 this.southStateURL = `https://trailwaze.info/zion/plates_by_state_date_south.php?date1=${year1}-${month1}-${day1}&date2=${year2}-${month2}-${day2}`
+                console.log( this.southStateURL);
             }else if( this.stateDateRange.length == 1) {
                 var year1 = this.stateDateRange[0].substr(0,4);
                 var month1 = this.stateDateRange[0].substr(5,2);
                 var day1 = this.stateDateRange[0].substr(8,2);
                 this.southStateURL = `https://trailwaze.info/zion/plates_by_state_date_south.php?date1=${year1}-${month1}-${day1}&date2=${year1}-${month1}-${day1}`
+                console.log( this.southStateURL);
+
             } else{
                 alert('No days were selected!');
             }
+            this.modal = false;
         },
         sleep: function(milliseconds) {
             var start = new Date().getTime();
@@ -571,9 +576,9 @@ var app = new Vue({
         this.getTodaysDate();
     },
     computed: {
-        dateRangeText () {
-            return this.stateDateRange.join(' ~ ')
-        }
+        // dateRangeText () {
+        //     return this.stateDateRange.join(' ~ ')
+        // }
     }
 });
 

@@ -12,6 +12,7 @@
 		<link rel="icon" type="image/png" sizes="192x192" href="./images/favicon.ico">
 		<link rel="icon" type="image/png" sizes="512x512" href="./images/favicon.ico">
 		<link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
+		<link href="https://cdn.jsdelivr.net/npm/@mdi/font@5.x/css/materialdesignicons.min.css" rel="stylesheet">
 		<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 		<script src="https://cdn.jsdelivr.net/npm/vue-apexcharts"></script>
@@ -250,6 +251,7 @@
 							</table>
 						</div>
 					</div>
+
 					<!-- END MAIN PAGE -->
 
 					<!-- START PARKING PAGES -->
@@ -687,32 +689,50 @@
 								<div class="d-inline">
 									<v-menu offset-y>
 										<template v-slot:activator="{ on }">
-										<v-btn class="mt-2 ml-2" outlined color="black" @click="switchArrow()" v-on="on">{{stateTimePage}}<img class="pl-3" :src="stateArrowImage" alt="arrow"></v-btn>
+											<v-btn class="mt-2 ml-2" outlined color="black" @click="switchArrow()" v-on="on">{{stateTimePage}}<img class="pl-3" :src="stateArrowImage" alt="arrow"></v-btn>
 										</template>
 										<v-list>
-										<v-list-item
-											v-for="(time, index) in statesTimes" :key="index" v-on:click="stateTimePage=time; setSouthStateData(); resetArrow();">
-											<v-list-item-title>{{ time }}</v-list-item-title>
-										</v-list-item>
+											<v-list-item
+												v-for="(time, index) in statesTimes" :key="index" v-on:click="stateTimePage=time; setSouthStateData(); resetArrow();">
+												<v-list-item-title>{{ time }}</v-list-item-title>
+											</v-list-item>
 										</v-list>
 									</v-menu>
 								</div>
 								
+								<!-- <div id='calendarVue'>
+									<calendar></calendar>
+								</div> -->
 								<div class="d-inline">
-									<v-dialog ref="dialog" v-model="modal" :return-value.sync="date" persistent width="290px" >
+									<v-dialog ref="dialog" v-model="modal" >
 										<template v-slot:activator="{ on }">
-											<v-btn class="mt-2" v-on="on">pick dates</v-btn>
-											<!-- <v-text-field v-model="stateDateRange" label="Picker in dialog" prepend-icon="event" readonly v-on="on" ></v-text-field> -->
+											<v-btn class="mt-2"  outlined v-on="on">pick dates</v-btn>
 										</template>
-										<v-date-picker v-model="stateDateRange" range scrollable>
-											<v-spacer></v-spacer>
-											<v-btn text color="primary" @click="modal = false">Cancel</v-btn>
-											<v-btn text color="primary" @click="$refs.dialog.save(date); selectStateDates();">OK</v-btn>
-										</v-date-picker>
+										<template>
+											<v-row justify="center">
+												<v-date-picker v-model="stateDateRange" scrollable range>
+													<v-spacer></v-spacer>
+													<v-btn text color="primary" @click="modal = false">Cancel</v-btn>
+													<v-btn text color="primary" @click="$refs.dialog.save(stateDateRange); selectStateDates();">OK</v-btn>
+												</v-date-picker>
+											</v-row>
+										</template>
 									</v-dialog>
+									<!-- from net nija code -->
+									<!-- <div class="d-inline">
+										<v-menu :close-on-content-click="false"  offset-y>
+											<template v-slot:activator="{ on }">
+												<v-btn prepend-icon="event" class="mt-2" outlined v-on="on">Select Dates</v-btn>
+											</template>
+												<v-date-picker v-model="stateDateRange" range scrollable>
+													<v-spacer></v-spacer>
+														<v-btn text color="primary" @click="modal = false">Cancel</v-btn>
+														<v-btn text color="primary" @click="selectStateDates();">OK</v-btn>
+												</v-date-picker>
+										</v-menu>
+									</div> -->
 								</div>
-
-
+								
 								<div>
 									<iframe class="radarCharts charts" :src="southStateURL"></iframe>
 								</div>
@@ -760,10 +780,9 @@
 									  <v-btn class="mt-2 ml-2" outlined color="black" @click="switchArrow()" v-on="on">{{stateTimePage}}<img class="pl-3"  :src="stateArrowImage" alt="arrow"></v-btn>
 									</template>
 									<v-list>
-									  <v-list-item
-										v-for="(time, index) in statesTimes" :key="index" v-on:click="stateTimePage=time; setKolobStateData(); resetArrow();">
-										<v-list-item-title>{{ time }}</v-list-item-title>
-									  </v-list-item>
+										<v-list-item v-for="(time, index) in statesTimes" :key="index" v-on:click="stateTimePage=time; setKolobStateData(); resetArrow();">
+											<v-list-item-title>{{ time }}</v-list-item-title>
+										</v-list-item>
 									</v-list>
 								</v-menu>
 								<!-- will need to add the iframe if it has the state stats -->
@@ -795,12 +814,40 @@
 					</div>
 					<!-- END ENTRANCE PAGES -->
 
-				</div>
+				<!-- </div> -->
 				</v-content>
 			</v-app>
 		</div>
 		<script src="https://cdn.jsdelivr.net/npm/vue"></script>
 		<script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
 		<script src="dashboard.js"></script>
+		<script>
+			Vue.component('calendar',{
+				 template: 
+			
+
+				`
+				<div class="d-inline">
+					<v-menu v-model="calModal" :close-on-content-click="false">
+						<template v-slot:activator="{ on }">
+							<v-btn class="mt-2" outlined v-on="on">Select Datess</v-btn>
+						</template>
+						<v-date-picker v-model="stateDateRange" range scrollable>
+							<v-spacer></v-spacer>
+								<v-btn text color="primary" @click="calModal = false">Cancel</v-btn>
+								<v-btn text color="primary" @click=";">OK</v-btn>
+						</v-date-picker>
+					</v-menu>
+				</div>`,
+				data() {
+					return {
+						stateDateRange: [],
+						calModal: false,
+						msg: 'hello temp'
+					}
+				}
+			})
+			new Vue({ el: '#calendarVue', vuetify: new Vuetify()})
+		</script>
 	</body>
 </html>
