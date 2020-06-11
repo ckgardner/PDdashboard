@@ -58,12 +58,8 @@ var app = new Vue({
         statesTimes: ['By Hour', 'Yesterday', '24 Hour', '7 Day', '30 Day'],
         radarTimes: ['Monthly', 'Daily'],
         stateArrowImage: 'icons/downArrow.png',
-<<<<<<< HEAD
-        stateTimePage: 'By Hour', // change back to 'By Hour'
-=======
         stateTimePage : 'By Hour',
-        radarTimePage: 'monthly',
->>>>>>> aae73e3d81eb2ee7c68d3dacd762cfb0f5c22bb8
+        radarTimePage: 'Monthly',
         stateDateRange: [],
         date: null,
         //date: new Date().toISOString().substr(0, 10),
