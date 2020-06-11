@@ -302,6 +302,7 @@ v-app-bar{
     width: 65%;
     margin: 0 auto;
     margin-top: 90px;
+    margin-bottom: 25px;
 }
 table{
     width: 100%;
@@ -378,6 +379,12 @@ body {
     right: 0;
     font-size: 30px;
     margin-top: 2%;
+}
+#footer{
+    width: 100%;
+    height: auto;
+    bottom: 0;
+    margin-bottom: -8px;
 }
 
 /* ----------------- Parking Page ----------------------- */
