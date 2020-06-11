@@ -195,10 +195,12 @@ var app = new Vue({
 
                 vm.parkingStat/=500;
                 var PS = vm.parkingStat;
+                vm.parkingStat *= 100;       
                 if (vm.parkingStat < 1 && vm.parkingStat > 0){
                     vm.parkingStat = 1;
                 }
                 vm.parkingStat = vm.parkingStat.toFixed(0);
+                console.log(PS, vm.parkingStat);
                 
                 vm.vcStat /= 465;
                 var VC = vm.vcStat;
