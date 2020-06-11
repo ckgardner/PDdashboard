@@ -488,25 +488,25 @@ var app = new Vue({
         setSouthStateData: function(){
             switch(this.stateTimePage){
                 case 'By Hour': this.southStateURL = 'https://trailwaze.info/vehicleTrafficAvgPerHour.php?site=south'; break;
-                case 'Yesterday': this.southStateURL = ''; break;
-                case '24 Hour': this.southStateURL = 'https://trailwaze.info/zion/vehicleTrafficByState.php'; break;
-                case '7 Day': this.southStateURL = ''; break;
-                case '30 Day': this.southStateURL = ''; break;
+                case 'Yesterday': this.southStateURL = 'https://trailwaze.info/vehicleTrafficByState.php?site=zionsouthin&interval=yesterday'; break;
+                case '24 Hour': this.southStateURL = 'https://trailwaze.info/vehicleTrafficByState.php?site=zionsouthin&interval=1days'; break;
+                case '7 Day': this.southStateURL = 'https://trailwaze.info/vehicleTrafficByState.php?site=zionsouthin&interval=7days'; break;
+                case '30 Day': this.southStateURL = 'https://trailwaze.info/vehicleTrafficByState.php?site=zionsouthin&interval=30days'; break;
             }
         },
         setEastStateData: function() {
             switch(this.stateTimePage) {
-                case 'By Hour': this.eastStateURL = ''; break;
+                case 'By Hour': this.eastStateURL = 'https://trailwaze.info/vehicleTrafficAvgPerHour.php?site=east'; break;
                 case 'Yesterday': this.eastStateURL = 'https://trailwaze.info/vehicleTrafficByState.php?site=zioneastin&interval=yesterday'; break;
-                case '24 Hour': this.eastStateURL = ''; break;
-                case '7 Day': this.eastStateURL = ''; break;
-                case '30 Day': this.eastStateURL = ''; break;
+                case '24 Hour': this.eastStateURL = 'https://trailwaze.info/vehicleTrafficByState.php?site=zioneastin&interval=1days'; break;
+                case '7 Day': this.eastStateURL = 'https://trailwaze.info/vehicleTrafficByState.php?site=zioneastin&interval=7days'; break;
+                case '30 Day': this.eastStateURL = 'https://trailwaze.info/vehicleTrafficByState.php?site=zioneastin&interval=30days'; break;
             }
         },
         setKolobStateData: function() {
             // state data is N/A for kolob
             switch(this.stateTimePage) {
-                case 'By Hour': this.kolobStateURL = ''; break;
+                case 'By Hour': this.kolobStateURL = 'https://trailwaze.info/vehicleTrafficAvgPerHour.php?site=kolob'; break;
                 case 'Yesterday': this.kolobStateURL = ''; break;
                 case '24 Hour': this.kolobStateURL = ''; break;
                 case '7 Day': this.kolobStateURL = ''; break;
@@ -516,10 +516,10 @@ var app = new Vue({
         setCanyonStateData: function() {
             switch(this.stateTimePage) {
                 case 'By Hour': this.canyon_junctionStateURL = 'https://trailwaze.info/vehicleTrafficAvgPerHour.php?site=canyonjct'; break;
-                case 'Yesterday': this.canyon_junctionStateURL = ''; break;
+                case 'Yesterday': this.canyon_junctionStateURL = 'https://trailwaze.info/vehicleTrafficByState.php?site=canyonjct&interval=yesterday'; break;
                 case '24 Hour': this.canyon_junctionStateURL = 'https://trailwaze.info/vehicleTrafficByState.php?site=canyonjct&interval=1days'; break;
-                case '7 Day': this.canyon_junctionStateURL = ''; break;
-                case '30 Day': this.canyon_junctionStateURL = ''; break;
+                case '7 Day': this.canyon_junctionStateURL = 'https://trailwaze.info/vehicleTrafficByState.php?site=canyonjct&interval=7days'; break;
+                case '30 Day': this.canyon_junctionStateURL = 'https://trailwaze.info/vehicleTrafficByState.php?site=canyonjct&interval=30days'; break;
             }
         },
         switchArrow: function() {
