@@ -198,7 +198,7 @@ v-app-bar{
 .nameError, .emailError, .usernameError, .passError{
     color: #C30F0F;
     background-color: white;
-    border: 3px solid white;
+    /* border: 3px solid white; */
     font-size: 12px;
     position: relative;
     top: 36px;
@@ -304,7 +304,7 @@ v-app-bar{
     margin-top: 90px;
     margin-bottom: 25px;
 }
-table{
+/* table{
     width: 100%;
     font-size: 16px;
     line-height: 19px;
@@ -322,7 +322,7 @@ td{
 th{
     text-align: left;
     font-weight: bold;
-}
+} */
 .gold{
     color: #C9AC68;
 }
@@ -359,7 +359,7 @@ th{
     left: 0; 
     bottom: 0; 
     right: 0;  
-    margin: 10; 
+    margin: 10px; 
     padding: 0; 
     overflow: hidden; 
 }

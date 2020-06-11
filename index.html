@@ -731,9 +731,9 @@
 									<calendar></calendar>
 								</div> -->
 								<div class="d-inline">
-									<v-dialog ref="dialog" v-model="modal" >
+									<!-- <v-dialog ref="dialog" v-model="modal" width="290" fullscreen>
 										<template v-slot:activator="{ on }">
-											<v-btn class="mt-2"  outlined v-on="on">pick dates</v-btn>
+											<v-btn class="mt-2" outlined v-on="on">pick dates</v-btn>
 										</template>
 										<template>
 											<v-row justify="center">
@@ -744,24 +744,24 @@
 												</v-date-picker>
 											</v-row>
 										</template>
-									</v-dialog>
+									</v-dialog> -->
 									<!-- from net nija code -->
-									<!-- <div class="d-inline">
-										<v-menu :close-on-content-click="false"  offset-y>
+									<div class="d-inline">
+										<v-menu  :close-on-content-click="DatePickerPopUp"  offset-y>
 											<template v-slot:activator="{ on }">
-												<v-btn prepend-icon="event" class="mt-2" outlined v-on="on">Select Dates</v-btn>
+												<v-btn prepend-icon="event" class="mt-2" @click="closeDatePicker();" outlined v-on="on">Select Dates</v-btn>
 											</template>
-												<v-date-picker v-model="stateDateRange" range scrollable>
+												<v-date-picker v-model="stateDateRange" color="#507282"  range scrollable>
 													<v-spacer></v-spacer>
-														<v-btn text color="primary" @click="modal = false">Cancel</v-btn>
-														<v-btn text color="primary" @click="selectStateDates();">OK</v-btn>
+														<v-btn text color="#507282" @click="openDatePicker();">Cancel</v-btn>
+														<v-btn text color="#507282" @click="selectStateDates();  openDatePicker();">OK</v-btn>
 												</v-date-picker>
 										</v-menu>
-									</div> -->
+									</div>
 								</div>
 								
 								<div>
-									<iframe class="radarCharts charts" :src="southStateURL"></iframe>
+									<iframe class="radarCharts" :src="southStateURL"></iframe>
 								</div>
 							</div>
 
