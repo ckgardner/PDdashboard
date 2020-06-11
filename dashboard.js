@@ -58,11 +58,16 @@ var app = new Vue({
         statesTimes: ['By Hour', 'Yesterday', '24 Hour', '7 Day', '30 Day'],
         radarTimes: ['Monthly', 'Daily'],
         stateArrowImage: 'icons/downArrow.png',
+<<<<<<< HEAD
+        stateTimePage: 'By Hour', // change back to 'By Hour'
+=======
         stateTimePage : 'By Hour',
         radarTimePage: 'monthly',
+>>>>>>> aae73e3d81eb2ee7c68d3dacd762cfb0f5c22bb8
         stateDateRange: [],
-        date: new Date().toISOString().substr(0, 10),
-        menu: false,
+        date: null,
+        //date: new Date().toISOString().substr(0, 10),
+        // menu: false,
         modal: false,
         southRadarURL: 'https://trailwaze.info/zion/radar_monthly.php',
         eastRadarURL: '',
@@ -550,6 +555,7 @@ var app = new Vue({
             } else{
                 alert('No days were selected!');
             }
+            this.modal = false;
         },
         sleep: function(milliseconds) {
             var start = new Date().getTime();
