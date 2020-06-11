@@ -166,13 +166,12 @@ var app = new Vue({
 				vm.riverPeople = this.getAPIData_safe(response.data, ["ZionRiverEntrance", "Yesterday", "count"], "N/A");
 				vm.RiverDateUpdated = this.getAPIData_safe(response.data, ["ZionRiverEntrance", "Yesterday", "date"], "N/A");
 
-                var parkingTotal = 0;
 				//Parking: Visitor Center
 				vm.vcStat = this.getAPIData_safe(response.data, ["ParkingVisitorCenter", "Today", "count"], 0);
 				//Parking: Overflow
                 vm.overflowStat = this.getAPIData_safe(response.data, ["ParkingOverflow", "Today", "count"], 0);
                 //Parking: total
-                parkingTotal = vm.overflowStat + vm.vcStat;
+                vm.parkingStat = vm.overflowStat + vm.vcStat;
 
 				//multiply vehicles by multiplier and set south and east people
 				if(vm.SVehicles != "N/A"){vm.SPeople = Math.round(vm.SVehicles * southMultiplier);}
@@ -194,9 +193,11 @@ var app = new Vue({
 				//Last Year Visitation
 				vm.totalVisitors = this.getAPIData_safe(response.data, ['LastYearVisitation', 'count'], 'N/A');
 
-                vm.parkingStat = parkingTotal / 2;
                 vm.parkingStat/=500;
                 var PS = vm.parkingStat;
+                if (vm.parkingStat < 1 && vm.parkingStat > 0){
+                    vm.parkingStat = 1;
+                }
                 vm.parkingStat = vm.parkingStat.toFixed(0);
                 
                 vm.vcStat /= 465;
