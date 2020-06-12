@@ -380,8 +380,8 @@
 								<div class="ETIButtonContainer desktop-tabs"><button class="ETIButton entranceButtons" :class="{entranceButtonsfocus: ETI_selected}" @click="ETISelected(); statRefresh();">CAMERA IN</button></div>
 								<div class="ETIButtonContainer mobile-tabs"><button class="ETIButton entranceButtons" :class="{entranceButtonsfocus: ETI_selected}" @click="ETISelected(); statRefresh();">IN</button></div>
 
-								<div class="ETOButtonContainer desktop-tabs"><button class="ETOButton entranceButtons" :class="{entranceButtonsfocus: ETO_selected}" @click="ETOSelected(); statRefresh();">CAMERA OUT</button></div>
-								<div class="ETOButtonContainer mobile-tabs"><button class="ETOButton entranceButtons" :class="{entranceButtonsfocus: ETO_selected}" @click="ETOSelected(); statRefresh();">OUT</button></div>
+								<div v-if="EntrancePage!='Canyon Junction' " class="ETOButtonContainer desktop-tabs"><button class="ETOButton entranceButtons" :class="{entranceButtonsfocus: ETO_selected}" @click="ETOSelected(); statRefresh();">CAMERA OUT</button></div>
+								<div v-if="EntrancePage!='Canyon Junction' " class="ETOButtonContainer mobile-tabs"><button class="ETOButton entranceButtons" :class="{entranceButtonsfocus: ETO_selected}" @click="ETOSelected(); statRefresh();">OUT</button></div>
 
 								<div class="RButtonContainer desktop-tabs"><button class="RButton entranceButtons" :class="{entranceButtonsfocus: R_selected}" @click="RSelected">RADAR</button></div>
 								<div class="RButtonContainer mobile-tabs mr-3"><button class="RButton entranceButtons" :class="{entranceButtonsfocus: R_selected}" @click="RSelected">RADAR</button></div>
