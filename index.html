@@ -735,7 +735,7 @@
 										<v-date-picker v-model="stateDateRange" color="#507282"  range scrollable>
 											<v-spacer></v-spacer>
 											<v-btn text color="#507282" @click="openDatePicker();">Cancel</v-btn>
-											<v-btn text color="#507282" @click="selectStateDates();  openDatePicker();">OK</v-btn>
+											<v-btn text color="#507282" @click="selectStateDates('south');  openDatePicker();">OK</v-btn>
 										</v-date-picker>
 									</v-menu>
 								</div>
@@ -763,6 +763,18 @@
 									  </v-list-item>
 									</v-list>
 								</v-menu>
+								<div class="d-inline">
+									<v-menu  :close-on-content-click="DatePickerPopUp" offset-y>
+										<template v-slot:activator="{ on }">
+											<v-btn prepend-icon="event" class="mt-2" @click="closeDatePicker();" outlined v-on="on">Select Dates</v-btn>
+										</template>
+										<v-date-picker v-model="stateDateRange" color="#507282" range scrollable>
+											<v-spacer></v-spacer>
+											<v-btn text color="#507282" @click="openDatePicker();">Cancel</v-btn>
+											<v-btn text color="#507282" @click="selectStateDates('east'); openDatePicker();">OK</v-btn>
+										</v-date-picker>
+									</v-menu>
+								</div>
 								<iframe class="radarCharts eastCharts" :src="eastStateURL"></iframe>
 							</div>
 
@@ -814,6 +826,18 @@
 									  </v-list-item>
 									</v-list>
 								</v-menu>
+								<div class="d-inline">
+									<v-menu  :close-on-content-click="DatePickerPopUp" offset-y>
+										<template v-slot:activator="{ on }">
+											<v-btn prepend-icon="event" class="mt-2" @click="closeDatePicker();" outlined v-on="on">Select Dates</v-btn>
+										</template>
+										<v-date-picker v-model="stateDateRange" color="#507282" range scrollable>
+											<v-spacer></v-spacer>
+											<v-btn text color="#507282" @click="openDatePicker();">Cancel</v-btn>
+											<v-btn text color="#507282" @click="selectStateDates('canyon'); openDatePicker();">OK</v-btn>
+										</v-date-picker>
+									</v-menu>
+								</div>
 								<iframe class="radarCharts" :src="canyon_junctionStateURL"></iframe>
 							</div>
 						</div>

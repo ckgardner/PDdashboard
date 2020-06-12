@@ -61,6 +61,7 @@ var app = new Vue({
         stateTimePage : 'By Hour',
         radarTimePage: 'Monthly',
         stateDateRange: [],
+        EastStateDateRange: [],
         DatePickerPopUp: false,
         date: null,
         //date: new Date().toISOString().substr(0, 10),
@@ -104,16 +105,15 @@ var app = new Vue({
     },
     methods: {
         closeDatePicker: function() {
-            console.log('close date: ', this.DatePickerPopUp);
+            // console.log('close date: ', this.DatePickerPopUp);
             this.DatePickerPopUp = false;
-            console.log('close date after switch: ', this.DatePickerPopUp);
+            // console.log('close date after switch: ', this.DatePickerPopUp);
 
         },
         openDatePicker: function() {
-            console.log('open date: ', this.DatePickerPopUp);
-
+            // console.log('open date: ', this.DatePickerPopUp);
             this.DatePickerPopUp = true;
-            console.log('open date after switch: ', this.DatePickerPopUp);
+            // console.log('open date after switch: ', this.DatePickerPopUp);
         },
         getAPIData_safe: function (data, fields, def){
 			//data = json object api return data
@@ -549,25 +549,35 @@ var app = new Vue({
         resetArrow: function() {
             this.stateArrowImage = 'icons/downArrow.png';
         },
-        selectStateDates: function() {
-            //https://trailwaze.info/zion/plates_by_state_date_south.php?date1=2020-05-23&date2=2020-05-20
-            if( this.stateDateRange.length > 1) {
+        selectStateDates: function(entrance) {
+            if( this.stateDateRange.length > 1) { // a range of days selected
                 let year1 = this.stateDateRange[0].substr(0,4);
                 let year2 = this.stateDateRange[1].substr(0,4);
                 let month1 = this.stateDateRange[0].substr(5,2);
                 let month2 = this.stateDateRange[1].substr(5,2);
                 let day1 = this.stateDateRange[0].substr(8,2);
                 let day2 = this.stateDateRange[1].substr(8,2);
-                this.southStateURL = `https://trailwaze.info/zion/plates_by_state_date_south.php?date1=${year1}-${month1}-${day1}&date2=${year2}-${month2}-${day2}`;
-            }else if( this.stateDateRange.length == 1) {
+                switch(entrance) {
+                    case 'south': this.southStateURL = `https://trailwaze.info/zion/plates_by_state_date_south.php?date1=${year1}-${month1}-${day1}&date2=${year2}-${month2}-${day2}`; break;
+                    case 'east': this.eastStateURL = `https://trailwaze.info/zion/plates_by_state_date_east.php?date1=${year1}-${month1}-${day1}&date2=${year2}-${month2}-${day2}`; break;
+                    case 'kolob': this.kolobStateURL = ``; break;
+                    case 'canyon': this.canyon_junctionStateURL = ``; break;
+                }
+
+            }else if( this.stateDateRange.length == 1) { // just a single day selected
                 let year1 = this.stateDateRange[0].substr(0,4);
                 let month1 = this.stateDateRange[0].substr(5,2);
                 let day1 = this.stateDateRange[0].substr(8,2);
-                this.southStateURL = `https://trailwaze.info/zion/plates_by_state_date_south.php?date1=${year1}-${month1}-${day1}&date2=${year1}-${month1}-${day1}`;
+                switch(entrance){
+                    case 'south': this.southStateURL = `https://trailwaze.info/zion/plates_by_state_date_south.php?date1=${year1}-${month1}-${day1}&date2=${year1}-${month1}-${day1}`;
+                    case 'east': this.eastStateURL = `https://trailwaze.info/zion/plates_by_state_date_east.php?date1=${year1}-${month1}-${day1}&date2=${year1}-${month1}-${day1}`; break;
+                    case 'kolob': this.kolobStateURL = ``; break;
+                    case 'canyon': this.canyon_junctionStateURL = ``; break;
+                }
             } else{
                 alert('No days were selected!');
             }
-            this.modal = false;
+            this.stateDateRange = []; // reset calendar
         },
         sleep: function(milliseconds) {
             var start = new Date().getTime();
