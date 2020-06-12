@@ -21,7 +21,7 @@ var app = new Vue({
         currentCond: "",
         weatherImage: "images/blueBison.svg",
 
-        titleStatus: "Busy",
+        titleStatus: "",
         totalVisitors: "N/A",
         yesterdayTitleStatus: "Busy",
         yesterdayZionTotal: "N/A",
