@@ -727,25 +727,7 @@
 									</v-menu>
 								</div>
 								
-								<!-- <div id='calendarVue'>
-									<calendar></calendar>
-								</div> -->
 								<div class="d-inline">
-									<!-- <v-dialog ref="dialog" v-model="modal" width="290" fullscreen>
-										<template v-slot:activator="{ on }">
-											<v-btn class="mt-2" outlined v-on="on">pick dates</v-btn>
-										</template>
-										<template>
-											<v-row justify="center">
-												<v-date-picker v-model="stateDateRange" scrollable range>
-													<v-spacer></v-spacer>
-													<v-btn text color="primary" @click="modal = false">Cancel</v-btn>
-													<v-btn text color="primary" @click="$refs.dialog.save(stateDateRange); selectStateDates();">OK</v-btn>
-												</v-date-picker>
-											</v-row>
-										</template>
-									</v-dialog> -->
-									<!-- from net nija code -->
 									<div class="d-inline">
 										<v-menu  :close-on-content-click="DatePickerPopUp"  offset-y>
 											<template v-slot:activator="{ on }">
@@ -849,33 +831,5 @@
 		<script src="https://cdn.jsdelivr.net/npm/vue"></script>
 		<script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
 		<script src="dashboard.js"></script>
-		<script>
-			Vue.component('calendar',{
-				 template: 
-			
-
-				`
-				<div class="d-inline">
-					<v-menu v-model="calModal" :close-on-content-click="false">
-						<template v-slot:activator="{ on }">
-							<v-btn class="mt-2" outlined v-on="on">Select Datess</v-btn>
-						</template>
-						<v-date-picker v-model="stateDateRange" range scrollable>
-							<v-spacer></v-spacer>
-								<v-btn text color="primary" @click="calModal = false">Cancel</v-btn>
-								<v-btn text color="primary" @click=";">OK</v-btn>
-						</v-date-picker>
-					</v-menu>
-				</div>`,
-				data() {
-					return {
-						stateDateRange: [],
-						calModal: false,
-						msg: 'hello temp'
-					}
-				}
-			})
-			new Vue({ el: '#calendarVue', vuetify: new Vuetify()})
-		</script>
 	</body>
 </html>
