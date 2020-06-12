@@ -65,7 +65,7 @@ var app = new Vue({
         southRadarURL: 'https://trailwaze.info/zion/radar_monthly.php',
         eastRadarURL: '',
         kolobRadarURL: 'https://trailwaze.info/kolob/index.php',
-        cjRadarURL: '',
+        CJRadarURL: 'https://trailwaze.info/zion/radar_monthly.php?site=canyonjctradar',
         southStateURL: 'https://trailwaze.info/vehicleTrafficAvgPerHour.php?site=south',
         eastStateURL: 'https://trailwaze.info/vehicleTrafficAvgPerHour.php?site=east', // doesnt work
         riverStateUrl: 'https://trailwaze.info/bridgeTraffic.php',
@@ -490,10 +490,10 @@ var app = new Vue({
                 case 'Daily': this.kolobRadarURL = 'https://trailwaze.info/kolob/daily.php'; break;
             }
         },
-        setcjRadarData: function(){
+        setCJRadarData: function(){
             switch(this.radarTimePage){
-                case 'Monthly': this.cjRadarURL = ''; break;
-                case 'Daily': this.cjRadarURL = ''; break;
+                case 'Monthly': this.CJRadarURL = 'https://trailwaze.info/zion/radar_monthly.php?site=canyonjctradar'; break;
+                case 'Daily': this.CJRadarURL = 'https://trailwaze.info/zion/radar_daily.php?site=canyonjctradar'; break;
             }
         },
         resetStateTabs: function() {
@@ -579,7 +579,7 @@ var app = new Vue({
                 let month1 = this.stateDateRange[0].substr(5,2);
                 let day1 = this.stateDateRange[0].substr(8,2);
                 switch(entrance){
-                    case 'south': this.southStateURL = `https://trailwaze.info/zion/plates_by_state_date_south.php?date1=${year1}-${month1}-${day1}&date2=${year1}-${month1}-${day1}`;
+                    case 'south': this.southStateURL = `https://trailwaze.info/zion/plates_by_state_date_south.php?date1=${year1}-${month1}-${day1}&date2=${year1}-${month1}-${day1}`; break;
                     case 'east': this.eastStateURL = `https://trailwaze.info/zion/plates_by_state_date_east.php?date1=${year1}-${month1}-${day1}&date2=${year1}-${month1}-${day1}`; break;
                     case 'kolob': this.kolobStateURL = ``; break;
                     case 'canyon': this.canyon_junctionStateURL = ``; break;
