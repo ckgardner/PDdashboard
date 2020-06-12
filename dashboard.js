@@ -61,6 +61,7 @@ var app = new Vue({
         stateTimePage : 'By Hour',
         radarTimePage: 'Monthly',
         stateDateRange: [],
+        DatePickerPopUp: false,
         date: null,
         //date: new Date().toISOString().substr(0, 10),
         // menu: false,
@@ -102,6 +103,18 @@ var app = new Vue({
         this.getWeatherAPI();
     },
     methods: {
+        closeDatePicker: function() {
+            console.log('close date: ', this.DatePickerPopUp);
+            this.DatePickerPopUp = false;
+            console.log('close date after switch: ', this.DatePickerPopUp);
+
+        },
+        openDatePicker: function() {
+            console.log('open date: ', this.DatePickerPopUp);
+
+            this.DatePickerPopUp = true;
+            console.log('open date after switch: ', this.DatePickerPopUp);
+        },
         getAPIData_safe: function (data, fields, def){
 			//data = json object api return data
 			//fields = array of data fields tree

@@ -203,48 +203,48 @@
 						<div id="yesterdayWrapper">
 							<div id="title" class="yesterdayTitle">Yesterday: {{yesterdaysDate}}</div>
 							<!-- <br><div class="yesterdayTitleStatus">{{yesterdayTitleStatus}}</div> -->
-							<table id="yesterdaysEntrances">
+							<table id="yesterdaysEntrances" class="tableStats">
 								<tr>
-								<th>Entrance</th>
-								<th class="right">Vehicles</th>
-								<th class="right">People</th>
-								<th class="right smallHide">Date Updated</th>
+								<th class="tableTH">Entrance</th>
+								<th class="right tableTH">Vehicles</th>
+								<th class="right tableTH">People</th>
+								<th class="right smallHide tableTH">Date Updated</th>
 								</tr>
 								<tr>
-								<td>South</td>
-								<td class="right">{{SVehicles}}</td>
-								<td class="right">{{SPeople}}</td>
-								<td class="right smallHide">{{SDateUpdated}}</td>
+								<td class="tableTD">South</td>
+								<td class="right tableTD">{{SVehicles}}</td>
+								<td class="right tableTD">{{SPeople}}</td>
+								<td class="right smallHide tableTD">{{SDateUpdated}}</td>
 								</tr>
 								<tr>
-								<td>East</td>
-								<td class="right">{{EVehicles}}</td>
-								<td class="right">{{EPeople}}</td>
-								<td class="right smallHide">{{EastDateUpdated}}</td>
+								<td class="tableTD">East</td>
+								<td class="right tableTD">{{EVehicles}}</td>
+								<td class="right tableTD">{{EPeople}}</td>
+								<td class="right smallHide tableTD">{{EastDateUpdated}}</td>
 								</tr>
 								<tr>
-								<td>River</td>
-								<td class="right"></td>
-								<td class="right">{{riverPeople}}</td>
-								<td class="right smallHide">{{RiverDateUpdated}}</td>
+								<td class="tableTD">River</td>
+								<td class="right tableTD"></td>
+								<td class="right tableTD">{{riverPeople}}</td>
+								<td class="right smallHide tableTD">{{RiverDateUpdated}}</td>
 								</tr>
 								<tr>
-								<td class="gold">Canyon Total</td>
-								<td class="right"></td>
-								<td class="right gold">{{yesterdayCanyonTotal}}</td>
-								<td class="right gold smallHide">{{SDateUpdated}}</td>
+								<td class="gold tableTD">Canyon Total</td>
+								<td class="right tableTD"></td>
+								<td class="right gold tableTD">{{yesterdayCanyonTotal}}</td>
+								<td class="right gold smallHide tableTD">{{SDateUpdated}}</td>
 								</tr>
 								<tr>
-								<td>Kolob</td>
-								<td class="right">{{kolobVehicles}}</td>
-								<td class="right">{{kolobPeople}}</td>
-								<td class="right smallHide">{{KolobDateUpdated}}</td>
+								<td class="tableTD tableTD">Kolob</td>
+								<td class="right tableTD">{{kolobVehicles}}</td>
+								<td class="right tableTD">{{kolobPeople}}</td>
+								<td class="right smallHide tableTD">{{KolobDateUpdated}}</td>
 								</tr>
 								<tr>
-								<td class="gold">Zion Total</td>
-								<td class="right"></td>
-								<td class="right gold">{{yesterdayZionTotal}}</td>
-								<td class="right gold smallHide">{{SDateUpdated}}</td>
+								<td class="gold tableTD">Zion Total</td>
+								<td class="right tableTD"></td>
+								<td class="right gold tableTD">{{yesterdayZionTotal}}</td>
+								<td class="right gold smallHide tableTD">{{SDateUpdated}}</td>
 								</tr>
 							</table>
 						</div>
@@ -707,41 +707,21 @@
 									</v-menu>
 								</div>
 								
-								<!-- <div id='calendarVue'>
-									<calendar></calendar>
-								</div> -->
 								<div class="d-inline">
-									<v-dialog ref="dialog" v-model="modal" >
+									<v-menu  :close-on-content-click="DatePickerPopUp"  offset-y>
 										<template v-slot:activator="{ on }">
-											<v-btn class="mt-2"  outlined v-on="on">pick dates</v-btn>
+											<v-btn prepend-icon="event" class="mt-2" @click="closeDatePicker();" outlined v-on="on">Select Dates</v-btn>
 										</template>
-										<template>
-											<v-row justify="center">
-												<v-date-picker v-model="stateDateRange" scrollable range>
-													<v-spacer></v-spacer>
-													<v-btn text color="primary" @click="modal = false">Cancel</v-btn>
-													<v-btn text color="primary" @click="$refs.dialog.save(stateDateRange); selectStateDates();">OK</v-btn>
-												</v-date-picker>
-											</v-row>
-										</template>
-									</v-dialog>
-									<!-- from net nija code -->
-									<!-- <div class="d-inline">
-										<v-menu :close-on-content-click="false"  offset-y>
-											<template v-slot:activator="{ on }">
-												<v-btn prepend-icon="event" class="mt-2" outlined v-on="on">Select Dates</v-btn>
-											</template>
-												<v-date-picker v-model="stateDateRange" range scrollable>
-													<v-spacer></v-spacer>
-														<v-btn text color="primary" @click="modal = false">Cancel</v-btn>
-														<v-btn text color="primary" @click="selectStateDates();">OK</v-btn>
-												</v-date-picker>
-										</v-menu>
-									</div> -->
+										<v-date-picker v-model="stateDateRange" color="#507282"  range scrollable>
+											<v-spacer></v-spacer>
+											<v-btn text color="#507282" @click="openDatePicker();">Cancel</v-btn>
+											<v-btn text color="#507282" @click="selectStateDates();  openDatePicker();">OK</v-btn>
+										</v-date-picker>
+									</v-menu>
 								</div>
 								
 								<div>
-									<iframe class="radarCharts charts" :src="southStateURL"></iframe>
+									<iframe class="radarCharts" :src="southStateURL"></iframe>
 								</div>
 							</div>
 
@@ -829,33 +809,5 @@
 		<script src="https://cdn.jsdelivr.net/npm/vue"></script>
 		<script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
 		<script src="dashboard.js"></script>
-		<script>
-			Vue.component('calendar',{
-				 template: 
-			
-
-				`
-				<div class="d-inline">
-					<v-menu v-model="calModal" :close-on-content-click="false">
-						<template v-slot:activator="{ on }">
-							<v-btn class="mt-2" outlined v-on="on">Select Datess</v-btn>
-						</template>
-						<v-date-picker v-model="stateDateRange" range scrollable>
-							<v-spacer></v-spacer>
-								<v-btn text color="primary" @click="calModal = false">Cancel</v-btn>
-								<v-btn text color="primary" @click=";">OK</v-btn>
-						</v-date-picker>
-					</v-menu>
-				</div>`,
-				data() {
-					return {
-						stateDateRange: [],
-						calModal: false,
-						msg: 'hello temp'
-					}
-				}
-			})
-			new Vue({ el: '#calendarVue', vuetify: new Vuetify()})
-		</script>
 	</body>
 </html>
