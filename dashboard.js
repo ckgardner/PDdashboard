@@ -463,7 +463,7 @@ var app = new Vue({
             this.getWeatherAPI();
         },
         checkWeatherImage: function(icon){
-            if (icon == null){
+            if (icon == null || icon == "NULL" || icon == "null"){
                 this.weatherImage = "images/blueBison.svg";
             }
             const hours = new Date().getUTCHours();
