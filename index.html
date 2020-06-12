@@ -679,7 +679,18 @@
 										<span>Canyon Junction Radar Report</span>
 									</div>
 								</div>
-								<h3 class="noData">No Radar Data</h3>
+								<v-menu offset-y>
+									<template v-slot:activator="{ on }">
+										<v-btn class="mt-2 ml-2" outlined color="black" @click="switchArrow()" v-on="on">{{radarTimePage}}<img class="pl-3" :src="stateArrowImage" alt="arrow"></v-btn>
+									</template>
+									<v-list>
+									<v-list-item
+										v-for="(time, index) in radarTimes" :key="index" v-on:click="radarTimePage=time; setCJRadarData(); resetArrow();">
+										<v-list-item-title>{{ time }}</v-list-item-title>
+									</v-list-item>
+									</v-list>
+								</v-menu>
+								<iframe class="radarCharts mt-7" :src="CJRadarURL"></iframe>
 							</div>
 						</div>
 						<!-- END RADAR TAB FOR ALL ENTRANCES -->
