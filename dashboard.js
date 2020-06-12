@@ -19,7 +19,7 @@ var app = new Vue({
         yesterdaysDate: "",
         currentTemp: "",
         currentCond: "",
-        weatherImage: "",
+        weatherImage: "images/blueBison.svg",
 
         titleStatus: "Busy",
         totalVisitors: "N/A",
@@ -200,14 +200,21 @@ var app = new Vue({
                     vm.parkingStat = 1;
                 }
                 vm.parkingStat = vm.parkingStat.toFixed(0);
-                console.log(PS, vm.parkingStat);
                 
                 vm.vcStat /= 465;
                 var VC = vm.vcStat;
+                vm.vcStat *= 100;
+                if (vm.vcStat < 1 && vm.vcStat > 0){
+                    vm.vcStat = 1;
+                }
                 vm.vcStat = vm.vcStat.toFixed(0);
                 
                 vm.overflowStat /= 100;
                 var OF = vm.overflowStat;
+                vm.overflowStat *= 100;
+                if (vm.overflowStat < 1 && vm.overflowStat > 0){
+                    vm.overflowStat = 1;
+                }
                 vm.overflowStat = vm.overflowStat.toFixed(0);
 
                 var ES = vm.eastEntranceStat.substr(0,vm.eastEntranceStat.indexOf(' ')) / 1000;
@@ -264,6 +271,12 @@ var app = new Vue({
             this.setStop("line3", 47, PS);
         },
         loadParking: function(VC, OF){
+            if (VC == 0){
+                VC = 0.05;
+            }
+            if (OF == 0){
+                OF = 0.01;
+            }
 
             if (this.visitor_selected == true){
                 this.setStop("line16", 9, VC);
@@ -443,6 +456,9 @@ var app = new Vue({
             this.getWeatherAPI();
         },
         checkWeatherImage: function(icon){
+            if (icon == null){
+                this.weatherImage = "images/blueBison.svg";
+            }
             const hours = new Date().getUTCHours();
 			var timeOfDay = "weatherNight";
 			if(hours <= 2 || (hours > 12 && hours < 24  )){
