@@ -304,6 +304,7 @@ v-app-bar{
     margin-top: 90px;
     margin-bottom: 25px;
 }
+
 /* table{
     width: 100%;
     font-size: 16px;
@@ -323,6 +324,26 @@ th{
     text-align: left;
     font-weight: bold;
 } */
+.tableStats{
+    width: 100%;
+    font-size: 16px;
+    line-height: 19px;
+    font-weight: normal;
+    margin-top: 20px;
+}
+.tableTD, .tableTH{
+    border-bottom: 1px solid #E5E7DE;
+}
+.tableTD{
+    height: 50px;
+    vertical-align: middle;
+    text-align: left;
+}
+.tableTH{
+    text-align: left;
+    font-weight: bold;
+}
+
 .gold{
     color: #C9AC68;
 }
