@@ -61,12 +61,7 @@ var app = new Vue({
         stateTimePage : 'By Hour',
         radarTimePage: 'Monthly',
         stateDateRange: [],
-        EastStateDateRange: [],
         DatePickerPopUp: false,
-        date: null,
-        //date: new Date().toISOString().substr(0, 10),
-        // menu: false,
-        modal: false,
         southRadarURL: 'https://trailwaze.info/zion/radar_monthly.php',
         eastRadarURL: '',
         kolobRadarURL: 'https://trailwaze.info/kolob/index.php',
@@ -104,12 +99,6 @@ var app = new Vue({
         this.getWeatherAPI();
     },
     methods: {
-        closeDatePicker: function() {
-            this.DatePickerPopUp = false;
-        },
-        openDatePicker: function() {
-            this.DatePickerPopUp = true;
-        },
         getAPIData_safe: function (data, fields, def){
 			//data = json object api return data
 			//fields = array of data fields tree
@@ -589,6 +578,12 @@ var app = new Vue({
                 alert('No days were selected!');
             }
             this.stateDateRange = []; // reset calendar
+        },
+        closeDatePicker: function() {
+            this.DatePickerPopUp = false;
+        },
+        openDatePicker: function() {
+            this.DatePickerPopUp = true;
         },
         sleep: function(milliseconds) {
             var start = new Date().getTime();
