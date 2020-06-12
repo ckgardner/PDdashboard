@@ -728,18 +728,16 @@
 								</div>
 								
 								<div class="d-inline">
-									<div class="d-inline">
-										<v-menu  :close-on-content-click="DatePickerPopUp"  offset-y>
-											<template v-slot:activator="{ on }">
-												<v-btn prepend-icon="event" class="mt-2" @click="closeDatePicker();" outlined v-on="on">Select Dates</v-btn>
-											</template>
-												<v-date-picker v-model="stateDateRange" color="#507282"  range scrollable>
-													<v-spacer></v-spacer>
-														<v-btn text color="#507282" @click="openDatePicker();">Cancel</v-btn>
-														<v-btn text color="#507282" @click="selectStateDates();  openDatePicker();">OK</v-btn>
-												</v-date-picker>
-										</v-menu>
-									</div>
+									<v-menu  :close-on-content-click="DatePickerPopUp"  offset-y>
+										<template v-slot:activator="{ on }">
+											<v-btn prepend-icon="event" class="mt-2" @click="closeDatePicker();" outlined v-on="on">Select Dates</v-btn>
+										</template>
+										<v-date-picker v-model="stateDateRange" color="#507282"  range scrollable>
+											<v-spacer></v-spacer>
+											<v-btn text color="#507282" @click="openDatePicker();">Cancel</v-btn>
+											<v-btn text color="#507282" @click="selectStateDates();  openDatePicker();">OK</v-btn>
+										</v-date-picker>
+									</v-menu>
 								</div>
 								
 								<div>
