@@ -104,16 +104,10 @@ var app = new Vue({
     },
     methods: {
         closeDatePicker: function() {
-            console.log('close date: ', this.DatePickerPopUp);
             this.DatePickerPopUp = false;
-            console.log('close date after switch: ', this.DatePickerPopUp);
-
         },
         openDatePicker: function() {
-            console.log('open date: ', this.DatePickerPopUp);
-
             this.DatePickerPopUp = true;
-            console.log('open date after switch: ', this.DatePickerPopUp);
         },
         getAPIData_safe: function (data, fields, def){
 			//data = json object api return data
