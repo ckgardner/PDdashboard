@@ -215,6 +215,8 @@ var app = new Vue({
                 }
                 vm.overflowStat = vm.overflowStat.toFixed(0);
 
+                console.log(vm.vcStat, vm.overflowStat);
+
                 var ES = vm.eastEntranceStat.substr(0,vm.eastEntranceStat.indexOf(' ')) / 1000;
 
                 var SES = vm.southEntranceStat.substr(0,vm.southEntranceStat.indexOf(' ')) / 3000;
@@ -270,7 +272,7 @@ var app = new Vue({
         },
         loadParking: function(VC, OF){
             if (VC == 0){
-                VC = 0.05;
+                VC = 0.01;
             }
             if (OF == 0){
                 OF = 0.01;
