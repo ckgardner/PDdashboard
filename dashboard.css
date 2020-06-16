@@ -355,9 +355,18 @@ th{
 }
 #svg{
     position: absolute;
-    top: 12%;
+    top: 8%;
     width: 350px;
     height: 350px;
+}
+.trafficSvg{
+    position: absolute;
+    top: 280px;
+    width: 60vw;
+    height: 65vh;
+    left: 0;
+    right: 0;
+    margin: auto
 }
 @media only screen and (min-width: 720px){
     #svg{
@@ -365,6 +374,9 @@ th{
     }
 }
 #svgContainer{
+    width: 100%;
+}
+.trafficSvgContainer{
     width: 100%;
 }
 .iframeContainer{
@@ -408,8 +420,31 @@ body {
     margin-bottom: -8px;
 }
 
+/* Traffic Meter Page */
+.colorContainer{
+    margin:60px
+}
+.colorsWrapper{
+    width: 110px;
+    margin-bottom: 12px;
+}
+.circle{
+    height: 24px;
+    width: 24px;
+    border-radius: 50%;
+    display: inline-block;
+    vertical-align: middle;
+    margin: 12px 0px 12px 0px;
+}
+.circleText{
+    vertical-align: middle;
+    font-size: 18px;
+    font-weight: 500;
+    margin-left: 16px;
+}
+
 /* ----------------- Parking Page ----------------------- */
-.visitorButtonContainer, .ETIButtonContainer{
+.visitorButtonContainer, .ETIButtonContainer, .MButtonContainer{
     font-weight: 500;
     font-size: 14px;
     line-height: 16px;
@@ -441,14 +476,14 @@ body {
     font-size: 36px;
     font-family: "titleRoboto";
 }
-.overflowButtonContainer, .ETOButtonContainer, .RButtonContainer, .SButtonContainer, .DButtonContainer, .MonthButtonContainer, .DayButtonContainer, .MButtonContainer{
+.overflowButtonContainer, .ETOButtonContainer, .RButtonContainer, .SButtonContainer, .DButtonContainer, .MonthButtonContainer, .DayButtonContainer{
     font-weight: 500;
     font-size: 14px;
     line-height: 16px;
     text-align: center;
     display: inline-block;
 }
-.ETIButtonContainer, .ETOButtonContainer, .RButtonContainer, .SButtonContainer, .DButtonContainer , .MonthButtonContainer, .DayButtonContainer, .MButtonContainer{
+.ETIButtonContainer, .ETOButtonContainer, .RButtonContainer, .SButtonContainer, .DButtonContainer , .MonthButtonContainer, .DayButtonContainer{
     width: 150px;
 }
 .visitorButton, .overflowButton{
@@ -530,6 +565,15 @@ body {
     font-style: normal;
     font-weight: normal;
 }
+.greenTraffic{
+    background-color: #7E8959;
+}
+.yellowTraffic{
+    background-color: #C9AC68;
+}
+.redTraffic{
+    background-color: #B25538;
+}
 .mobile-tabs{
     display: none;
 }
@@ -540,7 +584,7 @@ body {
     }
     .mobile-tabs {
         display: inline-flex;
-        width: 53px;
+        width: 60px;
     }
     #logosWrapper{
         text-align: center;
@@ -568,6 +612,17 @@ body {
         display: block;
         margin: auto;
         text-align: center;
+    }
+    .colorContainer{
+        text-align: center;
+        margin: 12px;
+    }
+    .trafficSvg{
+        top: 25%;
+    }
+    .colorsWrapper{
+        display: inline;
+        margin-right: 16px;
     }
     #yesterdayWrapper{
         width: 420px;

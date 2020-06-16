@@ -15,7 +15,8 @@ var app = new Vue({
         passField: "",
         passEmpty: false,      // start login page fields
 
-        todaysDate: "",        
+        todaysDate: "",
+        currentTime: "",        
         yesterdaysDate: "",
         currentTemp: "",
         currentCond: "",
@@ -86,15 +87,23 @@ var app = new Vue({
 
         visitor_selected: true,
         overflow_selected: false,
-        M_selected: false,
-        ETI_selected: true, 
+        M_selected: true,
+        ETI_selected: false, 
         ETO_selected: false,
         R_selected: false,
         S_selected: false, 
         D_selected: false,
         Ratio_selected: false,
         Month_selected: true,
-        Day_selected: false
+        Day_selected: false,
+
+        lightTraffic: true,
+        mediumTraffic: false,
+        heavyTraffic: false,
+
+        lightTrafficEast: true,
+        mediumTrafficEast: false,
+        heavyTrafficEast: false,
     },
     created: function(){
         this.loadStats();
@@ -136,6 +145,14 @@ var app = new Vue({
             this.todaysDate = fulldate;
             var yesterdayDate = days[yesterday.getDay()] + ", " + months[yesterday.getMonth()] + " " + yesterday.getDate() + " " + yesterday.getFullYear();
             this.yesterdaysDate = yesterdayDate;
+
+            var hours = date.getHours();
+            var time = "AM";
+            if(hours > 12){
+                hours -= 12;
+                time = "PM";
+            }
+            this.currentTime = hours + ":" + date.getMinutes() + time;
         },
         loadStats: function() {
             var vm = this;
@@ -216,26 +233,30 @@ var app = new Vue({
                 }
                 vm.overflowStat = vm.overflowStat.toFixed(0);
 
-                console.log(vm.vcStat, vm.overflowStat);
+                console.log(vm.eastEntranceStat, vm.southEntranceStat);
 
                 var ES = vm.eastEntranceStat.substr(0,vm.eastEntranceStat.indexOf(' ')) / 1000;
 
                 var SES = vm.southEntranceStat.substr(0,vm.southEntranceStat.indexOf(' ')) / 3000;
+
+                console.log(ES, SES);
 
                 var CJ = vm.canyonStat.substr(0,vm.canyonStat.indexOf(' ')) / 2000;
                 if (vm.canyonStat == "N/A"){
                     CJ = 0;
                 }
 
-                R = vm.riverPeople / 3000;
-                K = 0;
+                var R = vm.riverPeople / 3000;
+                var K = 0;
 
                 SEx = 0;
                 Ex = 0;
                 Rx = 0;
                 Kx = 0;
                 CJx = 0;
-                
+
+                var ST = 0.5;
+                var ET = 0.5;
 
                 if (this.MainPage == "Home"){
                     this.loadHome(CJ, SES, ES, PS);
@@ -244,7 +265,7 @@ var app = new Vue({
                     this.loadParking(VC, OF);
                 }
                 if (this.MainPage == "Entrances"){
-                    this.loadEntrances(SES, SEx, ES, Ex, R, Rx, K, Kx, CJ, CJx);
+                    this.loadEntrances(SES, SEx, ES, Ex, R, Rx, K, Kx, CJ, CJx, ST, ET);
                 }
             }).catch(error => {
                 vm = "Fetch " + error;
@@ -286,19 +307,23 @@ var app = new Vue({
                 this.setStop("line17", 9, OF);
             }
         },
-        loadEntrances: function(SEn, SEx, En, Ex, Rn, Rx, Kn, Kx, CJn, CJx ){
+        loadEntrances: function(SEn, SEx, En, Ex, Rn, Rx, Kn, Kx, CJn, CJx, ST, ET ){
             if(this.EntrancePage == "South"){
                 if(this.ETI_selected == true){
                     this.setStop("line6", 9, SEn);
-                }else{
+                }else if(this.ETO_selected == true){
                     this.setStop("line7", 9, SEx);
+                }else if (this.M_selected == true){
+                    this.setStop("trafficLine", 47, ST);
                 }
             }
             if(this.EntrancePage == "East"){
                 if(this.ETI_selected == true){
                     this.setStop("line8", 9, En);
-                }else{
+                }else if(this.ETO_selected == true){
                     this.setStop("line9", 9, Ex);
+                }else if (this.M_selected == true){
+                    this.setStop("trafficLine2", 47, ET);
                 }
             }
             if(this.EntrancePage == "River"){

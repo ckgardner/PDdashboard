@@ -378,7 +378,7 @@
 							<div v-if="EntrancePage!='East' && EntrancePage!='River'" class="tabs">
 								<!-- need to figure a better way to change with smaller devices; too much repetition -->
 								<div v-if="EntrancePage=='South' " class="MButtonContainer desktop-tabs"><button class="MButton entranceButtons" :class="{entranceButtonsfocus: M_selected}" @click="MSelected(); statRefresh();">TRAFFIC METER</button></div>
-								<div v-if="EntrancePage=='South' " class="MButtonContainer mobile-tabs"><button class="MButton entranceButtons" :class="{entranceButtonsfocus: M_selected}" @click="MSelected(); statRefresh();">TRAFFIC METER</button></div>
+								<div v-if="EntrancePage=='South' " class="MButtonContainer mobile-tabs"><button class="MButton entranceButtons" :class="{entranceButtonsfocus: M_selected}" @click="MSelected(); statRefresh();">TFC MTR</button></div>
 
 								<div class="ETIButtonContainer desktop-tabs"><button class="ETIButton entranceButtons" :class="{entranceButtonsfocus: ETI_selected}" @click="ETISelected(); statRefresh();">CAMERA IN</button></div>
 								<div class="ETIButtonContainer mobile-tabs"><button class="ETIButton entranceButtons" :class="{entranceButtonsfocus: ETI_selected}" @click="ETISelected(); statRefresh();">IN</button></div>
@@ -393,6 +393,9 @@
 								<div class="SButtonContainer mobile-tabs"><button class="SButton entranceButtons" :class="{entranceButtonsfocus: S_selected}" @click="SSelected">STATES</button></div>
 							</div>
 							<div v-if="EntrancePage=='East'" class="tabs">
+								<div v-if="EntrancePage=='East' " class="MButtonContainer desktop-tabs"><button class="MButton entranceButtons" :class="{entranceButtonsfocus: M_selected}" @click="MSelected(); statRefresh();">TRAFFIC METER</button></div>
+								<div v-if="EntrancePage=='East' " class="MButtonContainer mobile-tabs"><button class="MButton entranceButtons" :class="{entranceButtonsfocus: M_selected}" @click="MSelected(); statRefresh();">TRAFFIC</button></div>
+
 								<div class="ETIButtonContainer desktop-tabs"><button class="ETIButton entranceButtons" :class="{entranceButtonsfocus: ETI_selected}" @click="ETISelected(); statRefresh();">CAMERA IN</button></div>
 								<div class="ETIButtonContainer mobile-tabs"><button class="ETIButton entranceButtons" :class="{entranceButtonsfocus: ETI_selected}" @click="ETISelected(); statRefresh();">IN</button></div>
 
@@ -419,6 +422,93 @@
 							</div>
 						</v-card> 
 						<!-- End App bar -->
+
+						<!-- TRAFFIC METER FOR EAST AND SOUTH -->
+						<div v-if="M_selected">
+							<div v-if="EntrancePage=='South'">
+								<div class="statHeader2" v-bind:class="{greenTraffic: lightTraffic, yellowTraffic: mediumTraffic, redTraffic: heavyTraffic}">
+									<div class="statWrapper">
+										<div class="textWrapper">
+											<span class="smallHide"><b>South Entrance Traffic</b> | {{currentTime}}</span>
+										</div>
+									</div>
+								</div>
+								<div class="colorContainer">
+									<div class="colorsWrapper">
+										<div class="circle greenTraffic"></div><span class="circleText">Light</span>
+									</div>
+									<div class="colorsWrapper">
+										<div class="circle yellowTraffic"></div><span class="circleText">Medium</span>
+									</div>
+									<div class="colorsWrapper">
+										<div class="circle redTraffic"></div><span class="circleText">Heavy</span>
+									</div>
+								</div>
+								<div v-if="lightTraffic" class="trafficSvgContainer">
+									<svg class="trafficSvg" viewBox="45 43 110 110">
+										<image x="57.5" y="57.5" width="85" height="85" href="images/south entrance.jpg"></image>
+										<circle class="background" cx="100" cy="100" r="47" stroke="#E5E7DE" />
+										<circle id="trafficLine" class="overlayLine" cx="100" cy="100" r="47" stroke="#7E8959" stroke-dasharray="0, 3000" stroke-dashoffset="251" transform="rotate(-90,100,100)" />
+									</svg>
+								</div>
+								<div v-if="mediumTraffic" class="trafficSvgContainer">
+									<svg class="trafficSvg" viewBox="45 43 110 110">
+										<image x="57.5" y="57.5" width="85" height="85" href="images/south entrance.jpg"></image>
+										<circle class="background" cx="100" cy="100" r="47" stroke="#F4EEE1" />
+										<circle id="trafficLine" class="overlayLine" cx="100" cy="100" r="47" stroke="#C9AC68" stroke-dasharray="0, 3000" stroke-dashoffset="251" transform="rotate(-90,100,100)" />
+									</svg>
+								</div>
+								<div v-if="heavyTraffic" class="trafficSvgContainer">
+									<svg class="trafficSvg" viewBox="45 43 110 110">
+										<image x="57.5" y="57.5" width="85" height="85" href="images/south entrance.jpg"></image>
+										<circle class="background" cx="100" cy="100" r="47" stroke="#F0DDD7" />
+										<circle id="trafficLine" class="overlayLine" cx="100" cy="100" r="47" stroke="#B25538" stroke-dasharray="0, 3000" stroke-dashoffset="251" transform="rotate(-90,100,100)" />
+									</svg>
+								</div>
+							</div>
+
+							<div v-if="EntrancePage=='East'">
+								<div class="statHeader2" v-bind:class="{greenTraffic: lightTrafficEast, yellowTraffic: mediumTrafficEast, redTraffic: heavyTrafficEast}">
+									<div class="statWrapper">
+										<div class="textWrapper">
+											<span class="smallHide"><b>East Entrance Traffic</b> | {{currentTime}}</span>
+										</div>
+									</div>
+								</div>
+								<div class="colorContainer">
+									<div class="colorsWrapper">
+										<div class="circle greenTraffic"></div><span class="circleText">Light</span>
+									</div>
+									<div class="colorsWrapper">
+										<div class="circle yellowTraffic"></div><span class="circleText">Medium</span>
+									</div>
+									<div class="colorsWrapper">
+										<div class="circle redTraffic"></div><span class="circleText">Heavy</span>
+									</div>
+								</div>
+								<div v-if="lightTraffic" class="trafficSvgContainer">
+									<svg class="trafficSvg" viewBox="45 43 110 110">
+										<image x="57.5" y="57.5" width="85" height="85" href="images/east entrance.jpg"></image>
+										<circle class="background" cx="100" cy="100" r="47" stroke="#E5E7DE" />
+										<circle id="trafficLine2" class="overlayLine" cx="100" cy="100" r="47" stroke="#7E8959" stroke-dasharray="0, 3000" stroke-dashoffset="251" transform="rotate(-90,100,100)" />
+									</svg>
+								</div>
+								<div v-if="mediumTraffic" class="trafficSvgContainer">
+									<svg class="trafficSvg" viewBox="45 43 110 110">
+										<image x="57.5" y="57.5" width="85" height="85" href="images/east entrance.jpg"></image>
+										<circle class="background" cx="100" cy="100" r="47" stroke="#F4EEE1" />
+										<circle id="trafficLine2" class="overlayLine" cx="100" cy="100" r="47" stroke="#C9AC68" stroke-dasharray="0, 3000" stroke-dashoffset="251" transform="rotate(-90,100,100)" />
+									</svg>
+								</div>
+								<div v-if="heavyTraffic" class="trafficSvgContainer">
+									<svg class="trafficSvg" viewBox="45 43 110 110">
+										<image x="57.5" y="57.5" width="85" height="85" href="images/east entrance.jpg"></image>
+										<circle class="background" cx="100" cy="100" r="47" stroke="#F0DDD7" />
+										<circle id="trafficLine2" class="overlayLine" cx="100" cy="100" r="47" stroke="#B25538" stroke-dasharray="0, 3000" stroke-dashoffset="251" transform="rotate(-90,100,100)" />
+									</svg>
+								</div>
+							</div>
+						</div>
 
 						<!-- CAMERA IN TAB FOR ALL ENTRANCES -->
 						<div v-if="ETI_selected"> 
