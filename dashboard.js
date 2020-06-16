@@ -86,6 +86,7 @@ var app = new Vue({
 
         visitor_selected: true,
         overflow_selected: false,
+        M_selected: false,
         ETI_selected: true, 
         ETO_selected: false,
         R_selected: false,
@@ -338,7 +339,17 @@ var app = new Vue({
             this.visitor_selected = false;
             this.overflow_selected = true;
         },
+        MSelected: function(){
+            this.M_selected = true;
+            this.ETO_selected = false;
+            this.R_selected = false;
+            this.ETI_selected = false;
+            this.S_selected = false;
+            this.Ratio_selected = false;
+            this.D_selected = false;
+        },
         ETISelected: function(){
+            this.M_selected = false;
             this.ETO_selected = false;
             this.R_selected = false;
             this.ETI_selected = true;
@@ -347,6 +358,7 @@ var app = new Vue({
             this.D_selected = false;
         },
         ETOSelected: function(){
+            this.M_selected = false;
             this.ETO_selected = true;
             this.R_selected = false;
             this.ETI_selected = false;
@@ -355,6 +367,7 @@ var app = new Vue({
             this.D_selected = false;
         },
         ratioSelected: function(){
+            this.M_selected = false;
             this.Ratio_selected = true;
             this.ETO_selected = false;
             this.R_selected = false;
@@ -363,6 +376,7 @@ var app = new Vue({
             this.D_selected = false;
         },
         RSelected: function(){
+            this.M_selected = false;
             this.ETO_selected = false;
             this.R_selected = true;
             this.ETI_selected = false;
@@ -371,6 +385,7 @@ var app = new Vue({
             this.D_selected = false;
         },
         SSelected: function(){
+            this.M_selected = false;
             this.ETO_selected = false;
             this.R_selected = false;
             this.ETI_selected = false;
@@ -379,6 +394,7 @@ var app = new Vue({
             this.D_selected = false;
         },
         DSelected: function(){
+            this.M_selected = false;
             this.ETO_selected = false;
             this.R_selected = false;
             this.ETI_selected = false;
