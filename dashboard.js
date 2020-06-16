@@ -139,8 +139,8 @@ var app = new Vue({
             var vm = this;
             axios.get("https://trailwaze.info/zion/request.php").then(response => {
                 //South Entrance: Today
-				vm.southEntranceVehicles = this.getAPIData_safe(response.data, ["ZionSouthEntrance1", "Today", "count"], 0);
-				vm.southEntranceVehicles += this.getAPIData_safe(response.data, ["ZionSouthEntrance2", "Today", "count"], 0);
+				vm.southEntranceVehicles = this.getAPIData_safe(response.data, ["ZionSouthEntrance2", "Today", "count"], 0);
+				vm.southEntranceVehicles += this.getAPIData_safe(response.data, ["ZionSouthEntrance3", "Today", "count"], 0);
 				//South Entrance: Yesterday
 				var southMultiplier = this.getAPIData_safe(response.data, ["ZionSouthEntrance", "Yesterday", "multiplier"], 1);
 				vm.SVehicles = this.getAPIData_safe(response.data, ["ZionSouthEntrance", "Yesterday", "count"], "N/A");
