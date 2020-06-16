@@ -107,6 +107,7 @@ var app = new Vue({
     },
     created: function(){
         this.loadStats();
+        this.loadTraffic();
         this.getWeatherAPI();
     },
     methods: {
@@ -208,38 +209,24 @@ var app = new Vue({
 
 				//Last Year Visitation
 				vm.totalVisitors = this.getAPIData_safe(response.data, ['LastYearVisitation', 'count'], 'N/A');
+     
+                var PS = vm.parkingStat/100;
+                var VC = vm.vcStat/100;
+                var OF = vm.overflowStat/100;
 
-                vm.parkingStat/=500;
-                var PS = vm.parkingStat;
-                vm.parkingStat *= 100;       
                 if (vm.parkingStat < 1 && vm.parkingStat > 0){
                     vm.parkingStat = 1;
                 }
-                vm.parkingStat = vm.parkingStat.toFixed(0);
-                
-                vm.vcStat /= 465;
-                var VC = vm.vcStat;
-                vm.vcStat *= 100;
                 if (vm.vcStat < 1 && vm.vcStat > 0){
                     vm.vcStat = 1;
                 }
-                vm.vcStat = vm.vcStat.toFixed(0);
-                
-                vm.overflowStat /= 100;
-                var OF = vm.overflowStat;
-                vm.overflowStat *= 100;
                 if (vm.overflowStat < 1 && vm.overflowStat > 0){
                     vm.overflowStat = 1;
                 }
-                vm.overflowStat = vm.overflowStat.toFixed(0);
-
-                console.log(vm.eastEntranceStat, vm.southEntranceStat);
 
                 var ES = vm.eastEntranceStat.substr(0,vm.eastEntranceStat.indexOf(' ')) / 1000;
 
                 var SES = vm.southEntranceStat.substr(0,vm.southEntranceStat.indexOf(' ')) / 3000;
-
-                console.log(ES, SES);
 
                 var CJ = vm.canyonStat.substr(0,vm.canyonStat.indexOf(' ')) / 2000;
                 if (vm.canyonStat == "N/A"){
@@ -255,9 +242,6 @@ var app = new Vue({
                 Kx = 0;
                 CJx = 0;
 
-                var ST = 0.5;
-                var ET = 0.5;
-
                 if (this.MainPage == "Home"){
                     this.loadHome(CJ, SES, ES, PS);
                 }
@@ -265,7 +249,7 @@ var app = new Vue({
                     this.loadParking(VC, OF);
                 }
                 if (this.MainPage == "Entrances"){
-                    this.loadEntrances(SES, SEx, ES, Ex, R, Rx, K, Kx, CJ, CJx, ST, ET);
+                    this.loadEntrances(SES, SEx, ES, Ex, R, Rx, K, Kx, CJ, CJx);
                 }
             }).catch(error => {
                 vm = "Fetch " + error;
@@ -285,6 +269,18 @@ var app = new Vue({
 			}).catch(error => {
                 vm = "Fetch " + error;
             });
+        },
+        loadTraffic: function(){
+            var vm = this;
+            console.log("running traffic stats");
+            axios.get("https://trailwaze.info/zion/vehicleTraffic_request.php").then(response =>{
+                var rotateNum = response.data.zionsouthin.rotate100;
+                rotateNum /= 100;
+                this.setStop("trafficLine", 47, rotateNum);
+            }).catch(error =>{
+                vm = "Fetch " + error;
+            });
+            
         },
         loadHome: function(CJ, SES, ES, PS){
             this.setStop("line0", 23, CJ);
@@ -313,8 +309,6 @@ var app = new Vue({
                     this.setStop("line6", 9, SEn);
                 }else if(this.ETO_selected == true){
                     this.setStop("line7", 9, SEx);
-                }else if (this.M_selected == true){
-                    this.setStop("trafficLine", 47, ST);
                 }
             }
             if(this.EntrancePage == "East"){
@@ -322,8 +316,6 @@ var app = new Vue({
                     this.setStop("line8", 9, En);
                 }else if(this.ETO_selected == true){
                     this.setStop("line9", 9, Ex);
-                }else if (this.M_selected == true){
-                    this.setStop("trafficLine2", 47, ET);
                 }
             }
             if(this.EntrancePage == "River"){
