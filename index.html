@@ -467,7 +467,22 @@
 										</div>
 									</div>
 								</div>
-								<iframe class="radarCharts mt-5" src="https://trailwaze.info/bridgeTraffic.php"></iframe>
+								<!-- add drop down tab for time selections -->
+								<!-- drop down for times -->
+								<div class="d-inline">
+									<v-menu offset-y>
+										<template v-slot:activator="{ on }">
+											<v-btn class="mt-2 ml-2" outlined color="black" @click="switchArrow()" v-on="on">{{stateTimePage}}<img class="pl-3" :src="stateArrowImage" alt="arrow"></v-btn>
+										</template>
+										<v-list>
+											<v-list-item
+												v-for="(time, index) in statesTimes" :key="index" v-on:click="stateTimePage=time; setRiverCameraData(); resetArrow();">
+												<v-list-item-title>{{ time }}</v-list-item-title>
+											</v-list-item>
+										</v-list>
+									</v-menu>
+								</div>
+								<iframe class="radarCharts mt-5" :src="riverStateUrl"></iframe>
 							</div>
 
 							<div v-if="EntrancePage=='Kolob'"> <!-- Kolob--Entrance--Camera in tab -->
