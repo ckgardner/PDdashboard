@@ -272,23 +272,47 @@ var app = new Vue({
         },
         loadTraffic: function(){
             var vm = this;
-            axios.get("https://trailwaze.info/zion/vehicleTraffic_request.php").then(response =>{
-                var rotateNum = response.data.zionsouthin.rotate100;
+            var currentSite = "zionsouthin";
+            if(this.EntrancePage == "East"){
+                currentSite = "zioneastin";
+            }
+            axios.get("https://trailwaze.info/zion/vehicleTraffic_request.php?site=" + currentSite).then(response =>{
+                var rotateNum;
+                if (currentSite == "zionsouthin"){
+                    rotateNum = response.data.zionsouthin.rotate100;
+                }else{
+                    rotateNum = response.data.zioneastin.rotate100;
+                }
+                
                 if(rotateNum < 33){
                     this.lightTraffic = true;
+                    this.lightTrafficEast = true;
                     this.mediumTraffic = false;
+                    this.mediumTrafficEast = false;
                     this.heavyTraffic = false;
+                    this.heavyTrafficEast = false;
                 }else if(rotateNum < 66){
                     this.lightTraffic = false;
+                    this.lightTrafficEast = false;
                     this.mediumTraffic = true;
+                    this.mediumTrafficEast = true;
                     this.heavyTraffic = false;
+                    this.heavyTrafficEast = false;
                 }else{
                     this.lightTraffic = false;
+                    this.lightTrafficEast = false;
                     this.mediumTraffic = false;
+                    this.mediumTrafficEast = false;
                     this.heavyTraffic = true;
+                    this.heavyTrafficEast = true;
                 }
                 rotateNum /= 100;
-                this.setStop("trafficLine", 47, rotateNum);
+                if(currentSite == "zionsouthin"){
+                    this.setStop("trafficLine", 47, rotateNum);
+                }else{
+                    this.setStop("trafficLine2", 47, rotateNum);
+                }
+                
             }).catch(error =>{
                 vm = "Fetch " + error;
             });
