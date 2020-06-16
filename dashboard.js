@@ -87,8 +87,8 @@ var app = new Vue({
 
         visitor_selected: true,
         overflow_selected: false,
-        M_selected: true,
-        ETI_selected: false, 
+        M_selected: false,
+        ETI_selected: true, 
         ETO_selected: false,
         R_selected: false,
         S_selected: false, 
@@ -486,6 +486,7 @@ var app = new Vue({
         },
         statRefresh: function(){
             this.loadStats();
+            this.loadTraffic();
             this.getWeatherAPI();
         },
         checkWeatherImage: function(icon){
