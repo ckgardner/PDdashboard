@@ -377,7 +377,7 @@
 							</div>
 							<div v-if="EntrancePage!='East' && EntrancePage!='River'" class="tabs">
 								<!-- need to figure a better way to change with smaller devices; too much repetition -->
-								<div v-if="EntrancePage=='South' " class="MButtonContainer desktop-tabs"><button class="MButton entranceButtons" :class="{entranceButtonsfocus: M_selected}" @click="MSelected(); statRefresh();">TRAFFIC METER</button></div>
+								<div v-if="EntrancePage=='South' " class="MButtonContainer desktop-tabs"><button class="MButton entranceButtons" :class="{entranceButtonsfocus: M_selected}" @click="MSelected(); statRefresh();">TRAFFIC</button></div>
 								<div v-if="EntrancePage=='South' " class="MButtonContainer mobile-tabs"><button class="MButton entranceButtons" :class="{entranceButtonsfocus: M_selected}" @click="MSelected(); statRefresh();">TRAFFIC</button></div>
 
 								<div class="ETIButtonContainer desktop-tabs"><button class="ETIButton entranceButtons" :class="{entranceButtonsfocus: ETI_selected}" @click="ETISelected(); statRefresh();">CAMERA IN</button></div>
@@ -393,7 +393,7 @@
 								<div class="SButtonContainer mobile-tabs"><button class="SButton entranceButtons" :class="{entranceButtonsfocus: S_selected}" @click="SSelected">STATES</button></div>
 							</div>
 							<div v-if="EntrancePage=='East'" class="tabs">
-								<div v-if="EntrancePage=='East' " class="MButtonContainer desktop-tabs"><button class="MButton entranceButtons" :class="{entranceButtonsfocus: M_selected}" @click="MSelected(); statRefresh();">TRAFFIC METER</button></div>
+								<div v-if="EntrancePage=='East' " class="MButtonContainer desktop-tabs"><button class="MButton entranceButtons" :class="{entranceButtonsfocus: M_selected}" @click="MSelected(); statRefresh();">TRAFFIC</button></div>
 								<div v-if="EntrancePage=='East' " class="MButtonContainer mobile-tabs"><button class="MButton entranceButtons" :class="{entranceButtonsfocus: M_selected}" @click="MSelected(); statRefresh();">TRAFFIC</button></div>
 
 								<div class="ETIButtonContainer desktop-tabs"><button class="ETIButton entranceButtons" :class="{entranceButtonsfocus: ETI_selected}" @click="ETISelected(); statRefresh();">CAMERA IN</button></div>

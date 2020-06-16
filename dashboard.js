@@ -272,9 +272,21 @@ var app = new Vue({
         },
         loadTraffic: function(){
             var vm = this;
-            console.log("running traffic stats");
             axios.get("https://trailwaze.info/zion/vehicleTraffic_request.php").then(response =>{
                 var rotateNum = response.data.zionsouthin.rotate100;
+                if(rotateNum < 33){
+                    this.lightTraffic = true;
+                    this.mediumTraffic = false;
+                    this.heavyTraffic = false;
+                }else if(rotateNum < 66){
+                    this.lightTraffic = false;
+                    this.mediumTraffic = true;
+                    this.heavyTraffic = false;
+                }else{
+                    this.lightTraffic = false;
+                    this.mediumTraffic = false;
+                    this.heavyTraffic = true;
+                }
                 rotateNum /= 100;
                 this.setStop("trafficLine", 47, rotateNum);
             }).catch(error =>{
