@@ -52,6 +52,9 @@ var app = new Vue({
         kolobVehicles: "N/A",
         kolobPeople: "N/A",
         KolobDateUpdated: "N/A",
+        canyonYesterday: "N/A",
+        canyonDateUpdated: "N/A",
+        canyonTotals: "N/A",
         
         MainPage: 'Home', // Login, loggingIn, requestAccess, Home, Parking, Entrances 
         EntrancePage: 'South',
@@ -205,7 +208,14 @@ var app = new Vue({
 				var kolobMultiplier = this.getAPIData_safe(response.data, ["KolobRadar", "Yesterday", "multiplier"], 1);
 				if(vm.kolobVehicles != "N/A"){vm.kolobPeople = vm.kolobVehicles * kolobMultiplier;}
 				//add Kolob count to Zion Total Count
-				if(vm.kolobPeople != "N/A"){vm.yesterdayZionTotal += kolobPeople;}
+                if(vm.kolobPeople != "N/A"){vm.yesterdayZionTotal += kolobPeople;}
+                
+                // Canyon Junction: Today
+                vm.canyonStat = this.getAPIData_safe(response.data, ["CanyonJctCamera", "Today", "count"], 0);
+                var canyonMultiplier = this.getAPIData_safe(response.data, ["CanyonJctCamera", "Yesterday", "multiplier"], 1);
+                // Canyon Junction: Yesterday
+                vm.canyonYesterday = this.getAPIData_safe(response.data, ["CanyonJctRadar", "Yesterday", "count"], 0);
+                vm.canyonTotals = vm.canyonStat + " vehicles | " + Math.round(vm.canyonStat * canyonMultiplier) + " visitors";
 
 				//Last Year Visitation
 				vm.totalVisitors = this.getAPIData_safe(response.data, ['LastYearVisitation', 'count'], 'N/A');
@@ -228,10 +238,7 @@ var app = new Vue({
 
                 var SES = vm.southEntranceStat.substr(0,vm.southEntranceStat.indexOf(' ')) / 3000;
 
-                var CJ = vm.canyonStat.substr(0,vm.canyonStat.indexOf(' ')) / 2000;
-                if (vm.canyonStat == "N/A"){
-                    CJ = 0;
-                }
+                var CJ = vm.canyonTotals.substr(0,vm.canyonTotals.indexOf(' ')) / 2000;
 
                 var R = vm.riverPeople / 3000;
                 var K = 0;
@@ -339,7 +346,7 @@ var app = new Vue({
                 this.setStop("line17", 9, OF);
             }
         },
-        loadEntrances: function(SEn, SEx, En, Ex, Rn, Rx, Kn, Kx, CJn, CJx, ST, ET ){
+        loadEntrances: function(SEn, SEx, En, Ex, Rn, Rx, Kn, Kx, CJn, CJx){
             if(this.EntrancePage == "South"){
                 if(this.ETI_selected == true){
                     this.setStop("line6", 9, SEn);
