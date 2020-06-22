@@ -156,7 +156,11 @@ var app = new Vue({
                 hours -= 12;
                 time = "PM";
             }
-            this.currentTime = hours + ":" + date.getMinutes() + time;
+            var minutes = date.getMinutes();
+            if (minutes<10){
+                minutes = "0" + minutes;
+            }
+            this.currentTime = hours + ":" + minutes + time;
         },
         loadStats: function() {
             var vm = this;
@@ -535,6 +539,7 @@ var app = new Vue({
         checkWeatherImage: function(icon){
             if (icon == null || icon == "NULL" || icon == "null"){
                 this.weatherImage = "images/blueBison.svg";
+                return;
             }
             const hours = new Date().getUTCHours();
 			var timeOfDay = "weatherNight";
