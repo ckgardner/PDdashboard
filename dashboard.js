@@ -64,6 +64,8 @@ var app = new Vue({
         stateArrowImage: 'icons/downArrow.png',
         stateTimePage : 'By Hour',
         radarTimePage: 'Monthly',
+        riverData: ['Hourly', 'Daily'],
+        riverTimePage: 'Hourly',
         stateDateRange: [],
         DatePickerPopUp: false,
         southRadarURL: 'https://trailwaze.info/zion/radar_monthly.php',
@@ -72,7 +74,7 @@ var app = new Vue({
         CJRadarURL: 'https://trailwaze.info/zion/radar_monthly.php?site=canyonjctradar',
         southStateURL: 'https://trailwaze.info/vehicleTrafficAvgPerHour.php?site=south',
         eastStateURL: 'https://trailwaze.info/vehicleTrafficAvgPerHour.php?site=east', // doesnt work
-        riverStateUrl: 'https://trailwaze.info/bridgeTraffic.php',
+        riverStateUrl: 'https://trailwaze.info/zion/river_report.php?interval=hourly',
         kolobStateURL: 'https://trailwaze.info/vehicleTrafficAvgPerHour.php?site=kolob', // doesnt work
         canyon_junctionStateURL: 'https://trailwaze.info/vehicleTrafficAvgPerHour.php?site=canyonjct',
         serverStats: [],
@@ -606,12 +608,9 @@ var app = new Vue({
             }
         },
         setRiverCameraData: function() {
-            switch(this.stateTimePage) {
-                case 'By Hour': this.riverStateUrl = ''; break;
-                case 'Yesterday': this.riverStateUrl = ''; break;
-                case '24 Hour': this.riverStateUrl = ''; break;
-                case '7 Day': this.riverStateUrl = ''; break;
-                case '30 Day': this.riverStateUrl = ''; break;
+            switch(this.riverTimePage) {
+                case 'Hourly': this.riverStateUrl = 'https://trailwaze.info/zion/river_report.php?interval=hourly'; break;
+                case 'Daily': this.riverStateUrl = 'https://trailwaze.info/zion/river_report.php?interval=daily'; break;
             }
         },
         setKolobStateData: function() {
