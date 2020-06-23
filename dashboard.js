@@ -587,6 +587,8 @@ var app = new Vue({
             this.southStateURL= 'https://trailwaze.info/vehicleTrafficAvgPerHour.php?site=south';
             this.eastStateURL = 'https://trailwaze.info/vehicleTrafficAvgPerHour.php?site=east';
             this.kolobStateURL = 'https://trailwaze.info/vehicleTrafficAvgPerHour.php?site=south';
+            this.riverStateUrl = 'https://trailwaze.info/zion/river_report.php?interval=hourly';
+            this.riverTimePage = 'hourly';
             this.canyon_junctionStateURL = 'https://trailwaze.info/vehicleTrafficAvgPerHour.php?site=canyonjct';
         },
         setSouthStateData: function(){
