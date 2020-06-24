@@ -233,6 +233,9 @@ var app = new Vue({
                 if (vm.parkingStat < 1 && vm.parkingStat > 0){
                     vm.parkingStat = 1;
                 }
+                if (PS == 0){
+                    PS = 0.001;
+                }
                 if (vm.vcStat < 1 && vm.vcStat > 0){
                     vm.vcStat = 1;
                 }
