@@ -537,6 +537,7 @@ var app = new Vue({
             this.getWeatherAPI();
         },
         checkWeatherImage: function(icon){
+            console.log(icon);
             if (icon == null || icon == "NULL" || icon == "null"){
                 this.weatherImage = "images/blueBison.svg";
                 return;
