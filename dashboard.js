@@ -551,13 +551,16 @@ var app = new Vue({
                 this.weatherImage = "images/blueBison.svg";
                 return;
             }
-            const hours = new Date().getUTCHours();
-			var timeOfDay = "weatherNight";
-			if(hours <= 2 || (hours > 12 && hours < 24  )){
-                timeOfDay = "weather";
-            }
-            icon = "./icons/"+ timeOfDay + icon.substr(icon.lastIndexOf("/")).replace(".png",".svg");
-            this.weatherImage = icon;
+		var icoName = icon.substr(icon.lastIndexOf("/"));
+		icoName = icoName.replace(".png",".svg");
+		icon = "./icons/weather"+icoName;
+		//const hours = new Date().getUTCHours();
+		//var timeOfDay = "weatherNight";
+		//if(hours <= 2 || (hours > 12 && hours < 24  )){
+			//timeOfDay = "weather";
+		   //}
+		//icon = "./icons/"+ timeOfDay + icon.substr(icon.lastIndexOf("/")).replace(".png",".svg");
+		this.weatherImage = icon;
         },
         resetRadarTabs: function(){
             this.radarTimePage = 'Monthly';
