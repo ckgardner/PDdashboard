@@ -198,6 +198,9 @@ var app = new Vue({
                 vm.overflowStat = this.getAPIData_safe(response.data, ["ParkingOverflow", "Today", "count"], 0);
                 //Parking: total
                 vm.parkingStat = vm.overflowStat + vm.vcStat;
+                if(vm.parkingStat > 100){
+                    vm.parkingStat = 100;
+                }
 
 				//multiply vehicles by multiplier and set south and east people
 				if(vm.SVehicles != "N/A"){vm.SPeople = Math.round(vm.SVehicles * southMultiplier);}
@@ -233,6 +236,7 @@ var app = new Vue({
                 if (vm.parkingStat < 1 && vm.parkingStat > 0){
                     vm.parkingStat = 1;
                 }
+
                 if (PS == 0){
                     PS = 0.001;
                 }
