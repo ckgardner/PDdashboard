@@ -240,9 +240,6 @@ var app = new Vue({
                 if (PS == 0){
                     PS = 0.001;
                 }
-                if (PS > 1){
-                    PS = 1;
-                }
                 if (vm.vcStat < 1 && vm.vcStat > 0){
                     vm.vcStat = 1;
                 }
