@@ -58,7 +58,9 @@ var app = new Vue({
         
         MainPage: 'Home', // Login, loggingIn, requestAccess, Home, Parking, Entrances 
         EntrancePage: 'South',
+        vcPage: '',
         Entrances: ['South', 'East', 'River', 'Kolob', 'Canyon Junction'],
+        vcs: ['Zion Canyon Visitor Center', 'Kolob Canyon Visitor Center'],
         statesTimes: ['By Hour', 'Yesterday', '24 Hour', '7 Day', '30 Day'],
         radarTimes: ['Monthly', 'Daily'],
         stateArrowImage: 'icons/downArrow.png',
@@ -109,6 +111,16 @@ var app = new Vue({
         lightTrafficEast: true,
         mediumTrafficEast: false,
         heavyTrafficEast: false,
+
+        lightZionVc: true,
+        mediumZionVc: false,
+        heavyZionVc: false,
+        zionVcVisitors: 986,
+
+        lightKolobVc: true,
+        mediumKolobVc: false,
+        heavyKolobVc: false,
+        kolobVcVisitors: 986,
     },
     created: function(){
         this.loadStats();
@@ -198,6 +210,7 @@ var app = new Vue({
                 vm.overflowStat = this.getAPIData_safe(response.data, ["ParkingOverflow", "Today", "count"], 0);
                 //Parking: total
                 vm.parkingStat = vm.overflowStat + vm.vcStat;
+                console.log(vm.parkingStat);
                 if(vm.parkingStat > 100){
                     vm.parkingStat = 100;
                 }
@@ -291,6 +304,54 @@ var app = new Vue({
             });
         },
         loadTraffic: function(){
+            var vm = this;
+            var currentSite = "zionsouthin";
+            if(this.EntrancePage == "East"){
+                currentSite = "zioneastin";
+            }
+            axios.get("https://trailwaze.info/zion/vehicleTraffic_request.php?site=" + currentSite).then(response =>{
+                var rotateNum;
+                if (currentSite == "zionsouthin"){
+                    rotateNum = response.data.zionsouthin.rotate100;
+                }else{
+                    rotateNum = response.data.zioneastin.rotate100;
+                }
+                
+                if(rotateNum < 33){
+                    this.lightTraffic = true;
+                    this.lightTrafficEast = true;
+                    this.mediumTraffic = false;
+                    this.mediumTrafficEast = false;
+                    this.heavyTraffic = false;
+                    this.heavyTrafficEast = false;
+                }else if(rotateNum < 66){
+                    this.lightTraffic = false;
+                    this.lightTrafficEast = false;
+                    this.mediumTraffic = true;
+                    this.mediumTrafficEast = true;
+                    this.heavyTraffic = false;
+                    this.heavyTrafficEast = false;
+                }else{
+                    this.lightTraffic = false;
+                    this.lightTrafficEast = false;
+                    this.mediumTraffic = false;
+                    this.mediumTrafficEast = false;
+                    this.heavyTraffic = true;
+                    this.heavyTrafficEast = true;
+                }
+                rotateNum /= 100;
+                if(currentSite == "zionsouthin"){
+                    this.setStop("trafficLine", 47, rotateNum);
+                }else{
+                    this.setStop("trafficLine2", 47, rotateNum);
+                }
+                
+            }).catch(error =>{
+                vm = "Fetch " + error;
+            });
+            
+        },
+        loadVCs: function(){
             var vm = this;
             var currentSite = "zionsouthin";
             if(this.EntrancePage == "East"){

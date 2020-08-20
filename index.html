@@ -22,10 +22,10 @@
 					<div v-if="MainPage=='Login' ">
 						<div> <!-- App bar for login page -->
 							<v-app-bar dense>
-								<v-toolbar-title id="loginTitle" v-on:click="MainPage='Login' "><img class="bison" src="images/blueBison.svg">Parkdata</v-toolbar-title>
+								<v-toolbar-title id="loginTitle" v-on:click="MainPage='Login' "><img class="bison" src="icons/bisonRed.svg">Parkdata</v-toolbar-title>
 								<v-spacer></v-spacer>
-								<v-btn text color="#507282" id="requestAccessButton" v-on:click="MainPage='requestAccess' ">Request Access</v-btn>
-								<v-btn text color="#507282" id="loginButton" v-on:click="MainPage='loggingIn' ">Login</v-btn>
+								<v-btn text color="#B25538" id="requestAccessButton" v-on:click="MainPage='requestAccess' ">Request Access</v-btn>
+								<v-btn text color="#B25538" id="loginButton" v-on:click="MainPage='loggingIn' ">Login</v-btn>
 							</v-app-bar>
 						</div>
 						<div id="loginWrapper">
@@ -53,10 +53,10 @@
 					<div v-if="MainPage=='requestAccess'">
 						<div> <!-- App bar for request access page -->
 							<v-app-bar dense>
-								<v-toolbar-title id="loginTitle" v-on:click="MainPage='Login' "><img class="bison" src="images/blueBison.svg">Parkdata</v-toolbar-title>
+								<v-toolbar-title id="loginTitle" v-on:click="MainPage='Login' "><img class="bison" src="icons/bisonRed.svg">Parkdata</v-toolbar-title>
 								<v-spacer></v-spacer>
-								<v-btn text color="#507282" id="requestAccessButton" v-on:click="MainPage='requestAccess' ">Request Access</v-btn>
-								<v-btn text color="#507282" id="loginButton" v-on:click="MainPage='loggingIn' ">Login</v-btn>
+								<v-btn text color="#B25538" id="requestAccessButton" v-on:click="MainPage='requestAccess' ">Request Access</v-btn>
+								<v-btn text color="#B25538" id="loginButton" v-on:click="MainPage='loggingIn' ">Login</v-btn>
 							</v-app-bar>
 						</div>
 						<div class="formWrapper">
@@ -79,10 +79,10 @@
 					<div v-if="MainPage=='loggingIn'">
 						<div> <!-- App bar for logging in page -->
 							<v-app-bar dense>
-								<v-toolbar-title id="loginTitle" v-on:click="MainPage='Login' "><img class="bison" src="images/blueBison.svg">Parkdata</v-toolbar-title>
+								<v-toolbar-title id="loginTitle" v-on:click="MainPage='Login' "><img class="bison" src="icons/bisonRed.svg">Parkdata</v-toolbar-title>
 								<v-spacer></v-spacer>
-								<v-btn text color="#507282" id="requestAccessButton" v-on:click="MainPage='requestAccess' ">Request Access</v-btn>
-								<v-btn text color="#507282" id="loginButton" v-on:click="MainPage='loggingIn' ">Login</v-btn>
+								<v-btn text color="#B25538" id="requestAccessButton" v-on:click="MainPage='requestAccess' ">Request Access</v-btn>
+								<v-btn text color="#B25538" id="loginButton" v-on:click="MainPage='loggingIn' ">Login</v-btn>
 							</v-app-bar>
 						</div>
 						<div class="formWrapper">
@@ -105,19 +105,19 @@
 					<div v-if="MainPage=='Home' ">
 						<div> <!-- App bar for main page -->
 							<v-app-bar dense>
-								<v-toolbar-title id="loginTitle" class="homeTitle d-none d-sm-flex" v-on:click="MainPage='Home'; statRefresh();"><img class="bison" src="images/blueBison.svg">Parkdata - Zion National Park</v-toolbar-title>
-								<v-toolbar-title class="d-xs-flex d-sm-none">Parkdata</v-toolbar-title>
+								<v-toolbar-title id="loginTitle" class="homeTitle d-none d-sm-flex" v-on:click="MainPage='Home'; statRefresh();"><img class="bison" src="icons/bisonRed.svg">Parkdata - Zion National Park</v-toolbar-title>
+								<v-toolbar-title class="d-xs-flex d-sm-none redText">Parkdata</v-toolbar-title>
 								<v-spacer></v-spacer>
-								<v-btn class="d-none d-sm-flex" text color="#507282" v-on:click="MainPage='Parking'; statRefresh(); resetPages()">Parking</v-btn>
-								<v-btn class="d-xs-flex d-sm-none" text color="#507282" v-on:click="MainPage='Parking'; statRefresh(); resetPages()">
-									<img src="icons/parking_outline_blue.svg" alt="">
+								<v-btn class="d-none d-sm-flex" text color="#B25538" v-on:click="MainPage='Parking'; statRefresh(); resetPages()">Parking</v-btn>
+								<v-btn class="d-xs-flex d-sm-none" text color="#B25538" v-on:click="MainPage='Parking'; statRefresh(); resetPages()">
+									<img src="icons/parking_outline_red.svg" alt="">
 								</v-btn>
 								<!-- drop down for Entrances -->
 								<v-menu offset-y>
 									<template v-slot:activator="{ on }">
-									  <v-btn class="d-none d-sm-flex" color="#C9AC68" text v-on="on">Entrances</v-btn>
-									  <v-btn class="d-xs-flex d-sm-none" color="#C9AC68" text v-on="on">
-										  <img src="icons/kolob_outline_yellow.svg" alt="">
+									  <v-btn class="d-none d-sm-flex" color="#B25538" text v-on="on">Entrances</v-btn>
+									  <v-btn class="d-xs-flex d-sm-none" color="#B25538" text v-on="on">
+										  <img src="icons/kolob_outline_red.svg" alt="">
 									  </v-btn>
 									</template>
 									<v-list>
@@ -127,7 +127,22 @@
 									  </v-list-item>
 									</v-list>
 								</v-menu>
-								<!-- <v-btn text color="#507282" v-on:click="logoutClicked(); resetPages();">Log Out</v-btn> -->
+								<!-- drop down for Visitor Centers -->
+								<v-menu offset-y>
+									<template v-slot:activator="{ on }">
+									  <v-btn class="d-none d-sm-flex" color="#B35539" text v-on="on">Visitor Centers</v-btn>
+									  <v-btn class="d-xs-flex d-sm-none" color="#B35539" text v-on="on">
+										  <img src="icons/kolob_outline_red.svg" alt="">
+									  </v-btn>
+									</template>
+									<v-list>
+									  <v-list-item
+										v-for="(vc, index) in vcs" :key="index" v-on:click="MainPage='VCs'; statRefresh(); vcPage=vc ">
+										<v-list-item-title>{{ vc }}</v-list-item-title>
+									  </v-list-item>
+									</v-list>
+								</v-menu>
+								<!-- <v-btn text color="#B25538" v-on:click="logoutClicked(); resetPages();">Log Out</v-btn> -->
 							</v-app-bar>
 						</div>
 
@@ -163,15 +178,15 @@
 						<div id="svgContainer">
 							<svg id="svg" viewBox="45 43 110 110">
 								<circle cx="100" cy="100" r="51" style="stroke: white; fill: white;"/> 
-								<text x="86" y="104" id="currentTemp" font-size="9" font-weight="bold" style="fill: #507282">{{currentTemp}}&#176;</text><image x="102" y="94" width="14" height="14" v-bind:href="weatherImage"></image>
-								<circle class="background" cx="100" cy="100" r="23" stroke="#F7F6F4" />
-								<circle class="background" cx="100" cy="100" r="31" stroke="#F5F2EA" />
-								<circle class="background" cx="100" cy="100" r="39" stroke="#eddfbb" />
-								<circle class="background" cx="100" cy="100" r="47" stroke="#DCE3E6" />
-								<circle id="line0" class="overlayLine" cx="100" cy="100" r="23" stroke="#B3A584" stroke-dasharray="0, 3000" stroke-dashoffset="126" transform="rotate(-90,100,100)" />
-								<circle id="line1" class="overlayLine" cx="100" cy="100" r="31" stroke="#CDBD97" stroke-dasharray="0, 3000" stroke-dashoffset="126" transform="rotate(-90,100,100)" />
-								<circle id="line2" class="overlayLine" cx="100" cy="100" r="39" stroke="#C9AC68" stroke-dasharray="0, 3000" stroke-dashoffset="188" transform="rotate(-90,100,100)" />
-								<circle id="line3" class="overlayLine" cx="100" cy="100" r="47" stroke="#507282" stroke-dasharray="0, 3000" stroke-dashoffset="251" transform="rotate(-90,100,100)" />
+								<text x="85" y="104" id="currentTemp" font-size="9" font-weight="bold" style="fill: #B25538">{{currentTemp}}&#176;</text><image x="102" y="94" width="14" height="14" v-bind:href="weatherImage"></image>
+								<circle class="background" cx="100" cy="100" r="23" stroke="#F0DDD7" />
+								<circle class="background" cx="100" cy="100" r="31" stroke="#EBDAD5" />
+								<circle class="background" cx="100" cy="100" r="39" stroke="#E4D1D1" />
+								<circle class="background" cx="100" cy="100" r="47" stroke="#DED6D3" />
+								<circle id="line0" class="overlayLine" cx="100" cy="100" r="23" stroke="#B25538" stroke-dasharray="0, 3000" stroke-dashoffset="126" transform="rotate(-90,100,100)" />
+								<circle id="line1" class="overlayLine" cx="100" cy="100" r="31" stroke="#99482F" stroke-dasharray="0, 3000" stroke-dashoffset="126" transform="rotate(-90,100,100)" />
+								<circle id="line2" class="overlayLine" cx="100" cy="100" r="39" stroke="#873931" stroke-dasharray="0, 3000" stroke-dashoffset="188" transform="rotate(-90,100,100)" />
+								<circle id="line3" class="overlayLine" cx="100" cy="100" r="47" stroke="#592B1C" stroke-dasharray="0, 3000" stroke-dashoffset="251" transform="rotate(-90,100,100)" />
 							</svg>
 						</div>
 						<div class="smallShow">
@@ -248,7 +263,7 @@
 								</tr>
 							</table>
 						</div>
-						<img id="footer" src="images/footer.svg">
+						<img id="footer" src="icons/footerMain.svg">
 					</div>
 
 					<!-- END MAIN PAGE -->
@@ -259,7 +274,7 @@
 						<v-card>
 							<div class="d-inline">
 								<div class="d-none d-md-inline-flex">
-									<p v-on:click="MainPage='Home'; statRefresh();" class="ml-6 titles mr-0 " ><img class="bison" src="images/blueBison.svg">Parkdata - Zion National Park</p>
+									<p v-on:click="MainPage='Home'; statRefresh();" class="ml-6 titles mr-0 " ><img class="bison" src="icons/bisonRed.svg">Parkdata - Zion National Park</p>
 									<!-- <p v-on:click="MainPage='Home'; statRefresh();" class="ml-6 mr-0 d-flex d-md-none" >Parkdata</p> -->
 								</div>
 								<div class="d-sm-inline-flex d-md-none d-inline-flex">
@@ -267,25 +282,41 @@
 								</div>
 								
 								<div class="float-right d-inline-flex">
-									<!-- <v-btn v-on:click="MainPage='Parking'; resetPages()"text color="#507282" class="d-inline">Parking</v-btn> -->
-									<v-btn class="d-none d-md-flex mt-8" text color="#507282" v-on:click="MainPage='Parking'; resetPages(); statRefresh();">Parking</v-btn>
-									<v-btn class="d-none d-sm-flex d-md-none mt-4" text color="#507282" v-on:click="MainPage='Parking'; resetPages(); statRefresh();">Parking</v-btn>
-									<v-btn class="d-xs-flex d-sm-none mt-3" text color="#507282" v-on:click="MainPage='Parking'; resetPages(); statRefresh();">
+									<!-- <v-btn v-on:click="MainPage='Parking'; resetPages()"text color="#B25538" class="d-inline">Parking</v-btn> -->
+									<v-btn class="d-none d-md-flex mt-8" text color="#B25538" v-on:click="MainPage='Parking'; resetPages(); statRefresh();">Parking</v-btn>
+									<v-btn class="d-none d-sm-flex d-md-none mt-4" text color="#B25538" v-on:click="MainPage='Parking'; resetPages(); statRefresh();">Parking</v-btn>
+									<v-btn class="d-xs-flex d-sm-none mt-3" text color="#B25538" v-on:click="MainPage='Parking'; resetPages(); statRefresh();">
 										<img src="icons/parking_outline_blue.svg" alt="">
 									</v-btn>
 
 									<v-menu offset-y>
 										<template v-slot:activator="{ on }">
-											<!-- <v-btn color="#C9AC68" text v-on="on">Entrances</v-btn> -->
-											<v-btn class="d-none d-md-flex mt-8" color="#C9AC68" text v-on="on">Entrances</v-btn>
-											<v-btn class="d-none d-sm-flex d-md-none mt-4" color="#C9AC68" text v-on="on">Entrances</v-btn>
-											<v-btn class="d-xs-flex d-sm-none mt-3" color="#C9AC68" text v-on="on">
+											<!-- <v-btn color="#B25538" text v-on="on">Entrances</v-btn> -->
+											<v-btn class="d-none d-md-flex mt-8" color="#B25538" text v-on="on">Entrances</v-btn>
+											<v-btn class="d-none d-sm-flex d-md-none mt-4" color="#B25538" text v-on="on">Entrances</v-btn>
+											<v-btn class="d-xs-flex d-sm-none mt-3" color="#B25538" text v-on="on">
 												<img src="icons/kolob_outline_yellow.svg" alt="">
 											</v-btn>
 										</template>
 										<v-list>
 											<v-list-item v-for="(enterance, index) in Entrances" :key="index" v-on:click="MainPage='Entrances'; resetStateTabs(); resetRadarTabs(); statRefresh(); EntrancePage=enterance;">
 												<v-list-item-title>{{ enterance }}</v-list-item-title>
+											</v-list-item>
+										</v-list>
+									</v-menu>
+
+									<v-menu offset-y>
+										<template v-slot:activator="{ on }">
+											<!-- <v-btn color="#B35539" text v-on="on">Entrances</v-btn> -->
+											<v-btn class="d-none d-md-flex mt-8" color="#B35539" text v-on="on">Visitor Centers</v-btn>
+											<v-btn class="d-none d-sm-flex d-md-none mt-4" color="#B35539" text v-on="on">Visitor Centers</v-btn>
+											<v-btn class="d-xs-flex d-sm-none mt-3" color="#B35539" text v-on="on">
+												<img src="icons/kolob_outline_yellow.svg" alt="">
+											</v-btn>
+										</template>
+										<v-list>
+											<v-list-item v-for="(vc, index) in vcs" :key="index" v-on:click="MainPage='VCs'; resetStateTabs(); resetRadarTabs(); statRefresh(); vcPage=vc;">
+												<v-list-item-title>{{ vc }}</v-list-item-title>
 											</v-list-item>
 										</v-list>
 									</v-menu>
@@ -310,8 +341,8 @@
 									<span class="smallHide">Parking Visitor Lot:&nbsp;</span><span> {{vcStat}}% Full</span>
 									<svg class="svg2" viewBox="86 86 30 30" height="50px" width="50px">
 										<circle cx="100" cy="100" r="13" style="stroke: white; fill: white;"/> 
-										<circle class="background" cx="100" cy="100" r="9" stroke="#DCE3E6" />
-										<circle id="line16" class="overlayLine" cx="100" cy="100" r="9" stroke="#507282" stroke-dasharray="0, 3000" stroke-dashoffset="126" transform="rotate(-90,100,100)" />
+										<circle class="background" cx="100" cy="100" r="9" stroke="#F0DDD7" />
+										<circle id="line16" class="overlayLine" cx="100" cy="100" r="9" stroke="#B25538" stroke-dasharray="0, 3000" stroke-dashoffset="126" transform="rotate(-90,100,100)" />
 									</svg>
 								</div>
 							</div>
@@ -328,8 +359,8 @@
 								<span>Parking Overflow Lot:&nbsp;{{overflowStat}}% Full</span>
 								<svg class="svg2" viewBox="86 86 30 30" height="50px" width="50px">
 									<circle cx="100" cy="100" r="13" style="stroke: white; fill: white;"/> 
-									<circle class="background" cx="100" cy="100" r="9" stroke="#DCE3E6" />
-									<circle id="line17" class="overlayLine" cx="100" cy="100" r="9" stroke="#507282" stroke-dasharray="0, 3000" stroke-dashoffset="126" transform="rotate(-90,100,100)" />
+									<circle class="background" cx="100" cy="100" r="9" stroke="#F0DDD7" />
+									<circle id="line17" class="overlayLine" cx="100" cy="100" r="9" stroke="#B25538" stroke-dasharray="0, 3000" stroke-dashoffset="126" transform="rotate(-90,100,100)" />
 								</svg>
 							</div>
 							<iframe class="parkingApi" src="https://trailwaze.info/zion/parking_date.php?lot=Overlow_Lot"></iframe>
@@ -343,7 +374,7 @@
 						<v-card>
 							<div>
 								<div class="d-none d-md-inline-flex">
-									<p v-on:click="MainPage='Home'; statRefresh();" class="ml-6 titles mr-0 " ><img class="bison" src="images/blueBison.svg">Parkdata - Zion National Park</p>
+									<p v-on:click="MainPage='Home'; statRefresh();" class="ml-6 titles mr-0 " ><img class="bison" src="icons/bisonRed.svg">Parkdata - Zion National Park</p>
 									<!-- <p v-on:click="MainPage='Home'; statRefresh();" class="ml-6 mr-0 d-flex d-md-none" >Parkdata</p> -->
 								</div>
 								<div class="d-sm-inline-flex d-md-none d-inline-flex">
@@ -351,25 +382,41 @@
 								</div>
 
 								<div class="float-right d-inline-flex">
-									<!-- <v-btn v-on:click="MainPage='Parking'; resetPages()"text color="#507282" class="d-inline">Parking</v-btn> -->
-									<v-btn class="d-none d-md-flex mt-8" text color="#507282" v-on:click="MainPage='Parking'; resetPages(); statRefresh();">Parking</v-btn>
-									<v-btn class="d-none d-sm-flex d-md-none mt-4" text color="#507282" v-on:click="MainPage='Parking'; resetPages(); statRefresh();">Parking</v-btn>
-									<v-btn class="d-xs-flex d-sm-none mt-3" text color="#507282" v-on:click="MainPage='Parking'; resetPages(); statRefresh();">
+									<!-- <v-btn v-on:click="MainPage='Parking'; resetPages()"text color="#B25538" class="d-inline">Parking</v-btn> -->
+									<v-btn class="d-none d-md-flex mt-8" text color="#B25538" v-on:click="MainPage='Parking'; resetPages(); statRefresh();">Parking</v-btn>
+									<v-btn class="d-none d-sm-flex d-md-none mt-4" text color="#B25538" v-on:click="MainPage='Parking'; resetPages(); statRefresh();">Parking</v-btn>
+									<v-btn class="d-xs-flex d-sm-none mt-3" text color="#B25538" v-on:click="MainPage='Parking'; resetPages(); statRefresh();">
 										<img src="icons/parking_outline_blue.svg" alt="">
 									</v-btn>
 
 									<v-menu offset-y>
 										<template v-slot:activator="{ on }">
-											<!-- <v-btn color="#C9AC68" text v-on="on">Entrances</v-btn> -->
-											<v-btn class="d-none d-md-flex mt-8" color="#C9AC68" text v-on="on">Entrances</v-btn>
-											<v-btn class="d-none d-sm-flex d-md-none mt-4" color="#C9AC68" text v-on="on">Entrances</v-btn>
-											<v-btn class="d-xs-flex d-sm-none mt-3" color="#C9AC68" text v-on="on">
+											<!-- <v-btn color="#B25538" text v-on="on">Entrances</v-btn> -->
+											<v-btn class="d-none d-md-flex mt-8" color="#B25538" text v-on="on">Entrances</v-btn>
+											<v-btn class="d-none d-sm-flex d-md-none mt-4" color="#B25538" text v-on="on">Entrances</v-btn>
+											<v-btn class="d-xs-flex d-sm-none mt-3" color="#B25538" text v-on="on">
 												<img src="icons/kolob_outline_yellow.svg" alt="">
 											</v-btn>
 										</template>
 										<v-list>
 											<v-list-item v-for="(enterance, index) in Entrances" :key="index" v-on:click="MainPage='Entrances'; resetStateTabs(); resetRadarTabs(); resetPages(); statRefresh(); EntrancePage=enterance ">
 												<v-list-item-title>{{ enterance }}</v-list-item-title>
+											</v-list-item>
+										</v-list>
+									</v-menu>
+
+									<v-menu offset-y>
+										<template v-slot:activator="{ on }">
+											<!-- <v-btn color="#B35539" text v-on="on">Entrances</v-btn> -->
+											<v-btn class="d-none d-md-flex mt-8" color="#B35539" text v-on="on">Visitor Centers</v-btn>
+											<v-btn class="d-none d-sm-flex d-md-none mt-4" color="#B35539" text v-on="on">Visitor Centers</v-btn>
+											<v-btn class="d-xs-flex d-sm-none mt-3" color="#B35539" text v-on="on">
+												<img src="icons/kolob_outline_yellow.svg" alt="">
+											</v-btn>
+										</template>
+										<v-list>
+											<v-list-item v-for="(vc, index) in vcs" :key="index" v-on:click="MainPage='VCs'; resetStateTabs(); resetRadarTabs(); statRefresh(); vcPage=vc;">
+												<v-list-item-title>{{ vc }}</v-list-item-title>
 											</v-list-item>
 										</v-list>
 									</v-menu>
@@ -520,8 +567,8 @@
 											<span class="smallHide"><b>South Entrance:</b><br>{{southEntranceStat}}</span>
 											<svg class="svg2" viewBox="86 86 30 30" height="50px" width="50px">
 												<circle cx="100" cy="100" r="13" style="stroke: white; fill: white;"/> 
-												<circle class="background" cx="100" cy="100" r="9" stroke="#f7f6f4" />
-												<circle id="line6" class="overlayLine" cx="100" cy="100" r="9" stroke="#C9AC68" stroke-dasharray="0, 3000" stroke-dashoffset="126" transform="rotate(-90,100,100)" />
+												<circle class="background" cx="100" cy="100" r="9" stroke="#F0DDD7" />
+												<circle id="line6" class="overlayLine" cx="100" cy="100" r="9" stroke="#B25538" stroke-dasharray="0, 3000" stroke-dashoffset="126" transform="rotate(-90,100,100)" />
 											</svg>
 										</div>
 									</div>
@@ -537,8 +584,8 @@
 											<span class="smallHide"><b>East Entrance:</b><br>{{eastEntranceStat}}</span>
 											<svg class="svg2" viewBox="86 86 30 30" height="50px" width="50px">
 												<circle cx="100" cy="100" r="13" style="stroke: white; fill: white;"/> 
-												<circle class="background" cx="100" cy="100" r="9" stroke="#f7f6f4" />
-												<circle id="line8" class="overlayLine" cx="100" cy="100" r="9" stroke="#C9AC68" stroke-dasharray="0, 3000" stroke-dashoffset="126" transform="rotate(-90,100,100)" />
+												<circle class="background" cx="100" cy="100" r="9" stroke="#F0DDD7" />
+												<circle id="line8" class="overlayLine" cx="100" cy="100" r="9" stroke="#B25538" stroke-dasharray="0, 3000" stroke-dashoffset="126" transform="rotate(-90,100,100)" />
 											</svg>
 										</div>
 									</div>
@@ -554,8 +601,8 @@
 											<span class="smallHide"><b>River Entrance:</b><br>{{riverPeople}} People</span>
 											<svg class="svg2" viewBox="86 86 30 30" height="50px" width="50px">
 												<circle cx="100" cy="100" r="13" style="stroke: white; fill: white;"/> 
-												<circle class="background" cx="100" cy="100" r="9" stroke="#f7f6f4" />
-												<circle id="line10" class="overlayLine" cx="100" cy="100" r="9" stroke="#C9AC68" stroke-dasharray="0, 3000" stroke-dashoffset="126" transform="rotate(-90,100,100)" />
+												<circle class="background" cx="100" cy="100" r="9" stroke="#F0DDD7" />
+												<circle id="line10" class="overlayLine" cx="100" cy="100" r="9" stroke="#B25538" stroke-dasharray="0, 3000" stroke-dashoffset="126" transform="rotate(-90,100,100)" />
 											</svg>
 										</div>
 									</div>
@@ -598,8 +645,8 @@
 											<span class="smallHide"><b>Kolob Entrance:</b><br>{{kolobVehicles}}</span>
 											<svg class="svg2" viewBox="86 86 30 30" height="50px" width="50px">
 												<circle cx="100" cy="100" r="13" style="stroke: white; fill: white;"/> 
-												<circle class="background" cx="100" cy="100" r="9" stroke="#f7f6f4" />
-												<circle id="line12" class="overlayLine" cx="100" cy="100" r="9" stroke="#C9AC68" stroke-dasharray="0, 3000" stroke-dashoffset="126" transform="rotate(-90,100,100)" />
+												<circle class="background" cx="100" cy="100" r="9" stroke="#F0DDD7" />
+												<circle id="line12" class="overlayLine" cx="100" cy="100" r="9" stroke="#B25538" stroke-dasharray="0, 3000" stroke-dashoffset="126" transform="rotate(-90,100,100)" />
 											</svg>
 										</div>
 									</div>
@@ -615,8 +662,8 @@
 											<span class="smallHide"><b>Canyon Junction:</b><br>{{canyonTotals}}</span>
 											<svg class="svg2" viewBox="86 86 30 30" height="50px" width="50px">
 												<circle cx="100" cy="100" r="13" style="stroke: white; fill: white;"/> 
-												<circle class="background" cx="100" cy="100" r="9" stroke="#f7f6f4" />
-												<circle id="line14" class="overlayLine" cx="100" cy="100" r="9" stroke="#C9AC68" stroke-dasharray="0, 3000" stroke-dashoffset="126" transform="rotate(-90,100,100)" />
+												<circle class="background" cx="100" cy="100" r="9" stroke="#F0DDD7" />
+												<circle id="line14" class="overlayLine" cx="100" cy="100" r="9" stroke="#B25538" stroke-dasharray="0, 3000" stroke-dashoffset="126" transform="rotate(-90,100,100)" />
 											</svg>
 										</div>
 									</div>
@@ -637,8 +684,8 @@
 											<span class="smallHide"><b>South Exit:</b><br>{{southExitStat}}</span>
 											<svg class="svg2" viewBox="86 86 30 30" height="50px" width="50px">
 												<circle cx="100" cy="100" r="13" style="stroke: white; fill: white;"/> 
-												<circle class="background" cx="100" cy="100" r="9" stroke="#f7f6f4" />
-												<circle id="line7" class="overlayLine" cx="100" cy="100" r="9" stroke="#C9AC68" stroke-dasharray="0, 3000" stroke-dashoffset="126" transform="rotate(-90,100,100)" />
+												<circle class="background" cx="100" cy="100" r="9" stroke="#F0DDD7" />
+												<circle id="line7" class="overlayLine" cx="100" cy="100" r="9" stroke="#B25538" stroke-dasharray="0, 3000" stroke-dashoffset="126" transform="rotate(-90,100,100)" />
 											</svg>
 										</div>
 									</div>
@@ -654,8 +701,8 @@
 											<span class="smallHide"><b>East Exit:</b><br>{{eastExitStat}}</span>
 											<svg class="svg2" viewBox="86 86 30 30" height="50px" width="50px">
 												<circle cx="100" cy="100" r="13" style="stroke: white; fill: white;"/> 
-												<circle class="background" cx="100" cy="100" r="9" stroke="#f7f6f4" />
-												<circle id="line9" class="overlayLine" cx="100" cy="100" r="9" stroke="#C9AC68" stroke-dasharray="0, 3000" stroke-dashoffset="126" transform="rotate(-90,100,100)" />
+												<circle class="background" cx="100" cy="100" r="9" stroke="#F0DDD7" />
+												<circle id="line9" class="overlayLine" cx="100" cy="100" r="9" stroke="#B25538" stroke-dasharray="0, 3000" stroke-dashoffset="126" transform="rotate(-90,100,100)" />
 											</svg>
 										</div>
 									</div>
@@ -671,8 +718,8 @@
 										<span class="smallHide"><b>Kolob Exit:</b><br>{{kolobExit}}</span>
 											<svg class="svg2" viewBox="86 86 30 30" height="50px" width="50px">
 												<circle cx="100" cy="100" r="13" style="stroke: white; fill: white;"/> 
-												<circle class="background" cx="100" cy="100" r="9" stroke="#f7f6f4" />
-												<circle id="line13" class="overlayLine" cx="100" cy="100" r="9" stroke="#C9AC68" stroke-dasharray="0, 3000" stroke-dashoffset="126" transform="rotate(-90,100,100)" />
+												<circle class="background" cx="100" cy="100" r="9" stroke="#F0DDD7" />
+												<circle id="line13" class="overlayLine" cx="100" cy="100" r="9" stroke="#B25538" stroke-dasharray="0, 3000" stroke-dashoffset="126" transform="rotate(-90,100,100)" />
 											</svg>
 										</div>
 									</div>
@@ -688,8 +735,8 @@
 											<span class="smallHide"><b>Canyon Junction:</b><br>{{canyonExit}}</span>
 											<svg class="svg2" viewBox="86 86 30 30" height="50px" width="50px">
 												<circle cx="100" cy="100" r="13" style="stroke: white; fill: white;"/> 
-												<circle class="background" cx="100" cy="100" r="9" stroke="#f7f6f4" />
-												<circle id="line15" class="overlayLine" cx="100" cy="100" r="9" stroke="#C9AC68" stroke-dasharray="0, 3000" stroke-dashoffset="126" transform="rotate(-90,100,100)" />
+												<circle class="background" cx="100" cy="100" r="9" stroke="#F0DDD7" />
+												<circle id="line15" class="overlayLine" cx="100" cy="100" r="9" stroke="#B25538" stroke-dasharray="0, 3000" stroke-dashoffset="126" transform="rotate(-90,100,100)" />
 											</svg>
 										</div>
 									</div>
@@ -831,10 +878,10 @@
 										<template v-slot:activator="{ on }">
 											<v-btn prepend-icon="event" class="mt-2" @click="closeDatePicker();" outlined v-on="on">Select Dates</v-btn>
 										</template>
-										<v-date-picker v-model="stateDateRange" color="#507282"  range scrollable>
+										<v-date-picker v-model="stateDateRange" color="#B25538"  range scrollable>
 											<v-spacer></v-spacer>
-											<v-btn text color="#507282" @click="openDatePicker();">Cancel</v-btn>
-											<v-btn text color="#507282" @click="selectStateDates('south');  openDatePicker();">OK</v-btn>
+											<v-btn text color="#B25538" @click="openDatePicker();">Cancel</v-btn>
+											<v-btn text color="#B25538" @click="selectStateDates('south');  openDatePicker();">OK</v-btn>
 										</v-date-picker>
 									</v-menu>
 								</div>
@@ -867,10 +914,10 @@
 										<template v-slot:activator="{ on }">
 											<v-btn prepend-icon="event" class="mt-2" @click="closeDatePicker();" outlined v-on="on">Select Dates</v-btn>
 										</template>
-										<v-date-picker v-model="stateDateRange" color="#507282" range scrollable>
+										<v-date-picker v-model="stateDateRange" color="#B25538" range scrollable>
 											<v-spacer></v-spacer>
-											<v-btn text color="#507282" @click="openDatePicker();">Cancel</v-btn>
-											<v-btn text color="#507282" @click="selectStateDates('east'); openDatePicker();">OK</v-btn>
+											<v-btn text color="#B25538" @click="openDatePicker();">Cancel</v-btn>
+											<v-btn text color="#B25538" @click="selectStateDates('east'); openDatePicker();">OK</v-btn>
 										</v-date-picker>
 									</v-menu>
 								</div>
@@ -930,10 +977,10 @@
 										<template v-slot:activator="{ on }">
 											<v-btn prepend-icon="event" class="mt-2" @click="closeDatePicker();" outlined v-on="on">Select Dates</v-btn>
 										</template>
-										<v-date-picker v-model="stateDateRange" color="#507282" range scrollable>
+										<v-date-picker v-model="stateDateRange" color="#B25538" range scrollable>
 											<v-spacer></v-spacer>
-											<v-btn text color="#507282" @click="openDatePicker();">Cancel</v-btn>
-											<v-btn text color="#507282" @click="selectStateDates('canyon'); openDatePicker();">OK</v-btn>
+											<v-btn text color="#B25538" @click="openDatePicker();">Cancel</v-btn>
+											<v-btn text color="#B25538" @click="selectStateDates('canyon'); openDatePicker();">OK</v-btn>
 										</v-date-picker>
 									</v-menu>
 								</div>
@@ -945,6 +992,147 @@
 					</div>
 					<!-- END ENTRANCE PAGES -->
 
+					<!-- START ENTRANCE PAGES -->
+					<div v-if="MainPage=='VCs' ">
+						<div> <!-- App bar for main page -->
+							<v-app-bar dense>
+								<v-toolbar-title id="loginTitle" class="homeTitle d-none d-sm-flex" v-on:click="MainPage='Home'; statRefresh();"><img class="bison" src="icons/bisonRed.svg">Parkdata - Zion National Park</v-toolbar-title>
+								<v-toolbar-title class="d-xs-flex d-sm-none">Parkdata</v-toolbar-title>
+								<v-spacer></v-spacer>
+								<v-btn class="d-none d-sm-flex" text color="#B25538" v-on:click="MainPage='Parking'; statRefresh(); resetPages()">Parking</v-btn>
+								<v-btn class="d-xs-flex d-sm-none" text color="#B25538" v-on:click="MainPage='Parking'; statRefresh(); resetPages()">
+									<img src="icons/parking_outline_red.svg" alt="">
+								</v-btn>
+								<!-- drop down for Entrances -->
+								<v-menu offset-y>
+									<template v-slot:activator="{ on }">
+									  <v-btn class="d-none d-sm-flex" color="#B25538" text v-on="on">Entrances</v-btn>
+									  <v-btn class="d-xs-flex d-sm-none" color="#B25538" text v-on="on">
+										  <img src="icons/kolob_outline_red.svg" alt="">
+									  </v-btn>
+									</template>
+									<v-list>
+									  <v-list-item
+										v-for="(enterance, index) in Entrances" :key="index" v-on:click="MainPage='Entrances'; statRefresh(); EntrancePage=enterance ">
+										<v-list-item-title>{{ enterance }}</v-list-item-title>
+									  </v-list-item>
+									</v-list>
+								</v-menu>
+								<!-- drop down for Visitor Centers -->
+								<v-menu offset-y>
+									<template v-slot:activator="{ on }">
+									  <v-btn class="d-none d-sm-flex" color="#B35539" text v-on="on">Visitor Centers</v-btn>
+									  <v-btn class="d-xs-flex d-sm-none" color="#B35539" text v-on="on">
+										  <img src="icons/kolob_outline_red.svg" alt="">
+									  </v-btn>
+									</template>
+									<v-list>
+									  <v-list-item
+										v-for="(vc, index) in vcs" :key="index" v-on:click="MainPage='VCs'; statRefresh(); vcPage=vc ">
+										<v-list-item-title>{{ vc }}</v-list-item-title>
+									  </v-list-item>
+									</v-list>
+								</v-menu>
+								<!-- <v-btn text color="#B25538" v-on:click="logoutClicked(); resetPages();">Log Out</v-btn> -->
+							</v-app-bar>
+						</div>
+							
+						<div v-if="vcPage=='Zion Canyon Visitor Center'">
+							<div class="statHeader2" v-bind:class="{greenTraffic: lightZionVc, yellowTraffic: mediumZionVc, redTraffic: heavyZionVc}">
+								<div class="statWrapper">
+									<div class="textWrapper">
+										<span class="smallHide"><b>Zion Canyon Visitor Center</b> | {{currentTime}}</span>
+									</div>
+								</div>
+							</div>
+							<div class="colorContainer">
+								<div class="colorsWrapper">
+									<div class="circle greenTraffic"></div><span class="circleText">Light</span>
+								</div>
+								<div class="colorsWrapper">
+									<div class="circle yellowTraffic"></div><span class="circleText">Medium</span>
+								</div>
+								<div class="colorsWrapper">
+									<div class="circle redTraffic"></div><span class="circleText">Heavy</span>
+								</div>
+							</div>
+							<div v-if="lightZionVc" class="trafficSvgContainer">
+								<svg class="vcSvg" viewBox="43 43 110 110">
+									<image x="57.5" y="57.5" width="85" height="85" href="images/visitor center.jpg"></image>
+									<text x="84" y="102" font-size="20" font-weight="bold" style="fill: #FFFFFF">{{zionVcVisitors}}</text>
+									<text x="74" y="115" font-size="9" style="fill: #FFFFFF">visitors today</text>
+									<circle class="background" cx="100" cy="100" r="47" stroke="#E5E7DE" />
+									<circle id="zionVcLine" class="overlayLine" cx="100" cy="100" r="47" stroke="#7E8959" stroke-dasharray="0, 3000" stroke-dashoffset="251" transform="rotate(-90,100,100)" />
+								</svg>
+							</div>
+							<div v-if="mediumZionVc" class="trafficSvgContainer">
+								<svg class="vcSvg" viewBox="43 43 110 110">
+									<image x="57.5" y="57.5" width="85" height="85" href="images/south entrance.jpg"></image>
+									<text x="84" y="102" font-size="20" font-weight="bold" style="fill: #FFFFFF">{{zionVcVisitors}}</text>
+									<text x="74" y="115" font-size="9" style="fill: #FFFFFF">visitors today</text>
+									<circle class="background" cx="100" cy="100" r="47" stroke="#F4EEE1" />
+									<circle id="zionVcLine" class="overlayLine" cx="100" cy="100" r="47" stroke="#C9AC68" stroke-dasharray="0, 3000" stroke-dashoffset="251" transform="rotate(-90,100,100)" />
+								</svg>
+							</div>
+							<div v-if="heavyZionVc" class="trafficSvgContainer">
+								<svg class="vcSvg" viewBox="43 43 110 110">
+									<image x="57.5" y="57.5" width="85" height="85" href="images/south entrance.jpg"></image>
+									<text x="84" y="102" font-size="20" font-weight="bold" style="fill: #FFFFFF">{{zionVcVisitors}}</text>
+									<text x="74" y="115" font-size="9" style="fill: #FFFFFF">visitors today</text>
+									<circle class="background" cx="100" cy="100" r="47" stroke="#F0DDD7" />
+									<circle id="zionVcLine" class="overlayLine" cx="100" cy="100" r="47" stroke="#B25538" stroke-dasharray="0, 3000" stroke-dashoffset="251" transform="rotate(-90,100,100)" />
+								</svg>
+							</div>
+						</div>
+
+						<div v-if="vcPage=='Kolob Canyon Visitor Center'">
+							<div class="statHeader2" v-bind:class="{greenTraffic: lightKolobVc, yellowTraffic: mediumKolobVc, redTraffic: heavyKolobVc}">
+								<div class="statWrapper">
+									<div class="textWrapper">
+										<span class="smallHide"><b>Kolob Canyon Visitor Center</b> | {{currentTime}}</span>
+									</div>
+								</div>
+							</div>
+							<div class="colorContainer">
+								<div class="colorsWrapper">
+									<div class="circle greenTraffic"></div><span class="circleText">Light</span>
+								</div>
+								<div class="colorsWrapper">
+									<div class="circle yellowTraffic"></div><span class="circleText">Medium</span>
+								</div>
+								<div class="colorsWrapper">
+									<div class="circle redTraffic"></div><span class="circleText">Heavy</span>
+								</div>
+							</div>
+							<div v-if="lightKolobVc" class="trafficSvgContainer">
+								<svg class="vcSvg" viewBox="43 43 110 110">
+									<image x="57.5" y="57.5" width="85" height="85" href="images/visitor center.jpg"></image>
+									<text x="84" y="102" font-size="20" font-weight="bold" style="fill: #FFFFFF">{{kolobVcVisitors}}</text>
+									<text x="74" y="115" font-size="9" style="fill: #FFFFFF">visitors today</text>
+									<circle class="background" cx="100" cy="100" r="47" stroke="#E5E7DE" />
+									<circle id="kolobVcLine" class="overlayLine" cx="100" cy="100" r="47" stroke="#7E8959" stroke-dasharray="0, 3000" stroke-dashoffset="251" transform="rotate(-90,100,100)" />
+								</svg>
+							</div>
+							<div v-if="mediumKolobVc" class="trafficSvgContainer">
+								<svg class="vcSvg" viewBox="43 43 110 110">
+									<image x="57.5" y="57.5" width="85" height="85" href="images/visitor center.jpg"></image>
+									<text x="84" y="102" font-size="20" font-weight="bold" style="fill: #FFFFFF">{{kolobVcVisitors}}</text>
+									<text x="74" y="115" font-size="9" style="fill: #FFFFFF">visitors today</text>
+									<circle class="background" cx="100" cy="100" r="47" stroke="#F4EEE1" />
+									<circle id="kolobVcLine" class="overlayLine" cx="100" cy="100" r="47" stroke="#C9AC68" stroke-dasharray="0, 3000" stroke-dashoffset="251" transform="rotate(-90,100,100)" />
+								</svg>
+							</div>
+							<div v-if="heavyKolobVc" class="trafficSvgContainer">
+								<svg class="vcSvg" viewBox="43 43 110 110">
+									<image x="57.5" y="57.5" width="85" height="85" href="images/visitor center.jpg"></image>
+									<text x="84" y="102" font-size="20" font-weight="bold" style="fill: #FFFFFF">{{kolobVcVisitors}}</text>
+									<text x="74" y="115" font-size="9" style="fill: #FFFFFF">visitors today</text>
+									<circle class="background" cx="100" cy="100" r="47" stroke="#F0DDD7" />
+									<circle id="kolobVcLine" class="overlayLine" cx="100" cy="100" r="47" stroke="#B25538" stroke-dasharray="0, 3000" stroke-dashoffset="251" transform="rotate(-90,100,100)" />
+								</svg>
+							</div>
+						</div>
+					</div>
 				<!-- </div> -->
 				</v-main>
 			</v-app>
