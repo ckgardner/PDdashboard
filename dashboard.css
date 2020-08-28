@@ -306,6 +306,7 @@ v-app-bar{
     margin: 0 auto;
     margin-top: 90px;
     margin-bottom: 25px;
+    overflow-x: scroll;
 }
 
 /* table{
@@ -328,11 +329,12 @@ th{
     font-weight: bold;
 } */
 .tableStats{
-    width: 100%;
+    min-width: 100%;
     font-size: 16px;
     line-height: 19px;
     font-weight: normal;
     margin-top: 20px;
+    overflow-x: scroll !important;
 }
 .tableTD, .tableTH{
     border-bottom: 1px solid #E5E7DE;
@@ -345,6 +347,8 @@ th{
 .tableTH{
     text-align: left;
     font-weight: bold;
+    border-spacing: 10px;
+    border-collapse: separate;
 }
 
 .gold{
@@ -472,7 +476,8 @@ body {
     font-size: 20px;
     line-height: 23px;
     font-family: "titleRoboto";
-    color: rgba(0, 0, 0, 0.86);
+    color: #B25538;
+    cursor: pointer;
 }
 .tabs{
     margin-top: 20px;
@@ -654,6 +659,9 @@ body {
     #title, #titleStatus, #yesterdayTitle{
         font-size: 18px;
     }
+    #titleWrapper{
+        margin-left: 16px;
+    }
     table{
         overflow: scroll;
     }
@@ -662,6 +670,10 @@ body {
         margin-top: 10px;
         margin-left: 5px;
         margin-right: 5px;
+    }
+    .statWrapper{
+        margin-left: 16px;
+        width: 80%;
     }
 }
 @media only screen and (min-width: 960px){

@@ -55,6 +55,9 @@ var app = new Vue({
         canyonYesterday: "N/A",
         canyonDateUpdated: "N/A",
         canyonTotals: "N/A",
+        SMultiplier: "",
+        EMultiplier: "",
+        KMultiplier: "",
         
         MainPage: 'Home', // Login, loggingIn, requestAccess, Home, Parking, Entrances 
         EntrancePage: 'South',
@@ -183,21 +186,21 @@ var app = new Vue({
 				vm.southEntranceVehicles = this.getAPIData_safe(response.data, ["ZionSouthEntrance2", "Today", "count"], 0);
 				vm.southEntranceVehicles += this.getAPIData_safe(response.data, ["ZionSouthEntrance3", "Today", "count"], 0);
 				//South Entrance: Yesterday
-				var southMultiplier = this.getAPIData_safe(response.data, ["ZionSouthEntrance", "Yesterday", "multiplier"], 1);
+				vm.SMultiplier = this.getAPIData_safe(response.data, ["ZionSouthEntrance", "Yesterday", "multiplier"], 2.9);
 				vm.SVehicles = this.getAPIData_safe(response.data, ["ZionSouthEntrance", "Yesterday", "count"], "N/A");
 				vm.SDateUpdated = this.getAPIData_safe(response.data, ["ZionSouthEntrance", "Yesterday", "date"], "N/A");
 				//South Entrance: Today
-				if(vm.southEntranceVehicles > 0){vm.southEntranceStat = vm.southEntranceVehicles + " vehicles | " + Math.round(vm.southEntranceVehicles * southMultiplier) + " visitors";}
+				if(vm.southEntranceVehicles > 0){vm.southEntranceStat = vm.southEntranceVehicles + " vehicles | " + Math.round(vm.southEntranceVehicles * vm.SMultiplier) + " visitors";}
 
 				//special case, we are using the ZionEastEntrance1 for todays counts
 				//and the ZionEastEntrance2 for Yesterdays counts
 				//East Entrance: Today
 				vm.eastEntranceVehicles = this.getAPIData_safe(response.data, ["ZionEastEntrance1", "Today", "count"], 0);
 				//East Entrance: Yesterday
-				var eastMultiplier = this.getAPIData_safe(response.data, ["ZionEastEntrance2", "Yesterday", "multiplier"], 1);
+				vm.EMultiplier = this.getAPIData_safe(response.data, ["ZionEastEntrance2", "Yesterday", "multiplier"], 2.9);
 				var eastCount_yesterday = this.getAPIData_safe(response.data, ["ZionEastEntrance2", "Yesterday", "count"], 0);
                 vm.EastDateUpdated = this.getAPIData_safe(response.data, ["ZionEastEntrance2", "Yesterday", "date"], "N/A");
-				if(vm.eastEntranceVehicles > 0){vm.eastEntranceStat = vm.eastEntranceVehicles + " vehicles | " + Math.round(vm.eastEntranceVehicles * eastMultiplier) + " visitors";}
+				if(vm.eastEntranceVehicles > 0){vm.eastEntranceStat = vm.eastEntranceVehicles + " vehicles | " + Math.round(vm.eastEntranceVehicles * vm.EMultiplier) + " visitors";}
 				if(eastCount_yesterday > 0){vm.EVehicles = eastCount_yesterday;}
                     
 				//River Entrance: Yesterday
@@ -216,8 +219,8 @@ var app = new Vue({
                 }
 
 				//multiply vehicles by multiplier and set south and east people
-				if(vm.SVehicles != "N/A"){vm.SPeople = Math.round(vm.SVehicles * southMultiplier);}
-				if(vm.EVehicles != "N/A"){vm.EPeople = Math.round(vm.EVehicles * eastMultiplier);}
+				if(vm.SVehicles != "N/A"){vm.SPeople = Math.round(vm.SVehicles * vm.SMultiplier);}
+				if(vm.EVehicles != "N/A"){vm.EPeople = Math.round(vm.EVehicles * vm.EMultiplier);}
 
                 vm.yesterdayCanyonTotal = 0;
 				if(vm.SPeople != "N/A"){vm.yesterdayCanyonTotal += vm.SPeople;}
@@ -227,14 +230,14 @@ var app = new Vue({
 				
 				//Entrance: Kolob
 				vm.kolobVehicles = this.getAPIData_safe(response.data, ["KolobRadar", "Yesterday", "count"], "N/A");
-				var kolobMultiplier = this.getAPIData_safe(response.data, ["KolobRadar", "Yesterday", "multiplier"], 1);
-				if(vm.kolobVehicles != "N/A"){vm.kolobPeople = vm.kolobVehicles * kolobMultiplier;}
+                vm.KMultiplier = this.getAPIData_safe(response.data, ["KolobRadar", "Yesterday", "multiplier"], 2.9);
+				if(vm.kolobVehicles != "N/A"){vm.kolobPeople = vm.kolobVehicles * vm.KMultiplier;}
 				//add Kolob count to Zion Total Count
                 if(vm.kolobPeople != "N/A"){vm.yesterdayZionTotal += kolobPeople;}
                 
                 // Canyon Junction: Today
                 vm.canyonStat = this.getAPIData_safe(response.data, ["CanyonJctCamera", "Today", "count"], 0);
-                var canyonMultiplier = this.getAPIData_safe(response.data, ["CanyonJctCamera", "Yesterday", "multiplier"], 1);
+                var canyonMultiplier = this.getAPIData_safe(response.data, ["CanyonJctCamera", "Yesterday", "multiplier"], 2.9);
                 // Canyon Junction: Yesterday
                 vm.canyonYesterday = this.getAPIData_safe(response.data, ["CanyonJctRadar", "Yesterday", "count"], 0);
                 vm.canyonTotals = vm.canyonStat + " vehicles | " + Math.round(vm.canyonStat * canyonMultiplier) + " visitors";

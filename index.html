@@ -128,7 +128,7 @@
 									</v-list>
 								</v-menu>
 								<!-- drop down for Visitor Centers -->
-								<v-menu offset-y>
+								<!-- <v-menu offset-y>
 									<template v-slot:activator="{ on }">
 									  <v-btn class="d-none d-sm-flex" color="#B35539" text v-on="on">Visitor Centers</v-btn>
 									  <v-btn class="d-xs-flex d-sm-none" color="#B35539" text v-on="on">
@@ -141,7 +141,7 @@
 										<v-list-item-title>{{ vc }}</v-list-item-title>
 									  </v-list-item>
 									</v-list>
-								</v-menu>
+								</v-menu> -->
 								<!-- <v-btn text color="#B25538" v-on:click="logoutClicked(); resetPages();">Log Out</v-btn> -->
 							</v-app-bar>
 						</div>
@@ -222,23 +222,27 @@
 								<tr>
 								<th class="tableTH">Entrance</th>
 								<th class="right tableTH">Vehicles</th>
+								<th class="right tableTH">Multiplier</th>
 								<th class="right tableTH">People</th>
 								<th class="right smallHide tableTH">Date Updated</th>
 								</tr>
 								<tr>
 								<td class="tableTD">South</td>
 								<td class="right tableTD">{{SVehicles}}</td>
+								<td class="right tableTD">{{SMultiplier}}</td>
 								<td class="right tableTD">{{SPeople}}</td>
 								<td class="right smallHide tableTD">{{SDateUpdated}}</td>
 								</tr>
 								<tr>
 								<td class="tableTD">East</td>
 								<td class="right tableTD">{{EVehicles}}</td>
+								<td class="right tableTD">{{EMultiplier}}</td>
 								<td class="right tableTD">{{EPeople}}</td>
 								<td class="right smallHide tableTD">{{EastDateUpdated}}</td>
 								</tr>
 								<tr>
 								<td class="tableTD">River</td>
+								<td class="right tableTD"></td>
 								<td class="right tableTD"></td>
 								<td class="right tableTD">{{riverPeople}}</td>
 								<td class="right smallHide tableTD">{{RiverDateUpdated}}</td>
@@ -246,17 +250,20 @@
 								<tr>
 								<td class="gold tableTD">Canyon Total</td>
 								<td class="right tableTD"></td>
+								<td class="right tableTD"></td>
 								<td class="right gold tableTD">{{yesterdayCanyonTotal}}</td>
 								<td class="right gold smallHide tableTD">{{SDateUpdated}}</td>
 								</tr>
 								<tr>
 								<td class="tableTD tableTD">Kolob</td>
 								<td class="right tableTD">{{kolobVehicles}}</td>
+								<td class="right tableTD">{{KMultiplier}}</td>
 								<td class="right tableTD">{{kolobPeople}}</td>
 								<td class="right smallHide tableTD">{{KolobDateUpdated}}</td>
 								</tr>
 								<tr>
 								<td class="gold tableTD">Zion Total</td>
+								<td class="right tableTD"></td>
 								<td class="right tableTD"></td>
 								<td class="right gold tableTD">{{yesterdayZionTotal}}</td>
 								<td class="right gold smallHide tableTD">{{SDateUpdated}}</td>
@@ -305,9 +312,8 @@
 										</v-list>
 									</v-menu>
 
-									<v-menu offset-y>
+									<!--<v-menu offset-y>
 										<template v-slot:activator="{ on }">
-											<!-- <v-btn color="#B35539" text v-on="on">Entrances</v-btn> -->
 											<v-btn class="d-none d-md-flex mt-8" color="#B35539" text v-on="on">Visitor Centers</v-btn>
 											<v-btn class="d-none d-sm-flex d-md-none mt-4" color="#B35539" text v-on="on">Visitor Centers</v-btn>
 											<v-btn class="d-xs-flex d-sm-none mt-3" color="#B35539" text v-on="on">
@@ -319,7 +325,7 @@
 												<v-list-item-title>{{ vc }}</v-list-item-title>
 											</v-list-item>
 										</v-list>
-									</v-menu>
+									</v-menu>-->
 								</div>
 							</div>
 								<div class="tabs">
@@ -405,9 +411,8 @@
 										</v-list>
 									</v-menu>
 
-									<v-menu offset-y>
+									<!--<v-menu offset-y>
 										<template v-slot:activator="{ on }">
-											<!-- <v-btn color="#B35539" text v-on="on">Entrances</v-btn> -->
 											<v-btn class="d-none d-md-flex mt-8" color="#B35539" text v-on="on">Visitor Centers</v-btn>
 											<v-btn class="d-none d-sm-flex d-md-none mt-4" color="#B35539" text v-on="on">Visitor Centers</v-btn>
 											<v-btn class="d-xs-flex d-sm-none mt-3" color="#B35539" text v-on="on">
@@ -419,7 +424,7 @@
 												<v-list-item-title>{{ vc }}</v-list-item-title>
 											</v-list-item>
 										</v-list>
-									</v-menu>
+									</v-menu>-->
 								</div>
 							</div>
 							<div v-if="EntrancePage!='East' && EntrancePage!='River'" class="tabs">
