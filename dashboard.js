@@ -615,16 +615,25 @@ var app = new Vue({
                 this.weatherImage = "images/blueBison.svg";
                 return;
             }
-		var icoName = icon.substr(icon.lastIndexOf("/"));
-		icoName = icoName.replace(".png",".svg");
-		icon = "./icons/weather"+icoName;
-		//const hours = new Date().getUTCHours();
-		//var timeOfDay = "weatherNight";
-		//if(hours <= 2 || (hours > 12 && hours < 24  )){
-			//timeOfDay = "weather";
-		   //}
-		//icon = "./icons/"+ timeOfDay + icon.substr(icon.lastIndexOf("/")).replace(".png",".svg");
-		this.weatherImage = icon;
+			var isNight = false;
+			var icoName = icon.substr(icon.lastIndexOf("/"));
+			icoName = icoName.replace(".png",".svg");
+			if(icoName.charAt(1) == "n" || icoName.charAt(1) == "N"){
+				icoName = "/" + icoName.substring(2);
+				isNight = true;
+			}
+			if(isNight){
+				icon = "./icons/weatherNight"+icoName;
+			}else{
+				icon = "./icons/weather"+icoName;
+			}
+			//const hours = new Date().getUTCHours();
+			//var timeOfDay = "weatherNight";
+			//if(hours <= 2 || (hours > 12 && hours < 24  )){
+				//timeOfDay = "weather";
+			   //}
+			//icon = "./icons/"+ timeOfDay + icon.substr(icon.lastIndexOf("/")).replace(".png",".svg");
+			this.weatherImage = icon;
         },
         resetRadarTabs: function(){
             this.radarTimePage = 'Monthly';
